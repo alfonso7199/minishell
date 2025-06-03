@@ -4,3 +4,4 @@ Libft/.git
 obj/*
 libft/*.o
 libft/libft.a
+minishell

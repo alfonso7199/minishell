@@ -25,9 +25,11 @@ void print_commands(t_cmd *cmds) {
     }
 }
 
-int main(void) {
+int main(int argc, char *argv[], char *envp[])
+{
     char *input;
 
+    (void)envp;
     if (argc != 1 || argv[1])
 	{
 		printf("This program does not accept arguments\n");
@@ -38,23 +40,21 @@ int main(void) {
         if (!input)
             break;
         add_history(input);
-        
+/* 
         t_token *tokens = tokenizer(input);
         if (!tokens) {
             printf("Error en tokenizer\n");
             free(input);
             continue;
         }
-        
         t_cmd *cmds = parser(tokens);
         if (!cmds) {
             printf("Error en parser\n");
             free(input);
             continue;
         }
-        
-        print_commands(cmds);
-        
+        print_commands(cmds); 
+ */
         free(input);
     }
     return 0;

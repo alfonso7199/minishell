@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/07/17 17:05:05 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:23:34 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_cmd   *parser(t_token *tokens);
 
 /* Errores */
 int     error_msg(char *msg);
-int     ft_error(int error, t_tools *tools);
-void    reset_tools(t_tools *tools);
+// int     ft_error(int error, t_tools *tools);
+// void    reset_tools(t_tools *tools);
 
 #endif

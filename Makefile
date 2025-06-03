@@ -10,7 +10,7 @@ SRC_DIR		= ./src
 
 OBJ_DIR		= obj
 
-LDFLAGS = -lreadline
+LDFLAGS = -lreadline -lncurses -lhistory
 
 SRC_FILES	= \
     $(SRC_DIR)/minishell.c \
@@ -20,7 +20,7 @@ OBJS        = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS) -o $(NAME) $(LDFLAGS)
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
