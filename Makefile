@@ -49,6 +49,7 @@ test:
 	@$(RM) -rf test
 	@mkdir -p test
 	@$(CC) $(CFLAGS) src/builtin/echo.c src/builtin/echo_test.c $(LIBFT_FLAGS) -o test/echo
+	@$(CC) $(CFLAGS) src/builtin/pwd.c src/builtin/pwd_test.c $(LIBFT_FLAGS) -o test/pwd
 
 	@./test/echo hola que tal > test/my_echo.txt
 	@echo hola que tal > test/bash_echo.txt
@@ -58,5 +59,8 @@ test:
 	@echo -n hola que tal > test/bash_echo.txt
 	@diff test/my_echo.txt test/bash_echo.txt && echo "OK: echo -n hola que tal" || echo "FAIL: echo -n hola que tal"
 
+	@./test/pwd > test/my_pwd.txt
+	@pwd > test/bash_pwd.txt
+	@diff test/my_pwd.txt test/bash_pwd.txt && echo "OK: pwd" || echo "FAIL: pwd"
 
 .PHONY: all clean fclean re test

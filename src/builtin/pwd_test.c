@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   pwd_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 11:38:36 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/04 20:27:32 by rzt              ###   ########.fr       */
+/*   Created: 2025/06/04 20:22:20 by rzt               #+#    #+#             */
+/*   Updated: 2025/06/04 20:22:49 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	pwd(void)
+int	main(int argc, char *argv[])
 {
-	char	*buff;
-
-	buff = NULL;
-	buff = getcwd(buff, 0);
-	if (buff)
-	{
-		printf("%s\n", buff);
-		free(buff);
-	}
-	else
-		printf("error\n");
-	return (1);
+	(void)argc;
+	(void)argv;
+	pwd();
+	return (0);
 }
