@@ -14,6 +14,11 @@ LDFLAGS = -lreadline -lncurses -lhistory
 
 SRC_FILES	= \
     $(SRC_DIR)/minishell.c \
+	# $(SRC_DIR)/error/error.c \
+	$(SRC_DIR)/execution/executor.c \
+	$(SRC_DIR)/parsing/parser.c \
+	$(SRC_DIR)/tokenizing/tokenizer.c \
+	$(SRC_DIR)/utils/signals.c \
 
 OBJS        = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -40,4 +45,18 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+test:
+	@$(RM) -rf test
+	@mkdir -p test
+	@$(CC) $(CFLAGS) src/builtin/echo.c src/builtin/echo_test.c $(LIBFT_FLAGS) -o test/echo
+
+	@./test/echo hola que tal > test/my_echo.txt
+	@echo hola que tal > test/bash_echo.txt
+	@diff test/my_echo.txt test/bash_echo.txt && echo "OK: echo hola que tal" || echo "FAIL: echo hola que tal"
+	
+	@./test/echo -n hola que tal > test/my_echo.txt
+	@echo -n hola que tal > test/bash_echo.txt
+	@diff test/my_echo.txt test/bash_echo.txt && echo "OK: echo -n hola que tal" || echo "FAIL: echo -n hola que tal"
+
+
+.PHONY: all clean fclean re test

@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/03 11:23:34 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/04 12:23:24 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ typedef struct s_cmd {
 t_token *tokenizer(char *input);
 t_cmd   *parser(t_token *tokens);
 
-
+/* Builtin Commands */
+int echo(char *arg[]);
 /* Errores */
 int     error_msg(char *msg);
 // int     ft_error(int error, t_tools *tools);
