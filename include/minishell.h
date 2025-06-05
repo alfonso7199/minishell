@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/05 16:33:37 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/05 17:44:57 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,17 @@ typedef struct s_env
     char            *key;
     char            *value;
     struct s_env    *next;
-    
 } t_env;
 
 t_token *tokenizer(char *input);
 t_cmd   *parser(t_token *tokens);
 
+
 /* Builtin Commands */
-int echo(char *arg[]);
-int	pwd(void);
-int	env(const char **envp);
+int     echo(char *arg[]);
+int 	pwd(void);
+t_env	*env(const char **envp);
+
 /* Errores */
 int     error_msg(char *msg);
 // int     ft_error(int error, t_tools *tools);
