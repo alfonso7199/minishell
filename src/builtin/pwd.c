@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:36 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/04 20:27:32 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/05 12:17:10 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ int	pwd(void)
 	char	*buff;
 
 	buff = NULL;
-	buff = getcwd(buff, 0);
+	buff = getcwd(NULL, 0);
 	if (buff)
 	{
-		printf("%s\n", buff);
+		ft_putstr_fd(buff, STDOUT_FILENO);
 		free(buff);
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		return (0);
 	}
 	else
-		printf("error\n");
+		perror("pwd");
 	return (1);
 }
