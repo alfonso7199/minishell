@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd_test.c                                         :+:      :+:    :+:   */
+/*   exit_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 20:22:20 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/05 20:20:48 by rzt              ###   ########.fr       */
+/*   Created: 2025/06/05 20:14:28 by rzt               #+#    #+#             */
+/*   Updated: 2025/06/05 20:23:10 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	(void)argc;
 	(void)argv;
-	mini_pwd(STDOUT_FILENO);
+	(void)envp;
+	mini_exit(argv);
 	return (0);
 }

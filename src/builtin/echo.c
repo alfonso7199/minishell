@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:39 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/05 12:31:55 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/05 20:20:20 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_flag(char *arg)
 	return (1);
 }
 
-int	echo(char *arg[])
+int	mini_echo(char *arg[])
 {
 	int	i;
 	int	newline;
