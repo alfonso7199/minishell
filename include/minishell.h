@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/05 16:20:12 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/05 16:33:37 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_cmd   *parser(t_token *tokens);
 /* Builtin Commands */
 int echo(char *arg[]);
 int	pwd(void);
-int	env(char **envp);
+int	env(const char **envp);
 /* Errores */
 int     error_msg(char *msg);
 // int     ft_error(int error, t_tools *tools);

@@ -6,13 +6,13 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:03:49 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/05 16:15:28 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/05 16:34:30 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+int	main(int argc, const char *argv[], const char *envp[])
 {
 	(void)argc;
 	(void)argv;
