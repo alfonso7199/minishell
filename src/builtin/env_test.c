@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/05 16:08:30 by rzt              ###   ########.fr       */
+/*   Created: 2025/06/05 16:03:49 by rzt               #+#    #+#             */
+/*   Updated: 2025/06/05 16:15:28 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	env(char **envp)
+int	main(int argc, char *argv[], char *envp[])
 {
-	while (*envp)
-	{
-		ft_putstr_fd(*envp, STDOUT_FILENO);
-		ft_putstr_fd("\n", STDOUT_FILENO);
-		envp++;
-	}
+	(void)argc;
+	(void)argv;
+	env(envp);
 	return (0);
 }

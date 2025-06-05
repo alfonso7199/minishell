@@ -55,6 +55,7 @@ test:
 	@mkdir -p test
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/echo.c src/builtin/echo_test.c $(LIBFT_FLAGS) -o test/echo
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/pwd.c src/builtin/pwd_test.c $(LIBFT_FLAGS) -o test/pwd
+	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/env.c src/builtin/env_test.c $(LIBFT_FLAGS) -o test/env
 # echo
 	@(./test/echo hola que tal > test/my_echo.txt; \
 	echo hola que tal > test/bash_echo.txt; \
@@ -80,5 +81,9 @@ test:
 	./test/pwd > test/my_pwd.txt; \
 	pwd > test/bash_pwd.txt; \
 	diff test/my_pwd.txt test/bash_pwd.txt && echo "OK: pwd (unset env PWD)" || echo "FAIL: pwd (unset env PWD)")
+# env
+	@(./test/env > test/my_env.txt; \
+	env > test/bash_env.txt; \
+	diff <(grep -v '^_=' test/my_env.txt) <(grep -v '^_=' test/bash_env.txt) && echo "OK: env (print env)" || echo "FAIL: env (print env)")
 
 .PHONY: all clean fclean re test

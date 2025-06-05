@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/04 20:21:41 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/05 16:20:12 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,30 @@ typedef enum e_token_type {
 } t_token_type;
 
 typedef struct s_token {
-    t_token_type   type;
-    char          *value;
-    struct s_token *next;
+    t_token_type    type;
+    char            *value;
+    struct s_token  *next;
 } t_token;
 
 typedef struct s_redir {
-    t_token_type   type;
-    char          *file;
-    struct s_redir *next;
+    t_token_type    type;
+    char            *file;
+    struct s_redir  *next;
 } t_redir;
 
 typedef struct s_cmd {
-    char         **args;
-    t_redir      *redirections;
-    struct s_cmd *next;
+    char            **args;
+    t_redir         *redirections;
+    struct s_cmd    *next;
 } t_cmd;
+
+typedef struct s_env
+{
+    char            *key;
+    char            *value;
+    struct s_env    *next;
+    
+} t_env;
 
 t_token *tokenizer(char *input);
 t_cmd   *parser(t_token *tokens);
@@ -70,6 +78,7 @@ t_cmd   *parser(t_token *tokens);
 /* Builtin Commands */
 int echo(char *arg[]);
 int	pwd(void);
+int	env(char **envp);
 /* Errores */
 int     error_msg(char *msg);
 // int     ft_error(int error, t_tools *tools);
