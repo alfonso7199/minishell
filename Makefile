@@ -15,11 +15,22 @@ LDFLAGS = -lreadline -lncurses -lhistory
 
 SRC_FILES	= \
     $(SRC_DIR)/minishell.c \
-	# $(SRC_DIR)/error/error.c \
+	$(SRC_DIR)/error/error.c \
 	$(SRC_DIR)/execution/executor.c \
-	$(SRC_DIR)/parsing/parser.c \
 	$(SRC_DIR)/tokenizing/tokenizer.c \
+	$(SRC_DIR)/tokenizing/tokenizer_utils.c \
+	$(SRC_DIR)/tokenizing/tokenizer_extract.c \
+	$(SRC_DIR)/tokenizing/tokenizer_helpers.c \
 	$(SRC_DIR)/utils/signals.c \
+	$(SRC_DIR)/builtin/echo.c \
+	$(SRC_DIR)/builtin/pwd.c \
+	$(SRC_DIR)/builtin/env.c \
+	$(SRC_DIR)/builtin/exit.c \
+	$(SRC_DIR)/builtin/unset.c \
+	$(SRC_DIR)/builtin/export.c \
+	$(SRC_DIR)/builtin/cd.c \
+	$(SRC_DIR)/builtin/echo_test.c \
+	$(SRC_DIR)/builtin/pwd_test.c \
 
 OBJS        = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

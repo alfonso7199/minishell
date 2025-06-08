@@ -36,27 +36,43 @@
 # define RESET    "\033[0m"
 # define RED      "\033[31m"
 
-typedef enum e_token_type {
+/* Estados del lexer para manejo de comillas */
+typedef enum e_quote_state
+{
+	NO_QUOTE,
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE
+}	t_quote_state;
+
+typedef enum e_token_type
+{
 	TOKEN_WORD,
 	TOKEN_PIPE,
 	TOKEN_REDIR_IN,
 	TOKEN_REDIR_OUT,
 	TOKEN_APPEND,
 	TOKEN_HEREDOC,
+	TOKEN_ENV_VAR,
+	TOKEN_EXIT_STATUS,
 	TOKEN_EOF
-} t_token_type;
+}	t_token_type;
 
-typedef struct s_token {
-    t_token_type    type;
-    char            *value;
-    struct s_token  *next;
-} t_token;
+typedef struct s_token
+{
+	t_token_type		type;
+	char				*value;
+	bool				quoted;
+	t_quote_state		quote_type;
+	struct s_token		*next;
+}	t_token;
 
-typedef struct s_redir {
-    t_token_type    type;
-    char            *file;
-    struct s_redir  *next;
-} t_redir;
+typedef struct s_redir
+{
+	t_token_type		type;
+	char				*file;
+	int					fd;
+	struct s_redir		*next;
+}	t_redir;
 
 typedef struct s_cmd {
     char            **args;
@@ -64,16 +80,35 @@ typedef struct s_cmd {
     struct s_cmd    *next;
 } t_cmd;
 
-typedef struct s_env
+typedef struct s_shell
 {
-    char            *key;
-    char            *value;
-    struct s_env    *next;
-} t_env;
+	char				**env;
+	int					exit_status;
+	t_cmd				*cmd_list;
+}	t_shell;
 
-t_token *tokenizer(char *input);
-t_cmd   *parser(t_token *tokens);
+/* Funciones del tokenizer */
+bool			is_special_char(char c);
+bool			is_quote(char c);
+t_token			*tokenizer(char *input);
+t_token			*create_token(t_token_type type, char *value, bool quoted,
+					t_quote_state quote_type);
+void			free_tokens(t_token *tokens);
 
+/* Funciones de utilidad del tokenizer */
+void			add_token_to_list(t_token **tokens, t_token *new_token);
+t_token_type	get_token_type(char *str);
+void			skip_whitespace(char *input, int *i);
+t_token			*get_next_token(char *input, int *i);
+t_token			*process_env_var(char *input, int *i);
+
+/* Funciones de extracción del tokenizer */
+char			*extract_word(char *input, int *i, t_quote_state *quote_type,
+					bool *quoted);
+char			*extract_operator(char *input, int *i);
+char			*extract_env_var(char *input, int *i);
+t_token			*process_operator(char *input, int *i);
+t_token			*process_word(char *input, int *i);
 
 /* Builtin Commands */
 void	free_env_list(t_env *env_list);
