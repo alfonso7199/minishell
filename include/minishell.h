@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/05 20:19:51 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/09 15:53:26 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define GREEN    "\033[32m"
 # define RESET    "\033[0m"
 # define RED      "\033[31m"
+
 
 /* Estados del lexer para manejo de comillas */
 typedef enum e_quote_state
@@ -87,6 +88,14 @@ typedef struct s_shell
 	t_cmd				*cmd_list;
 }	t_shell;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct	s_env	*next;
+}	t_env;
+
+
 /* Funciones del tokenizer */
 bool			is_special_char(char c);
 bool			is_quote(char c);
@@ -113,9 +122,29 @@ t_token			*process_word(char *input, int *i);
 /* Builtin Commands */
 void	free_env_list(t_env *env_list);
 int     mini_echo(char *arg[]);
-t_env	*mini_env(char **envp);
 void	mini_exit(char *arg[]);
 int 	mini_pwd(int fd);
+/* env */
+int	env_key_match(char *env_key, char *search_key);
+t_env	*create_env_node(char *key, char *value);
+void	add_to_end(t_env **head, t_env *new_node);
+void	add_env_node(t_env **head, char *key, char *value);
+char	*get_env_value(t_env *envp, char *key);
+
+t_env	*find_env_node(t_env *envp, char *key);
+void	set_env_value(t_env **envp, char *key, char *value);
+int		count_env_vars(t_env *envp);
+char	*create_env_string(char *key, char *value);
+
+void	free_env_list(t_env *env_list);
+void	process_env_entry(char *env_str, t_env **env_lst);
+t_env	*mini_env(char **envp);
+
+/* cd */
+char	*get_target_directory(char *path, t_env *envp);
+void	update_pwd_vars(t_env *envp, char *old_pwd);
+int		cd_error(char *path);
+int		mini_cd(char *args[], t_env *envp);
 
 /* Errores */
 int     error_msg(char *msg);

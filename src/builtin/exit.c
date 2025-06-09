@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:08 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/05 20:21:51 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/09 13:02:46 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	mini_exit(char *arg[])
 		}
 		if (arg[2])
 		{
-			ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
+			ft_putstr_fd("minishell: exit: too many arguments\n", \
+STDERR_FILENO);
 			return ;
 		}
 		status_code = ft_atoi(arg[1]);

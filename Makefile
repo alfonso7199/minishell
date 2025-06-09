@@ -25,6 +25,8 @@ SRC_FILES	= \
 	$(SRC_DIR)/builtin/echo.c \
 	$(SRC_DIR)/builtin/pwd.c \
 	$(SRC_DIR)/builtin/env.c \
+	$(SRC_DIR)/builtin/env2.c \
+	$(SRC_DIR)/builtin/env3.c \
 	$(SRC_DIR)/builtin/exit.c \
 	$(SRC_DIR)/builtin/unset.c \
 	$(SRC_DIR)/builtin/export.c \
@@ -66,7 +68,8 @@ test:
 	@mkdir -p test
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/echo.c src/builtin/echo_test.c $(LIBFT_FLAGS) -o test/echo
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/pwd.c src/builtin/pwd_test.c $(LIBFT_FLAGS) -o test/pwd
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/env.c src/builtin/env_test.c $(LIBFT_FLAGS) -o test/env
+	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/env.c src/builtin/env2.c src/builtin/env3.c \
+	src/builtin/env_test.c $(LIBFT_FLAGS) -o test/env
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/exit.c src/builtin/exit_test.c $(LIBFT_FLAGS) -o test/exit
 # echo
 	@(./test/echo hola que tal > test/my_echo.txt; \

@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 16:03:49 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/05 20:20:40 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/09 13:01:36 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_env	*dup_env;
 	t_env	*tmp;
-	
+
 	(void)argc;
 	(void)argv;
 	dup_env = mini_env(envp);
