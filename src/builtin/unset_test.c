@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_test.c                                         :+:      :+:    :+:   */
+/*   unset_test.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/05 16:03:49 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/09 13:01:36 by rzt              ###   ########.fr       */
+/*   Created: 2025/06/10 12:59:53 by rzt               #+#    #+#             */
+/*   Updated: 2025/06/10 13:12:48 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+int	main(int argc, char **argv, char **envp)
 {
-	t_env	*dup_env;
+	t_env	*env_list;
 	t_env	*tmp;
+	int		result;
 
 	(void)argc;
-	(void)argv;
-	dup_env = mini_env(envp);
-	tmp = dup_env;
+	env_list = mini_env(envp);
+	printf("Before unset: \n");
+	tmp = env_list;
 	while (tmp)
 	{
 		printf("%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
-	free_env_list(dup_env);
-	return (0);
+	result = mini_unset(argv, &env_list);
+	printf("After unset: \n");
+	tmp = env_list;
+	while (tmp)
+	{
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
+	free_env_list(env_list);
+	return (result);
 }

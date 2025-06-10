@@ -6,42 +6,28 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/05 20:20:16 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/09 15:57:58 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	add_env_node(t_env **head, char *key, char *value)
+void	free_partial_array(char **array, int count)
 {
-	t_env	*new_node;
-	t_env	*tmp;
-	
-	new_node = (t_env *)malloc(sizeof(t_env));
-	if (!new_node)
+	int	i;
+
+	i = 0;
+	while (i < count)
 	{
-		free(key);
-		free(value);
-		return ;
+		free(array[i]);
+		i++;
 	}
-	new_node->key = key;
-	new_node->value = value;
-	new_node->next = NULL;
-	
-	if (!*head)
-		*head = new_node;
-	else
-	{
-		tmp = *head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new_node;
-	}
+	free(array);
 }
 
 void	free_env_list(t_env *env_list)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	while (env_list)
 	{
@@ -53,25 +39,32 @@ void	free_env_list(t_env *env_list)
 	}
 }
 
-t_env	*mini_env(char **envp)
+void	process_env_entry(char *env_str, t_env **env_lst)
 {
-	char	*firstequal;
+	char	*equal_pos;
 	char	*key;
 	char	*value;
-	t_env	*env_list;
 
-	env_list = NULL;
+	equal_pos = ft_strchr(env_str, '=');
+	if (!equal_pos)
+		return ;
+	key = ft_substr(env_str, 0, equal_pos - env_str);
+	value = ft_strdup(equal_pos + 1);
+	if (key && value)
+		add_env_node(env_lst, key, value);
+	free(key);
+	free(value);
+}
+
+t_env	*mini_env(char **envp)
+{
+	t_env	*env_lst;
+
+	env_lst = NULL;
 	while (*envp)
 	{
-		firstequal = ft_strchr(*envp, '=');
-		if (firstequal)
-		{
-		key = ft_substr(*envp, 0, firstequal - *envp);
-		value = ft_strdup(firstequal + 1);
-		
-		add_env_node(&env_list, key, value);		
-		}
+		process_env_entry(*envp, &env_lst);
 		envp++;
 	}
-	return (env_list);
+	return (env_lst);
 }

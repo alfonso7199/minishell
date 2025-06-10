@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_test.c                                         :+:      :+:    :+:   */
+/*   export_test.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/05 16:03:49 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/09 13:01:36 by rzt              ###   ########.fr       */
+/*   Created: 2025/06/10 12:12:51 by rzt               #+#    #+#             */
+/*   Updated: 2025/06/10 12:19:23 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+int	main(int argc, char **argv, char **envp)
 {
-	t_env	*dup_env;
-	t_env	*tmp;
+	t_env	*env_list;
+	int		result;
 
 	(void)argc;
-	(void)argv;
-	dup_env = mini_env(envp);
-	tmp = dup_env;
-	while (tmp)
-	{
-		printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-	}
-	free_env_list(dup_env);
-	return (0);
+	env_list = mini_env(envp);
+	result = mini_export(argv, &env_list);
+	free_env_list(env_list);
+	return (result);
 }
