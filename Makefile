@@ -71,6 +71,8 @@ test:
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/env.c src/builtin/env2.c src/builtin/env3.c \
 	src/builtin/env_test.c $(LIBFT_FLAGS) -o test/env
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/exit.c src/builtin/exit_test.c $(LIBFT_FLAGS) -o test/exit
+	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/export.c src/builtin/export_test.c src/builtin/env.c \
+	src/builtin/env2.c src/builtin/env3.c $(LIBFT_FLAGS) -o test/export
 # echo
 	@(./test/echo hola que tal > test/my_echo.txt; \
 	echo hola que tal > test/bash_echo.txt; \
@@ -100,30 +102,10 @@ test:
 	@(./test/env > test/my_env.txt; \
 	env > test/bash_env.txt; \
 	diff <(grep -v '^_=' test/my_env.txt) <(grep -v '^_=' test/bash_env.txt) && echo "OK: env (print env)" || echo "FAIL: env (print env)")
-# # exit
-# 	@(./test/exit > test/my_exit.txt; \
-# 	exit > test/bash_exit.txt; \
-# 	diff test/my_exit.txt test/bash_exit.txt && echo "OK: exit ()" || echo "FAIL: exit ()")
-# # exit 42
-# 	@(./test/exit 42 > test/my_exit.txt; \
-# 	exit 42 > test/bash_exit.txt; \
-# 	diff test/my_exit.txt test/bash_exit.txt && echo "OK: exit (42)" || echo "FAIL: exit (42)")
-# # exit -1
-# 	@(./test/exit -1 > test/my_exit.txt; \
-# 	exit -1 > test/bash_exit.txt; \
-# 	diff test/my_exit.txt test/bash_exit.txt && echo "OK: exit (-1)" || echo "FAIL: exit (-1)")
-# # exit 256
-# 	@(./test/exit 256 > test/my_exit.txt; \
-# 	exit 256 > test/bash_exit.txt; \
-# 	diff test/my_exit.txt test/bash_exit.txt && echo "OK: exit (256)" || echo "FAIL: exit (256)")
-# # exit abc
-# 	@(./test/exit abc > test/my_exit.txt; \
-# 	exit abc > test/bash_exit.txt; \
-# 	diff test/my_exit.txt test/bash_exit.txt && echo "OK: exit (abc)" || echo "FAIL: exit (abc)")
-# # exit 1 2
-# 	@(./test/exit 1 2 > test/my_exit.txt; \
-# 	exit 1 2 > test/bash_exit.txt; \
-# 	diff test/my_exit.txt test/bash_exit.txt && echo "OK: exit (1 2)" || echo "FAIL: exit (1 2)")
+# export
+	@(./test/export > test/my_export.txt; \
+	export > test/bash_export.txt; \
+	diff test/my_export.txt test/bash_export.txt && echo "OK: export" || echo "FAIL: export")
 
 
 .PHONY: all clean fclean re test

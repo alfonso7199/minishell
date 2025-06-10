@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/09 19:19:21 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/10 12:15:59 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,17 +129,24 @@ t_env	*find_env_node(t_env *envp, char *key);
 void	set_env_value(t_env **envp, char *key, char *value);
 int		count_env_vars(t_env *envp);
 char	*create_env_string(char *key, char *value);
-
+/* env2 */
 int		env_key_match(char *env_key, char *search_key);
 t_env	*create_env_node(char *key, char *value);
 void	add_to_end(t_env **head, t_env *new_node);
 void	add_env_node(t_env **head, char *key, char *value);
 char	*get_env_value(t_env *envp, char *key);
-
+/* env3 */
 void	free_partial_array(char **array, int count);
 void	free_env_list(t_env *env_list);
 void	process_env_entry(char *env_str, t_env **env_lst);
 t_env	*mini_env(char **envp);
+
+/* export */
+int		is_valid_identifier(char *str);
+void	print_export_error(char *arg);
+void	print_sorted_env(t_env *envp);
+int		process_export_arg(char *arg, t_env **envp);
+int		mini_export(char **args, t_env **envp);
 
 /* cd */
 void	update_pwd_vars(t_env **envp, char *old_pwd);
