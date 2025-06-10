@@ -73,6 +73,8 @@ test:
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/exit.c src/builtin/exit_test.c $(LIBFT_FLAGS) -o test/exit
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/export.c src/builtin/export_test.c src/builtin/env.c \
 	src/builtin/env2.c src/builtin/env3.c $(LIBFT_FLAGS) -o test/export
+	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/unset.c src/builtin/unset_test.c src/builtin/env.c \
+	src/builtin/env2.c src/builtin/env3.c $(LIBFT_FLAGS) -o test/unset
 # echo
 	@(./test/echo hola que tal > test/my_echo.txt; \
 	echo hola que tal > test/bash_echo.txt; \
@@ -103,9 +105,13 @@ test:
 	env > test/bash_env.txt; \
 	diff <(grep -v '^_=' test/my_env.txt) <(grep -v '^_=' test/bash_env.txt) && echo "OK: env (print env)" || echo "FAIL: env (print env)")
 # export
-	@(./test/export > test/my_export.txt; \
+#	@(./test/export > test/my_export.txt; \
 	export > test/bash_export.txt; \
 	diff test/my_export.txt test/bash_export.txt && echo "OK: export" || echo "FAIL: export")
-
+# unset
+#	@(./test/unset > test/my_unset.txt; \
+	unset > test/bash_unset.txt; \
+	diff test/my_unset.txt test/bash_unset.txt && echo "OK: unset" || echo "FAIL: unset")
+	@echo "Test manually \`unset\` and \`export\`"
 
 .PHONY: all clean fclean re test

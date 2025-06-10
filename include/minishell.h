@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/10 12:15:59 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/10 13:04:12 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,12 @@ void	print_export_error(char *arg);
 void	print_sorted_env(t_env *envp);
 int		process_export_arg(char *arg, t_env **envp);
 int		mini_export(char **args, t_env **envp);
+
+/* unset */
+int		is_valid_unset_identifier(char *str);
+void	print_unset_error(char *arg);
+void	remove_env_node(t_env **envp, char *key);
+int		mini_unset(char **args, t_env **envp);
 
 /* cd */
 void	update_pwd_vars(t_env **envp, char *old_pwd);

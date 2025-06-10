@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 19:08:03 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/09 19:39:26 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/10 13:12:25 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ int	main(int argc, char **argv, char **envp)
 }
 
 /* 
-clang src/builtin/cd.c src/builtin/cd_test.c src/builtin/env.c \
+clang src/builtin/cd.c src/builtin/cd_test.c src/builtin/env.c 
 src/builtin/env2.c src/builtin/env3.c -Iinclude/ -Llibft/ -lft
 */
