@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:31:17 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/10 18:33:19 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/11 13:24:44 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	setup_interactive_signals(void)
 void	handle_interactive_sigint(int sig)
 {
 	(void)sig;
-	g_signal_received = SIGINT;
+	set_signal_received(SIGINT);
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);

@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/11 12:40:07 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/11 13:33:15 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@
 # define GREEN    "\033[32m"
 # define RESET    "\033[0m"
 # define RED      "\033[31m"
-
-/* Global  */
-extern volatile sig_atomic_t g_signal_received;
 
 /* Estados del lexer para manejo de comillas */
 typedef enum e_quote_state
@@ -130,67 +127,70 @@ t_token			*process_word(char *input, int *i);
 /* **************** */
 /* Builtin Commands */
 /* **************** */
-void	free_env_list(t_env *env_list);
-int     mini_echo(char *arg[]);
-void	mini_exit(char *arg[]);
-int 	mini_pwd(int fd);
+void			free_env_list(t_env *env_list);
+int     		mini_echo(char *arg[]);
+void			mini_exit(char *arg[]);
+int 			mini_pwd(int fd);
 /* env */
-t_env	*find_env_node(t_env *envp, char *key);
-void	set_env_value(t_env **envp, char *key, char *value);
-int		count_env_vars(t_env *envp);
-char	*create_env_string(char *key, char *value);
+t_env			*find_env_node(t_env *envp, char *key);
+void			set_env_value(t_env **envp, char *key, char *value);
+int				count_env_vars(t_env *envp);
+char			*create_env_string(char *key, char *value);
 /* env2 */
-int		env_key_match(char *env_key, char *search_key);
-t_env	*create_env_node(char *key, char *value);
-void	add_to_end(t_env **head, t_env *new_node);
-void	add_env_node(t_env **head, char *key, char *value);
-char	*get_env_value(t_env *envp, char *key);
+int				env_key_match(char *env_key, char *search_key);
+t_env			*create_env_node(char *key, char *value);
+void			add_to_end(t_env **head, t_env *new_node);
+void			add_env_node(t_env **head, char *key, char *value);
+char			*get_env_value(t_env *envp, char *key);
 /* env3 */
-void	free_partial_array(char **array, int count);
-void	free_env_list(t_env *env_list);
-void	process_env_entry(char *env_str, t_env **env_lst);
-t_env	*mini_env(char **envp);
+void			free_partial_array(char **array, int count);
+void			free_env_list(t_env *env_list);
+void			process_env_entry(char *env_str, t_env **env_lst);
+t_env			*mini_env(char **envp);
 /* export */
-int		is_valid_identifier(char *str);
-void	print_export_error(char *arg);
-void	print_sorted_env(t_env *envp);
-int		process_export_arg(char *arg, t_env **envp);
-int		mini_export(char **args, t_env **envp);
+int				is_valid_identifier(char *str);
+void			print_export_error(char *arg);
+void			print_sorted_env(t_env *envp);
+int				process_export_arg(char *arg, t_env **envp);
+int				mini_export(char **args, t_env **envp);
 /* unset */
-int		is_valid_unset_identifier(char *str);
-void	print_unset_error(char *arg);
-void	remove_env_node(t_env **envp, char *key);
-int		mini_unset(char **args, t_env **envp);
+int				is_valid_unset_identifier(char *str);
+void			print_unset_error(char *arg);
+void			remove_env_node(t_env **envp, char *key);
+int				mini_unset(char **args, t_env **envp);
 /* cd */
-void	update_pwd_vars(t_env **envp, char *old_pwd);
-char	*get_target_path(char **args, t_env *envp);
-int		mini_cd(char **args, t_env **envp);
+void			update_pwd_vars(t_env **envp, char *old_pwd);
+char			*get_target_path(char **args, t_env *envp);
+int				mini_cd(char **args, t_env **envp);
 
 /* **************** */
 /*      Signals     */
 /* **************** */
 /* signals */
-void	setup_signals(t_signal_mode mode);
-void	setup_execution_signals(void);
+void			setup_signals(t_signal_mode mode);
+void			setup_execution_signals(void);
+void			set_signal_received(sig_atomic_t sig);
+sig_atomic_t	get_signal_received(void);
+void			clear_signal_received(void);
 /* signals - interactive */
-void	setup_interactive_signals(void);
-void	handle_interactive_sigint(int sig);
-void	handle_interactive_sigquit(int sig);
+void			setup_interactive_signals(void);
+void			handle_interactive_sigint(int sig);
+void			handle_interactive_sigquit(int sig);
 /* signals - execution */
-void	handle_execution_sigint(int sig);
-void	handle_execution_sigquit(int sig);
-void	handle_child_signals(void);
+void			handle_execution_sigint(int sig);
+void			handle_execution_sigquit(int sig);
+void			handle_child_signals(void);
 /* signals - heredoc */
-void	setup_heredoc_signals(void);
-void	handle_heredoc_sigint(int sig);
-void	restore_heredoc_signals(void);
+void			setup_heredoc_signals(void);
+void			handle_heredoc_sigint(int sig);
+void			restore_heredoc_signals(void);
 /* signals - reset */
-void	reset_signal_state(void);
-void	restore_default_signals(void);
-void	ignore_all_signals(void);
+void			reset_signal_state(void);
+void			restore_default_signals(void);
+void			ignore_all_signals(void);
 
 /* Errores */
-int     error_msg(char *msg);
+int   			error_msg(char *msg);
 // int     ft_error(int error, t_tools *tools);
 // void    reset_tools(t_tools *tools);
 

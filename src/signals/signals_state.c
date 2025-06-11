@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_reset.c                                    :+:      :+:    :+:   */
+/*   signals_state.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 18:35:11 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/11 13:27:03 by rzt              ###   ########.fr       */
+/*   Created: 2025/06/11 13:30:28 by rzt               #+#    #+#             */
+/*   Updated: 2025/06/11 13:32:18 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	reset_signal_state(void)
+static volatile sig_atomic_t	g_signal_received = 0;
+
+void	set_signal_received(sig_atomic_t sig)
 {
-	clear_signal_received();
+	g_signal_received = sig;
 }
 
-void	restore_default_signals(void)
+sig_atomic_t	get_signal_received(void)
 {
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	return (g_signal_received);
 }
 
-void	ignore_all_signals(void)
+void	clear_signal_received(void)
 {
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
+	g_signal_received = 0;
 }

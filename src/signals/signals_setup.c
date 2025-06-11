@@ -6,17 +6,15 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/11 12:40:46 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/11 13:28:23 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-volatile sig_atomic_t g_signal_received = 0;
-
 int	was_signal_received(void)
 {
-	return (g_signal_received != 0);
+	return (get_signal_received() != 0);
 }
 
 int	update_exit_status_from_signal(int status)
@@ -28,9 +26,9 @@ int	update_exit_status_from_signal(int status)
 	{
 		exit_code = 128 + WTERMSIG(status);
 		if (WTERMSIG(status) == SIGINT)
-			g_signal_received = SIGINT;
+			set_signal_received(SIGINT);
 		else if (WTERMSIG(status) == SIGQUIT)
-			g_signal_received = SIGQUIT;
+			set_signal_received(SIGQUIT);
 	}
 	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:42:15 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/10 16:45:00 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/11 13:26:21 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	handle_execution_sigint(int sig)
 {
 	(void)sig;
-	g_signal_received = SIGINT;
+	set_signal_received(SIGINT);
 	ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
 void	handle_execution_sigquit(int sig)
 {
 	(void)sig;
-	g_signal_received = SIGQUIT;
+	set_signal_received(SIGQUIT);
 	ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
 }
 

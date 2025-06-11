@@ -85,7 +85,7 @@ test:
 	-o test/unset
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/signals/signals_test.c src/signals/signals_interactive.c \
 	src/signals/signals_execution.c src/signals/signals_heredoc.c src/signals/signals_reset.c \
-	src/signals/signals_setup.c $(LIBFT_FLAGS) $(LDFLAGS) \
+	src/signals/signals_setup.c src/signals/signals_state.c $(LIBFT_FLAGS) $(LDFLAGS) \
 	-o test/signals
 # echo
 	@(./test/echo hola que tal > test/my_echo.txt; \
