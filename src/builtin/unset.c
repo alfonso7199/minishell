@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:35 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/10 13:12:45 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/10 13:20:47 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_valid_unset_identifier(char *str)
 	int	i;
 
 	i = 0;
-	if (!str || (!ft_isalpha(str[0] && str[0] != '_')))
+	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
 		return (0);
 	while (str[i])
 	{

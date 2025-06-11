@@ -15,13 +15,13 @@ LDFLAGS = -lreadline -lncurses -lhistory
 
 SRC_FILES	= \
     $(SRC_DIR)/minishell.c \
-	$(SRC_DIR)/error/error.c \
 	$(SRC_DIR)/execution/executor.c \
 	$(SRC_DIR)/tokenizing/tokenizer.c \
 	$(SRC_DIR)/tokenizing/tokenizer_utils.c \
-	$(SRC_DIR)/tokenizing/tokenizer_extract.c \
 	$(SRC_DIR)/tokenizing/tokenizer_helpers.c \
-	$(SRC_DIR)/utils/signals.c \
+	$(SRC_DIR)/signals/signals_setup.c \
+	$(SRC_DIR)/signals/signals_execution.c \
+	$(SRC_DIR)/signals/signals_interactive.c \
 	$(SRC_DIR)/builtin/echo.c \
 	$(SRC_DIR)/builtin/pwd.c \
 	$(SRC_DIR)/builtin/env.c \
@@ -33,6 +33,8 @@ SRC_FILES	= \
 	$(SRC_DIR)/builtin/cd.c \
 	$(SRC_DIR)/builtin/echo_test.c \
 	$(SRC_DIR)/builtin/pwd_test.c \
+	$(SRC_DIR)/tokenizing/tokenizer_extract.c \
+	$(SRC_DIR)/error/error.c \
 
 OBJS        = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
@@ -66,15 +68,25 @@ re: fclean all
 test:
 	@$(RM) test
 	@mkdir -p test
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/echo.c src/builtin/echo_test.c $(LIBFT_FLAGS) -o test/echo
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/pwd.c src/builtin/pwd_test.c $(LIBFT_FLAGS) -o test/pwd
+	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/echo.c src/builtin/echo_test.c $(LIBFT_FLAGS) $(LDFLAGS) \
+	-o test/echo
+	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/pwd.c src/builtin/pwd_test.c $(LIBFT_FLAGS) $(LDFLAGS) \
+	-o test/pwd
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/env.c src/builtin/env2.c src/builtin/env3.c \
-	src/builtin/env_test.c $(LIBFT_FLAGS) -o test/env
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/exit.c src/builtin/exit_test.c $(LIBFT_FLAGS) -o test/exit
+	src/builtin/env_test.c $(LIBFT_FLAGS) $(LDFLAGS) \
+	-o test/env
+	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/exit.c src/builtin/exit_test.c $(LIBFT_FLAGS) $(LDFLAGS) \
+	-o test/exit
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/export.c src/builtin/export_test.c src/builtin/env.c \
-	src/builtin/env2.c src/builtin/env3.c $(LIBFT_FLAGS) -o test/export
+	src/builtin/env2.c src/builtin/env3.c $(LIBFT_FLAGS) $(LDFLAGS) \
+	-o test/export
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/unset.c src/builtin/unset_test.c src/builtin/env.c \
-	src/builtin/env2.c src/builtin/env3.c $(LIBFT_FLAGS) -o test/unset
+	src/builtin/env2.c src/builtin/env3.c $(LIBFT_FLAGS) $(LDFLAGS) \
+	-o test/unset
+	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/signals/signals_test.c src/signals/signals_interactive.c \
+	src/signals/signals_execution.c src/signals/signals_heredoc.c src/signals/signals_reset.c \
+	src/signals/signals_setup.c $(LIBFT_FLAGS) $(LDFLAGS) \
+	-o test/signals
 # echo
 	@(./test/echo hola que tal > test/my_echo.txt; \
 	echo hola que tal > test/bash_echo.txt; \
