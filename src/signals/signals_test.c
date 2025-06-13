@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 18:44:16 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/11 12:52:50 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/12 23:11:53 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	test_heredoc(void)
 		buffer[bytes] = '\0';
 		printf("You typed: %s\n", buffer);
 	}
-	restore_heredoc_signals();	
+	restore_heredoc_signals();
 }
 
 int	main(void)

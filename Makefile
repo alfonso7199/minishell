@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
+#    Updated: 2025/06/12 23:16:31 by rzt              ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME		= minishell
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
@@ -67,6 +79,7 @@ re: fclean all
 
 test:
 	@$(RM) test
+	@$(MAKE) -s -C $(LIBFT_DIR)
 	@mkdir -p test
 	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/echo.c src/builtin/echo_test.c $(LIBFT_FLAGS) $(LDFLAGS) \
 	-o test/echo
