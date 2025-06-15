@@ -34,6 +34,10 @@ SRC_FILES	= \
 	$(SRC_DIR)/signals/signals_setup.c \
 	$(SRC_DIR)/signals/signals_execution.c \
 	$(SRC_DIR)/signals/signals_interactive.c \
+	$(SRC_DIR)/parsing/parser.c \
+	$(SRC_DIR)/parsing/parser_utils.c \
+	$(SRC_DIR)/parsing/parser_utils2.c \
+	$(SRC_DIR)/parsing/parser_memory.c \
 	$(SRC_DIR)/builtin/echo.c \
 	$(SRC_DIR)/builtin/pwd.c \
 	$(SRC_DIR)/builtin/env.c \

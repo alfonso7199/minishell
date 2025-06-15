@@ -124,6 +124,29 @@ char			*extract_env_var(char *input, int *i);
 t_token			*process_operator(char *input, int *i);
 t_token			*process_word(char *input, int *i);
 
+/* Funciones del parser */
+t_cmd			*parser(t_token *tokens);
+t_cmd			*create_cmd(void);
+t_redir			*create_redir(t_token_type type, char *file);
+bool			is_redirection_token(t_token_type type);
+bool			validate_syntax(t_token *tokens);
+
+/* Funciones auxiliares del parser */
+t_token			*process_command_token(t_cmd **cmd_list, t_token *token);
+
+/* Funciones de utilidad del parser */
+void			add_redir_to_cmd(t_cmd *cmd, t_redir *redir);
+int				count_args(t_token *tokens);
+t_token			*handle_redirection(t_token *tokens, t_cmd *cmd);
+void			add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd);
+t_token			*parse_args(t_token *tokens, t_cmd *cmd);
+t_token			*fill_args(t_token *tokens, t_cmd *cmd);
+
+/* Funciones de memoria del parser */
+void			free_redirections(t_redir *redir);
+void			free_args(char **args);
+void			free_cmd_list(t_cmd *cmd_list);
+
 /* **************** */
 /* Builtin Commands */
 /* **************** */
