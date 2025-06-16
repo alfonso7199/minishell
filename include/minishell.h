@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rzamolo- <rzamolo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/11 13:33:15 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/16 12:13:16 by rzamolo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,11 @@ char			*extract_env_var(char *input, int *i);
 t_token			*process_operator(char *input, int *i);
 t_token			*process_word(char *input, int *i);
 
+/* Functiones helpers tokenizer */
+void	handle_quoted_word(char *input, int *i, int *start,
+			t_quote_state *quote_type);
+void	handle_unquoted_word(char *input, int *i);
+			
 /* Funciones del parser */
 t_cmd			*parser(t_token *tokens);
 t_cmd			*create_cmd(void);

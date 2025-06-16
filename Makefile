@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
+#    By: rzamolo- <rzamolo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
-#    Updated: 2025/06/12 23:16:31 by rzt              ###   ########.fr        #
+#    Updated: 2025/06/16 12:22:58 by rzamolo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,13 +27,15 @@ LDFLAGS = -lreadline -lncurses -lhistory
 
 SRC_FILES	= \
     $(SRC_DIR)/minishell.c \
-	$(SRC_DIR)/execution/executor.c \
 	$(SRC_DIR)/tokenizing/tokenizer.c \
 	$(SRC_DIR)/tokenizing/tokenizer_utils.c \
 	$(SRC_DIR)/tokenizing/tokenizer_helpers.c \
 	$(SRC_DIR)/signals/signals_setup.c \
 	$(SRC_DIR)/signals/signals_execution.c \
 	$(SRC_DIR)/signals/signals_interactive.c \
+	$(SRC_DIR)/signals/signals_heredoc.c \
+	$(SRC_DIR)/signals/signals_state.c \
+	$(SRC_DIR)/signals/signals_reset.c \
 	$(SRC_DIR)/parsing/parser.c \
 	$(SRC_DIR)/parsing/parser_utils.c \
 	$(SRC_DIR)/parsing/parser_utils2.c \
@@ -47,10 +49,9 @@ SRC_FILES	= \
 	$(SRC_DIR)/builtin/unset.c \
 	$(SRC_DIR)/builtin/export.c \
 	$(SRC_DIR)/builtin/cd.c \
-	$(SRC_DIR)/builtin/echo_test.c \
-	$(SRC_DIR)/builtin/pwd_test.c \
 	$(SRC_DIR)/tokenizing/tokenizer_extract.c \
-	$(SRC_DIR)/error/error.c \
+#	$(SRC_DIR)/error/error.c \
+	$(SRC_DIR)/execution/executor.c \
 
 OBJS        = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
