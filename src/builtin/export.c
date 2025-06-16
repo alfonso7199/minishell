@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rzamolo- <rzamolo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:36 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/10 13:20:33 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/16 12:36:34 by rzamolo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_valid_identifier(char *str)
+static int	is_valid_identifier(char *str)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ int	is_valid_identifier(char *str)
 	return (1);
 }
 
-void	print_export_error(char *arg)
+static void	print_export_error(char *arg)
 {
 	ft_putstr_fd("minishell: export: '", STDERR_FILENO);
 	ft_putstr_fd(arg, STDERR_FILENO);
@@ -54,7 +54,7 @@ void	print_sorted_env(t_env *envp)
 	}
 }
 
-int	process_export_arg(char *arg, t_env **envp)
+static int	process_export_arg(char *arg, t_env **envp)
 {
 	char	*equal_pos;
 	char	*key;

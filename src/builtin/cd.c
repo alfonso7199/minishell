@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rzamolo- <rzamolo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:38 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/09 19:11:58 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/16 12:34:39 by rzamolo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	update_pwd_vars(t_env **envp, char *old_pwd)
+static void	update_pwd_vars(t_env **envp, char *old_pwd)
 {
 	char	*current_pwd;
 
@@ -25,7 +25,7 @@ void	update_pwd_vars(t_env **envp, char *old_pwd)
 	free(current_pwd);
 }
 
-char	*get_target_path(char **args, t_env *envp)
+static char	*get_target_path(char **args, t_env *envp)
 {
 	char	*home_path;
 

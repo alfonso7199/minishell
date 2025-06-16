@@ -6,7 +6,7 @@
 /*   By: rzamolo- <rzamolo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/16 12:13:16 by rzamolo-         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:38:54 by rzamolo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,9 +156,18 @@ void			free_cmd_list(t_cmd *cmd_list);
 /* Builtin Commands */
 /* **************** */
 void			free_env_list(t_env *env_list);
+/* echo */
 int     		mini_echo(char *arg[]);
+/* exit */
 void			mini_exit(char *arg[]);
+/* pwd */
 int 			mini_pwd(int fd);
+/* export */
+int				mini_export(char **args, t_env **envp);
+/* unset */
+int				mini_unset(char **args, t_env **envp);
+/* cd */
+int				mini_cd(char **args, t_env **envp);
 /* env */
 t_env			*find_env_node(t_env *envp, char *key);
 void			set_env_value(t_env **envp, char *key, char *value);
@@ -175,21 +184,6 @@ void			free_partial_array(char **array, int count);
 void			free_env_list(t_env *env_list);
 void			process_env_entry(char *env_str, t_env **env_lst);
 t_env			*mini_env(char **envp);
-/* export */
-int				is_valid_identifier(char *str);
-void			print_export_error(char *arg);
-void			print_sorted_env(t_env *envp);
-int				process_export_arg(char *arg, t_env **envp);
-int				mini_export(char **args, t_env **envp);
-/* unset */
-int				is_valid_unset_identifier(char *str);
-void			print_unset_error(char *arg);
-void			remove_env_node(t_env **envp, char *key);
-int				mini_unset(char **args, t_env **envp);
-/* cd */
-void			update_pwd_vars(t_env **envp, char *old_pwd);
-char			*get_target_path(char **args, t_env *envp);
-int				mini_cd(char **args, t_env **envp);
 
 /* **************** */
 /*      Signals     */
