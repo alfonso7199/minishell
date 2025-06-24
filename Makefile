@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rzamolo- <rzamolo-@student.42.fr>          +#+  +:+       +#+         #
+#    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
-#    Updated: 2025/06/16 12:22:58 by rzamolo-         ###   ########.fr        #
+#    Updated: 2025/06/24 12:25:03 by rzt              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,14 @@ SRC_FILES	= \
 	$(SRC_DIR)/builtin/export.c \
 	$(SRC_DIR)/builtin/cd.c \
 	$(SRC_DIR)/tokenizing/tokenizer_extract.c \
+	$(SRC_DIR)/executor/executor.c \
+	$(SRC_DIR)/executor/executor_cleanup.c \
+	$(SRC_DIR)/executor/executor_external.c \
+	$(SRC_DIR)/executor/executor_heredoc.c \
+	$(SRC_DIR)/executor/executor_pipeline.c \
+	$(SRC_DIR)/executor/executor_pipeline_utils.c \
+	$(SRC_DIR)/executor/executor_redirections.c \
+	$(SRC_DIR)/executor/executor_utils.c
 #	$(SRC_DIR)/error/error.c \
 	$(SRC_DIR)/execution/executor.c \
 

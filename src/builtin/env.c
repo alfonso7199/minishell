@@ -6,24 +6,11 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/09 15:57:58 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/24 17:23:25 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	free_partial_array(char **array, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
 
 void	free_env_list(t_env *env_list)
 {
