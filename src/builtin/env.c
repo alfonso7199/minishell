@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/26 18:57:41 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/26 19:06:57 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	sort_env_list(t_env *env)
 		ptr = env;
 		while (ptr->next != last)
 		{
-			if (ft_strncmp(ptr->key, ptr->next->key, ft_strlen(ptr->next->key)) > 0)
+			if (ft_strncmp(ptr->key, ptr->next->key,
+					ft_strlen(ptr->next->key)) > 0)
 			{
 				swap_env_nodes(ptr, ptr->next);
 				swapped = 1;
