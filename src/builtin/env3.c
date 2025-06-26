@@ -6,11 +6,25 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/09 16:00:00 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/26 18:49:21 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	free_env_list(t_env *env_list)
+{
+	t_env	*tmp;
+
+	while (env_list)
+	{
+		tmp = env_list->next;
+		free(env_list->key);
+		free(env_list->value);
+		free(env_list);
+		env_list = tmp;
+	}
+}
 
 t_env	*find_env_node(t_env *envp, char *key)
 {

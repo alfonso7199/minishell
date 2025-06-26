@@ -6,23 +6,50 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/26 12:20:05 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/26 18:57:41 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	free_env_list(t_env *env_list)
+void	swap_env_nodes(t_env *a, t_env *b)
 {
-	t_env	*tmp;
+	char	*tmp_key;
+	char	*tmp_value;
 
-	while (env_list)
+	tmp_key = a->key;
+	tmp_value = a->value;
+	a->key = b->key;
+	a->value = b->value;
+	b->key = tmp_key;
+	b->value = tmp_value;
+}
+
+void	sort_env_list(t_env *env)
+{
+	int		swapped;
+	t_env	*ptr;
+	t_env	*last;
+
+	last = NULL;
+	if (!env)
+		return ;
+	while (1)
 	{
-		tmp = env_list->next;
-		free(env_list->key);
-		free(env_list->value);
-		free(env_list);
-		env_list = tmp;
+		swapped = 0;
+		ptr = env;
+		while (ptr->next != last)
+		{
+			if (ft_strncmp(ptr->key, ptr->next->key, ft_strlen(ptr->next->key)) > 0)
+			{
+				swap_env_nodes(ptr, ptr->next);
+				swapped = 1;
+			}
+			ptr = ptr->next;
+		}
+		last = ptr;
+		if (!swapped)
+			break ;
 	}
 }
 
@@ -53,6 +80,7 @@ t_env	*mini_env(char **envp)
 		process_env_entry(*envp, &env_lst);
 		envp++;
 	}
+	sort_env_list(env_lst);
 	return (env_lst);
 }
 
