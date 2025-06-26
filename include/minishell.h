@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/26 12:17:48 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/26 17:55:15 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ typedef struct s_shell
 	t_cmd				*cmd_list;
 }	t_shell;
 
-typedef enum	e_signal_mode
+typedef enum e_signal_mode
 {
 	INTERACTIVE_MODE,
 	EXECUTION_MODE,
