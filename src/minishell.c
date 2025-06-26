@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/26 11:46:13 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/26 16:40:55 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(int argc, char *argv[], char *envp[])
 			continue ;
 		}
 		cmds = parser(tokens);
+		free_tokens(tokens);
 		if (!cmds)
 		{
 			printf("Error en parser\n");
@@ -80,6 +81,8 @@ int	main(int argc, char *argv[], char *envp[])
 			continue ;
 		}
 		print_commands(cmds);
+		execute_commands(cmds, shell);
+		free_cmd_list(cmds);
 		free(input);
 	}
 	cleanup_shell(shell);
