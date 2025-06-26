@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/24 17:23:25 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/26 12:20:05 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,25 @@ t_env	*mini_env(char **envp)
 		envp++;
 	}
 	return (env_lst);
+}
+
+int	mini_env_print(t_env *envp)
+{
+	t_env	*current;
+
+	if (!envp)
+		return (1);
+	current = envp;
+	while (current)
+	{
+		if (current->value && current->value[0])
+		{
+			ft_putstr_fd(current->key, STDOUT_FILENO);
+			ft_putstr_fd("=", STDOUT_FILENO);
+			ft_putstr_fd(current->value, STDOUT_FILENO);
+			ft_putstr_fd("\n", STDOUT_FILENO);
+		}
+		current = current->next;
+	}
+	return (0);
 }

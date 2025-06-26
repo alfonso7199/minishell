@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/13 13:02:02 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/26 11:46:13 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,23 @@ void	print_commands(t_cmd *cmds)
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*input;
+	t_shell	*shell;
 	t_token	*tokens;
 	t_cmd	*cmds;
-	// t_env   *env_lst;
-	// int     exit_status;
-	(void)envp;
+
 	if (argc != 1 || argv[1])
-	{
 		printf("This program does not accept arguments\n");
-		exit(0);
-	}
+	shell = init_shell(envp);
+	if (!shell)
+		return (1);
+	setup_signals(INTERACTIVE_MODE);
 	while (1)
 	{
 		input = readline("minishell> ");
 		if (!input)
 			break ;
-		add_history(input);
+		if (*input)
+			add_history(input);
 		tokens = tokenizer(input);
 		if (!tokens)
 		{
@@ -81,5 +82,6 @@ int	main(int argc, char *argv[], char *envp[])
 		print_commands(cmds);
 		free(input);
 	}
+	cleanup_shell(shell);
 	return (0);
 }

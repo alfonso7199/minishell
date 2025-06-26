@@ -6,27 +6,11 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:08 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/09 13:02:46 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/26 12:19:22 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static int	ft_isnbr(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[0] == '-' || str[0] == '+')
-		i++;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 void	mini_exit(char *arg[])
 {
@@ -53,4 +37,32 @@ STDERR_FILENO);
 		exit((unsigned char)status_code);
 	}
 	exit(0);
+}
+
+int	mini_exit_builtin(char **args, t_shell *shell)
+{
+	int	exit_code;
+
+	exit_code = shell->exit_status;
+	ft_putstr_fd("exit\n", STDERR_FILENO);
+	if (args[1])
+	{
+		if (!ft_isnbr(args[1]))
+		{
+			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd(args[1], STDERR_FILENO);
+			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+			cleanup_shell(shell);
+			exit(2);
+		}
+		if (args[2])
+		{
+			ft_putstr_fd("minishell: exit: too many arguments\n",
+				STDERR_FILENO);
+			return (1);
+		}
+		exit_code = ft_atoi(args[1]);
+	}
+	cleanup_shell(shell);
+	exit((unsigned char)exit_code);
 }

@@ -6,7 +6,7 @@
 #    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
-#    Updated: 2025/06/24 12:25:03 by rzt              ###   ########.fr        #
+#    Updated: 2025/06/26 12:18:09 by rzt              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ LDFLAGS = -lreadline -lncurses -lhistory
 
 SRC_FILES	= \
     $(SRC_DIR)/minishell.c \
+	$(SRC_DIR)/shell.c \
 	$(SRC_DIR)/tokenizing/tokenizer.c \
 	$(SRC_DIR)/tokenizing/tokenizer_utils.c \
 	$(SRC_DIR)/tokenizing/tokenizer_helpers.c \
@@ -57,7 +58,8 @@ SRC_FILES	= \
 	$(SRC_DIR)/executor/executor_pipeline.c \
 	$(SRC_DIR)/executor/executor_pipeline_utils.c \
 	$(SRC_DIR)/executor/executor_redirections.c \
-	$(SRC_DIR)/executor/executor_utils.c
+	$(SRC_DIR)/executor/executor_utils.c \
+	$(SRC_DIR)/utils/ft_isnbr.c  
 #	$(SRC_DIR)/error/error.c \
 	$(SRC_DIR)/execution/executor.c \
 

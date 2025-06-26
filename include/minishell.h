@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/24 17:07:30 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/26 12:17:48 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,18 @@ typedef struct s_redir
 	struct s_redir		*next;
 }	t_redir;
 
-typedef struct s_cmd {
-    char            **args;
-    t_redir         *redirections;
-    struct s_cmd    *next;
-} t_cmd;
+typedef struct s_cmd
+{
+	char			**args;
+	t_redir			*redirections;
+	struct s_cmd	*next;
+}	t_cmd;
 
 typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	struct	s_env	*next;
+	struct s_env	*next;
 }	t_env;
 
 typedef struct s_shell
@@ -125,10 +126,10 @@ t_token			*process_operator(char *input, int *i);
 t_token			*process_word(char *input, int *i);
 
 /* Functiones helpers tokenizer */
-void	handle_quoted_word(char *input, int *i, int *start,
-			t_quote_state *quote_type);
-void	handle_unquoted_word(char *input, int *i);
-			
+void			handle_quoted_word(char *input, int *i, int *start,\
+	t_quote_state *quote_type);
+void			handle_unquoted_word(char *input, int *i);
+
 /* Funciones del parser */
 t_cmd			*parser(t_token *tokens);
 t_cmd			*create_cmd(void);
@@ -157,11 +158,12 @@ void			free_cmd_list(t_cmd *cmd_list);
 /* **************** */
 void			free_env_list(t_env *env_list);
 /* echo */
-int     		mini_echo(char *arg[]);
+int				mini_echo(char *arg[]);
 /* exit */
 void			mini_exit(char *arg[]);
+int				mini_exit_builtin(char **args, t_shell *shell);
 /* pwd */
-int 			mini_pwd(int fd);
+int				mini_pwd(int fd);
 /* export */
 int				mini_export(char **args, t_env **envp);
 /* unset */
@@ -184,6 +186,7 @@ void			free_partial_array(char **array, int count);
 void			free_env_list(t_env *env_list);
 void			process_env_entry(char *env_str, t_env **env_lst);
 t_env			*mini_env(char **envp);
+int				mini_env_print(t_env *envp);
 
 /* **************** */
 /*      Signals     */
@@ -215,65 +218,74 @@ void			ignore_all_signals(void);
 /*      Executor    */
 /* **************** */
 /* executor_main.c */
-int		execute_commands(t_cmd *cmd_list, t_shell *shell);
-int		execute_single_cmd(t_cmd *cmd, t_shell *shell);
-int		is_builtin_cmd(t_cmd *cmd, t_shell *shell);
-int		execute_builtin_cmd(t_cmd *cmd, t_shell *shell);
+int				execute_commands(t_cmd *cmd_list, t_shell *shell);
+int				execute_single_cmd(t_cmd *cmd, t_shell *shell);
+int				is_builtin_cmd(t_cmd *cmd, t_shell *shell);
+int				execute_builtin_cmd(t_cmd *cmd, t_shell *shell);
 
 /* executor_external.c */
-int		execute_external_cmd(t_cmd *cmd, t_shell *shell);
-char	*find_command_path(char *cmd_name, t_env *env);
-char	*check_absolute_path(char *path);
-char	*search_in_paths(char *cmd_name, char **paths);
-void	execute_child_process(t_cmd *cmd, char *cmd_path, t_shell *shell);
+int				execute_external_cmd(t_cmd *cmd, t_shell *shell);
+char			*find_command_path(char *cmd_name, t_env *env);
+char			*check_absolute_path(char *path);
+char			*search_in_paths(char *cmd_name, char **paths);
+void			execute_child_process(t_cmd *cmd, char *cmd_path,\
+	t_shell *shell);
 
 /* executor_pipeline.c */
-int		execute_pipeline(t_cmd *cmd_list, t_shell *shell);
-int		count_commands(t_cmd *cmd_list);
-int		**create_pipes(int pipe_count);
-int		execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell,
-			int **pipes, pid_t *pids);
-void	execute_pipeline_child(t_cmd *cmd, t_shell *shell,
-			int **pipes, int cmd_index);
+int				execute_pipeline(t_cmd *cmd_list, t_shell *shell);
+int				count_commands(t_cmd *cmd_list);
+int				**create_pipes(int pipe_count);
+int				execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell,\
+	int **pipes, pid_t *pids);
+void			execute_pipeline_child(t_cmd *cmd, t_shell *shell,\
+	int **pipes, int cmd_index);
 
 /* executor_redirections.c */
-int		setup_redirections(t_cmd *cmd);
-int		handle_single_redirection(t_redir *redir);
-int		setup_input_redirection(t_redir *redir);
-int		setup_output_redirection(t_redir *redir);
-int		setup_append_redirection(t_redir *redir);
+int				setup_redirections(t_cmd *cmd);
+int				handle_single_redirection(t_redir *redir);
+int				setup_input_redirection(t_redir *redir);
+int				setup_output_redirection(t_redir *redir);
+int				setup_append_redirection(t_redir *redir);
 
 /* executor_utils.c */
-int		wait_for_child(pid_t pid, int *status);
-int		handle_command_not_found(char *cmd_name);
-int		handle_fork_error(void);
-void	print_file_error(char *filename, char *error_msg);
-void	free_string_array(char **array);
+int				wait_for_child(pid_t pid, int *status);
+int				handle_command_not_found(char *cmd_name);
+int				handle_fork_error(void);
+void			print_file_error(char *filename, char *error_msg);
+void			free_string_array(char **array);
 
 /* executor_heredoc.c */
-int		setup_heredoc_redirection(t_redir *redir);
-void	heredoc_child_process(char *delimiter, int pipe_fd[2]);
-int		setup_heredoc_input(int read_fd);
-void	cleanup_redirections(t_cmd *cmd);
-char	**convert_env_to_array(t_env *env_list);
+int				setup_heredoc_redirection(t_redir *redir);
+void			heredoc_child_process(char *delimiter, int pipe_fd[2]);
+int				setup_heredoc_input(int read_fd);
+void			cleanup_redirections(t_cmd *cmd);
+char			**convert_env_to_array(t_env *env_list);
 
 /* executor_pipeline_utils.c */
-void	setup_pipeline_redirections(int **pipes, int cmd_index, int pipe_count);
-void	close_all_pipes(int **pipes, int pipe_count);
-int		wait_for_pipeline(pid_t *pids, int cmd_count);
-int		get_exit_status(int status);
-void	cleanup_pipeline(int **pipes, pid_t *pids, int pipe_count);
+void			setup_pipeline_redirections(int **pipes, int cmd_index,\
+	int pipe_count);
+void			close_all_pipes(int **pipes, int pipe_count);
+int				wait_for_pipeline(pid_t *pids, int cmd_count);
+int				get_exit_status(int status);
+void			cleanup_pipeline(int **pipes, pid_t *pids, int pipe_count);
 
 /* executor_cleanup.c */
-int		**cleanup_partial_pipes(int **pipes, int count);
-int		cleanup_pipes_error(int **pipes, int pipe_count);
-void	free_partial_array(char **array, int count);
-t_shell	*init_shell(char **envp);
-void	cleanup_shell(t_shell *shell);
+int				**cleanup_partial_pipes(int **pipes, int count);
+int				cleanup_pipes_error(int **pipes, int pipe_count);
+void			free_partial_array(char **array, int count);
+void			cleanup_shell(t_shell *shell);
+
+/* Shell */
+void			init_shell_values(t_shell *shell);
+int				validate_shell_env(t_shell *shell);
+t_shell			*init_shell(char **envp);
+void			cleanup_shell(t_shell *shell);
 
 /* Errores */
-int   			error_msg(char *msg);
+int				error_msg(char *msg);
 // int     ft_error(int error, t_tools *tools);
 // void    reset_tools(t_tools *tools);
 
+/* Utils */
+int				ft_isnbr(char *str);
 #endif

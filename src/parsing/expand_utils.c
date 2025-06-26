@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <alfsanch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/12/15 10:00:00 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/06/26 11:36:57 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* Obtener valor de variable de entorno */
-char	*get_env_value(char *var_name, t_shell *shell)
-{
-	int		i;
-	char	*key;
-	int		key_len;
+// char	*get_env_value(char *var_name, t_shell *shell)
+// {
+// 	int		i;
+// 	char	*key;
+// 	int		key_len;
 
-	if (!var_name || !shell || !shell->env)
-		return (NULL);
-	i = 0;
-	key_len = ft_strlen(var_name);
-	while (shell->env[i])
-	{
-		if (ft_strncmp(shell->env[i], var_name, key_len) == 0
-			&& shell->env[i][key_len] == '=')
-		{
-			key = ft_strdup(shell->env[i] + key_len + 1);
-			return (key);
-		}
-		i++;
-	}
-	return (NULL);
-}
+// 	if (!var_name || !shell || !shell->env)
+// 		return (NULL);
+// 	i = 0;
+// 	key_len = ft_strlen(var_name);
+// 	while (shell->env[i])
+// 	{
+// 		if (ft_strncmp(shell->env[i], var_name, key_len) == 0
+// 			&& shell->env[i][key_len] == '=')
+// 		{
+// 			key = ft_strdup(shell->env[i] + key_len + 1);
+// 			return (key);
+// 		}
+// 		i++;
+// 	}
+// 	return (NULL);
+// }
 
 /* Expandir un carácter al resultado */
 char	*expand_char(char *result, char c)
