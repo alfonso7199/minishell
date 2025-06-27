@@ -35,7 +35,7 @@ char	*expand_env_var(char *str, t_shell *shell)
 	var_name = ft_substr(str, 1, i - 1);
 	if (!var_name)
 		return (ft_strdup(""));
-	value = get_env_value(var_name, shell);
+	value = get_env_value(shell->env, var_name);
 	free(var_name);
 	if (value)
 		return (value);

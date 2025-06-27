@@ -153,6 +153,18 @@ void			free_redirections(t_redir *redir);
 void			free_args(char **args);
 void			free_cmd_list(t_cmd *cmd_list);
 
+/* Funciones de Expansion de variables */
+char			*expand_variables(char *str, t_shell *shell);
+void			expand_tokens(t_token *tokens, t_shell *shell);
+char			*expand_env_var(char *str, t_shell *shell);
+char			*expand_exit_status(t_shell *shell);
+char			*expand_variable_part(char *str, int *i, t_shell *shell);
+char			*process_variable(char *str, int *i, t_shell *shell);
+char			*process_character(char *result, char c);
+char			*expand_char(char *result, char c);
+char			*handle_variable_expansion(char *str, int *i, char *result,
+					t_shell *shell);
+
 /* **************** */
 /* Builtin Commands */
 /* **************** */

@@ -51,11 +51,11 @@ int	execute_builtin_cmd_extended(t_cmd *cmd, t_shell *shell)
 	if (ft_strncmp(cmd->args[0], "pwd", ft_strlen("pwd")) == 0)
 		return (mini_pwd(STDOUT_FILENO));
 	if (ft_strncmp(cmd->args[0], "export", ft_strlen("export")) == 0)
-		return (mini_export(cmd->args[0], &shell->env));
+		return (mini_export(cmd->args, &shell->env));
 	if (ft_strncmp(cmd->args[0], "unset", ft_strlen("unset")) == 0)
-		return (mini_unset(cmd->args[0], &shell->env));
+		return (mini_unset(cmd->args, &shell->env));
 	if (ft_strncmp(cmd->args[0], "env", ft_strlen("env")) == 0)
-		return (mini_env(cmd->args[0], &shell->env));
+		return (mini_env_print(shell->env));
 	if (ft_strncmp(cmd->args[0], "exit", ft_strlen("exit")) == 0)
 		return (handle_exit_builtin(cmd, shell));
 	return (1);

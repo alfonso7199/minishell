@@ -41,6 +41,8 @@ SRC_FILES	= \
 	$(SRC_DIR)/parsing/parser_utils.c \
 	$(SRC_DIR)/parsing/parser_utils2.c \
 	$(SRC_DIR)/parsing/parser_memory.c \
+	$(SRC_DIR)/parsing/expand_vars.c \
+	$(SRC_DIR)/parsing/expand_utils.c \
 	$(SRC_DIR)/builtin/echo.c \
 	$(SRC_DIR)/builtin/pwd.c \
 	$(SRC_DIR)/builtin/env.c \
@@ -55,6 +57,7 @@ SRC_FILES	= \
 	$(SRC_DIR)/tokenizing/tokenizer_extract.c \
 	$(SRC_DIR)/executor/executor.c \
 	$(SRC_DIR)/executor/executor_cleanup.c \
+	$(SRC_DIR)/executor/executor_builtin.c \
 	$(SRC_DIR)/executor/executor_external.c \
 	$(SRC_DIR)/executor/executor_heredoc.c \
 	$(SRC_DIR)/executor/executor_pipeline.c \
