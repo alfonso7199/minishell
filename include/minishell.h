@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/26 19:41:15 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/27 09:41:37 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ int				mini_exit_builtin(char **args, t_shell *shell);
 /* pwd */
 int				mini_pwd(int fd);
 /* export */
+void			print_sorted_env(t_env *envp);
 int				mini_export(char **args, t_env **envp);
 /* unset */
 int				mini_unset(char **args, t_env **envp);
@@ -177,6 +178,7 @@ t_env			*find_env_node(t_env *envp, char *key);
 void			set_env_value(t_env **envp, char *key, char *value);
 int				count_env_vars(t_env *envp);
 char			*create_env_string(char *key, char *value);
+void			sort_env_list(t_env *env);
 /* env2 */
 int				env_key_match(char *env_key, char *search_key);
 t_env			*create_env_node(char *key, char *value);

@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/26 16:40:55 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/27 09:14:07 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char *argv[], char *envp[])
 			free(input);
 			continue ;
 		}
-		print_commands(cmds);
+		// print_commands(cmds);
 		execute_commands(cmds, shell);
 		free_cmd_list(cmds);
 		free(input);
