@@ -13,7 +13,7 @@
 #include "../../include/minishell.h"
 
 /* Manejar palabra con comillas */
-void	handle_quoted_word(char *input, int *i, int *start,
+bool	handle_quoted_word(char *input, int *i, int *start,
 			t_quote_state *quote_type)
 {
 	char	quote_char;
@@ -28,7 +28,11 @@ void	handle_quoted_word(char *input, int *i, int *start,
 	while (input[*i] && input[*i] != quote_char)
 		(*i)++;
 	if (input[*i] == quote_char)
+	{
 		(*i)++;
+		return (true);
+	}
+	return (false);
 }
 
 /* Manejar palabra sin comillas */

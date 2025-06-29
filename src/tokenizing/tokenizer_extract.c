@@ -12,34 +12,47 @@
 
 #include "minishell.h"
 
-/* Extraer palabra considerando comillas */
-char	*extract_word(char *input, int *i, t_quote_state *quote_type,
+static char	*extract_quoted_word(char *input, int *i, t_quote_state *quote_type,
 			bool *quoted)
 {
 	int		start;
 	int		end;
+	bool	quotes_closed;
 
 	start = *i;
+	*quoted = true;
+	quotes_closed = handle_quoted_word(input, i, &start, quote_type);
+	if (!quotes_closed)
+		return (NULL);
+	end = *i;
+	if (end > start && input[end - 1] == '\''
+		&& *quote_type == SINGLE_QUOTE)
+		end--;
+	else if (end > start && input[end - 1] == '"'
+		&& *quote_type == DOUBLE_QUOTE)
+		end--;
+	return (ft_substr(input, start, end - start));
+}
+
+static char	*extract_unquoted_word(char *input, int *i)
+{
+	int	start;
+
+	start = *i;
+	handle_unquoted_word(input, i);
+	return (ft_substr(input, start, *i - start));
+}
+
+/* Extraer palabra considerando comillas */
+char	*extract_word(char *input, int *i, t_quote_state *quote_type,
+			bool *quoted)
+{
 	*quoted = false;
 	*quote_type = NO_QUOTE;
 	if (is_quote(input[*i]))
-	{
-		*quoted = true;
-		handle_quoted_word(input, i, &start, quote_type);
-		end = *i;
-		if (end > start && input[end - 1] == '\''
-			&& *quote_type == SINGLE_QUOTE)
-			end--;
-		else if (end > start && input[end - 1] == '"'
-			&& *quote_type == DOUBLE_QUOTE)
-			end--;
-		return (ft_substr(input, start, end - start));
-	}
+		return (extract_quoted_word(input, i, quote_type, quoted));
 	else
-	{
-		handle_unquoted_word(input, i);
-		return (ft_substr(input, start, *i - start));
-	}
+		return (extract_unquoted_word(input, i));
 }
 
 /* Extraer operador (|, <, >, <<, >>) */
@@ -78,26 +91,4 @@ char	*extract_env_var(char *input, int *i)
 	while (input[*i] && (ft_isalnum(input[*i]) || input[*i] == '_'))
 		(*i)++;
 	return (ft_substr(input, start, *i - start));
-}
-
-/* Procesar operador */
-t_token	*process_operator(char *input, int *i)
-{
-	char			*value;
-	t_token_type	type;
-
-	value = extract_operator(input, i);
-	type = get_token_type(value);
-	return (create_token(type, value, false, NO_QUOTE));
-}
-
-/* Procesar palabra */
-t_token	*process_word(char *input, int *i)
-{
-	char			*value;
-	bool			quoted;
-	t_quote_state	quote_type;
-
-	value = extract_word(input, i, &quote_type, &quoted);
-	return (create_token(TOKEN_WORD, value, quoted, quote_type));
 }

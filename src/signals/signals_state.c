@@ -28,3 +28,16 @@ void	clear_signal_received(void)
 {
 	g_signal_received = 0;
 }
+
+void	set_secondary_prompt(sig_atomic_t state)
+{
+	if (state)
+		g_signal_received = 100;
+	else
+		g_signal_received = 0;
+}
+
+sig_atomic_t	get_secondary_prompt(void)
+{
+	return (g_signal_received == 100);
+}

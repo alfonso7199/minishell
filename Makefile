@@ -30,6 +30,7 @@ SRC_FILES	= \
 	$(SRC_DIR)/shell.c \
 	$(SRC_DIR)/tokenizing/tokenizer.c \
 	$(SRC_DIR)/tokenizing/tokenizer_utils.c \
+	$(SRC_DIR)/tokenizing/tokenizer_process.c \
 	$(SRC_DIR)/tokenizing/tokenizer_helpers.c \
 	$(SRC_DIR)/signals/signals_setup.c \
 	$(SRC_DIR)/signals/signals_execution.c \
@@ -64,9 +65,9 @@ SRC_FILES	= \
 	$(SRC_DIR)/executor/executor_pipeline_utils.c \
 	$(SRC_DIR)/executor/executor_redirections.c \
 	$(SRC_DIR)/executor/executor_utils.c \
-	$(SRC_DIR)/utils/ft_isnbr.c  
-#	$(SRC_DIR)/error/error.c \
-	$(SRC_DIR)/execution/executor.c \
+	$(SRC_DIR)/utils/ft_isnbr.c \
+	$(SRC_DIR)/utils/debug.c \
+	$(SRC_DIR)/utils/input_handler.c
 
 OBJS        = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

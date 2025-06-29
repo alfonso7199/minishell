@@ -12,79 +12,62 @@
 
 #include "minishell.h"
 
-void	print_tokens(t_token *tokens)
+static int	init_minishell(t_shell **shell, char **envp)
 {
-	while (tokens)
-	{
-		printf("Type: %d, Value: %s\n", tokens->type, tokens->value);
-		tokens = tokens->next;
-	}
+	*shell = init_shell(envp);
+	if (!*shell)
+		return (0);
+	setup_signals(INTERACTIVE_MODE);
+	return (1);
 }
 
-void	print_commands(t_cmd *cmds)
+static int	handle_loop_iteration(t_shell *shell)
 {
-	int		i;
-	t_redir *r;
+	char	*full_input;
+	t_token	*tokens;
+	int		result;
 
-	i = 0;
-	while (cmds)
+	full_input = ft_strdup("");
+	result = handle_input_loop(&full_input, &tokens);
+	if (result == -1)
 	{
-		printf("Command %d:\n", ++i);
-		printf("  Args: ");
-		for (int j = 0; cmds->args[j]; j++)
-			printf("%s ", cmds->args[j]);
-		printf("\n");
-		printf("  Redirections:\n");
-		r = cmds->redirections;
-		while (r)
-		{
-			printf("    Type: %d, File: %s\n", r->type, r->file);
-			r = r->next;
-		}
-		cmds = cmds->next;
+		clear_signal_received();
+		return (1);
 	}
+	if (result == 0)
+	{
+		free(full_input);
+		return (0);
+	}
+	if (get_signal_received() == SIGINT)
+	{
+		clear_signal_received();
+		return (1);
+	}
+	if (!process_command(tokens, shell, full_input))
+		return (1);
+	return (1);
+}
+
+static int	main_loop(t_shell *shell)
+{
+	while (1)
+	{
+		if (!handle_loop_iteration(shell))
+			break ;
+	}
+	return (0);
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	*input;
 	t_shell	*shell;
-	t_token	*tokens;
-	t_cmd	*cmds;
 
 	if (argc != 1 || argv[1])
 		printf("This program does not accept arguments\n");
-	shell = init_shell(envp);
-	if (!shell)
+	if (!init_minishell(&shell, envp))
 		return (1);
-	setup_signals(INTERACTIVE_MODE);
-	while (1)
-	{
-		input = readline("minishell> ");
-		if (!input)
-			break ;
-		if (*input)
-			add_history(input);
-		tokens = tokenizer(input);
-		if (!tokens)
-		{
-			printf("Error en tokenizer\n");
-			free(input);
-			continue ;
-		}
-		cmds = parser(tokens);
-		free_tokens(tokens);
-		if (!cmds)
-		{
-			printf("Error en parser\n");
-			free(input);
-			continue ;
-		}
-		// print_commands(cmds);
-		execute_commands(cmds, shell);
-		free_cmd_list(cmds);
-		free(input);
-	}
+	main_loop(shell);
 	cleanup_shell(shell);
 	return (0);
 }

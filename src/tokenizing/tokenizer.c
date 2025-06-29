@@ -64,8 +64,12 @@ t_token	*tokenizer(char *input)
 		if (!input[i])
 			break ;
 		new_token = get_next_token(input, &i);
-		if (new_token)
-			add_token_to_list(&tokens, new_token);
+		if (!new_token)
+		{
+			free_tokens(tokens);
+			return (NULL);
+		}
+		add_token_to_list(&tokens, new_token);
 	}
 	new_token = create_token(TOKEN_EOF, "", false, NO_QUOTE);
 	if (new_token)

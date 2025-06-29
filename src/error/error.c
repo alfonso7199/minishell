@@ -42,8 +42,6 @@ int	ft_error(int error, t_tools *tools)
 		error_msg("Path does not exist");
 	else if (error == 9)
 		error_msg("exit: too many arguments");
-	else if (error == 10)
-		error_msg("cd: no such file or directory");
 	else
 		error_msg("Unknown error");
 	if (tools)

@@ -56,29 +56,3 @@ void	skip_whitespace(char *input, int *i)
 	while (input[*i] && (input[*i] == ' ' || input[*i] == '\t'))
 		(*i)++;
 }
-
-/* Obtener siguiente token */
-t_token	*get_next_token(char *input, int *i)
-{
-	t_token	*new_token;
-
-	new_token = NULL;
-	if (input[*i] == '$')
-		new_token = process_env_var(input, i);
-	else if (input[*i] == '|' || input[*i] == '<' || input[*i] == '>')
-		new_token = process_operator(input, i);
-	else
-		new_token = process_word(input, i);
-	return (new_token);
-}
-
-/* Procesar variable de entorno */
-t_token	*process_env_var(char *input, int *i)
-{
-	char			*value;
-	t_token_type	type;
-
-	value = extract_env_var(input, i);
-	type = get_token_type(value);
-	return (create_token(type, value, false, NO_QUOTE));
-}

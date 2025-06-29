@@ -32,6 +32,7 @@
 # include <termios.h>
 # include <unistd.h>
 
+# define SIGINT 2
 # define GREEN    "\033[32m"
 # define RESET    "\033[0m"
 # define RED      "\033[31m"
@@ -126,8 +127,8 @@ t_token			*process_operator(char *input, int *i);
 t_token			*process_word(char *input, int *i);
 
 /* Functiones helpers tokenizer */
-void			handle_quoted_word(char *input, int *i, int *start,\
-	t_quote_state *quote_type);
+bool			handle_quoted_word(char *input, int *i, int *start,
+					t_quote_state *quote_type);
 void			handle_unquoted_word(char *input, int *i);
 
 /* Funciones del parser */
@@ -210,6 +211,8 @@ int				mini_env_print(t_env *envp);
 /* signals */
 void			setup_signals(t_signal_mode mode);
 void			setup_execution_signals(void);
+void			setup_interactive_signals(void);
+void			setup_secondary_prompt_signals(void);
 void			set_signal_received(sig_atomic_t sig);
 sig_atomic_t	get_signal_received(void);
 void			clear_signal_received(void);
@@ -244,17 +247,17 @@ int				execute_external_cmd(t_cmd *cmd, t_shell *shell);
 char			*find_command_path(char *cmd_name, t_env *env);
 char			*check_absolute_path(char *path);
 char			*search_in_paths(char *cmd_name, char **paths);
-void			execute_child_process(t_cmd *cmd, char *cmd_path,\
-	t_shell *shell);
+void			execute_child_process(t_cmd *cmd, char *cmd_path,
+					t_shell *shell);
 
 /* executor_pipeline.c */
 int				execute_pipeline(t_cmd *cmd_list, t_shell *shell);
 int				count_commands(t_cmd *cmd_list);
 int				**create_pipes(int pipe_count);
-int				execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell,\
-	int **pipes, pid_t *pids);
-void			execute_pipeline_child(t_cmd *cmd, t_shell *shell,\
-	int **pipes, int cmd_index);
+int				execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell,
+					int **pipes, pid_t *pids);
+void			execute_pipeline_child(t_cmd *cmd, t_shell *shell,
+					int **pipes, int cmd_index);
 
 /* executor_redirections.c */
 int				setup_redirections(t_cmd *cmd);
@@ -278,8 +281,8 @@ void			cleanup_redirections(t_cmd *cmd);
 char			**convert_env_to_array(t_env *env_list);
 
 /* executor_pipeline_utils.c */
-void			setup_pipeline_redirections(int **pipes, int cmd_index,\
-	int pipe_count);
+void			setup_pipeline_redirections(int **pipes, int cmd_index,
+					int pipe_count);
 void			close_all_pipes(int **pipes, int pipe_count);
 int				wait_for_pipeline(pid_t *pids, int cmd_count);
 int				get_exit_status(int status);
@@ -304,4 +307,16 @@ int				error_msg(char *msg);
 
 /* Utils */
 int				ft_isnbr(char *str);
+void			set_secondary_prompt(sig_atomic_t state);
+sig_atomic_t	get_secondary_prompt(void);
+
+/* Debug */
+void			print_commands(t_cmd *cmds);
+
+/* Input Handler */
+char			*get_input_line(char *full_input);
+int				handle_input_loop(char **full_input, t_token **tokens);
+int				process_command(t_token *tokens, t_shell *shell,
+					char *full_input);
+
 #endif
