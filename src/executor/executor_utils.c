@@ -29,7 +29,6 @@ int	wait_for_child(pid_t pid, int *status)
 
 int	handle_command_not_found(char *cmd_name)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd_name, STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	return (127);
