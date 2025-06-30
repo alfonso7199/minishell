@@ -130,6 +130,7 @@ t_token			*process_word(char *input, int *i);
 bool			handle_quoted_word(char *input, int *i, int *start,
 					t_quote_state *quote_type);
 void			handle_unquoted_word(char *input, int *i);
+char			*process_escapes_in_quotes(char *str, t_quote_state quote_type);
 
 /* Funciones del parser */
 t_cmd			*parser(t_token *tokens);
@@ -186,6 +187,7 @@ int				mini_unset(char **args, t_env **envp);
 int				mini_cd(t_cmd *cmd, t_env **envp);
 int				handle_getcwd_error(void);
 int				handle_chdir_error(char *target_path, char *old_pwd);
+int				cd_error(int exitCode, char *msg);
 /* env */
 t_env			*find_env_node(t_env *envp, char *key);
 void			set_env_value(t_env **envp, char *key, char *value);

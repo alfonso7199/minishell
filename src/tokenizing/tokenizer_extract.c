@@ -18,6 +18,8 @@ static char	*extract_quoted_word(char *input, int *i, t_quote_state *quote_type,
 	int		start;
 	int		end;
 	bool	quotes_closed;
+	char	*raw_str;
+	char	*processed_str;
 
 	start = *i;
 	*quoted = true;
@@ -25,13 +27,17 @@ static char	*extract_quoted_word(char *input, int *i, t_quote_state *quote_type,
 	if (!quotes_closed)
 		return (NULL);
 	end = *i;
-	if (end > start && input[end - 1] == '\''
-		&& *quote_type == SINGLE_QUOTE)
+	if (end > start && input[end - 1] == '\'' && *quote_type == SINGLE_QUOTE)
 		end--;
 	else if (end > start && input[end - 1] == '"'
 		&& *quote_type == DOUBLE_QUOTE)
 		end--;
-	return (ft_substr(input, start, end - start));
+	raw_str = ft_substr(input, start, end - start);
+	if (!raw_str)
+		return (NULL);
+	processed_str = process_escapes_in_quotes(raw_str, *quote_type);
+	free(raw_str);
+	return (processed_str);
 }
 
 static char	*extract_unquoted_word(char *input, int *i)

@@ -19,21 +19,6 @@ static void	print_with_escapes(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\\' && str[i + 1])
-		{
-			if (str[i + 1] == 'n')
-			{
-				ft_putchar_fd('\n', STDOUT_FILENO);
-				i += 2;
-				continue ;
-			}
-			else if (str[i + 1] == 't')
-			{
-				ft_putchar_fd('\t', STDOUT_FILENO);
-				i += 2;
-				continue ;
-			}
-		}
 		ft_putchar_fd(str[i], STDOUT_FILENO);
 		i++;
 	}
