@@ -37,6 +37,7 @@ int	count_args(t_token *tokens)
 	count = 0;
 	current = tokens;
 	while (current && current->type != TOKEN_PIPE
+		&& current->type != TOKEN_SEMICOLON
 		&& current->type != TOKEN_EOF)
 	{
 		if (current->type == TOKEN_WORD)

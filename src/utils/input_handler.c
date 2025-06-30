@@ -16,15 +16,14 @@ char	*get_input_line(char *full_input)
 {
 	char	*input;
 
+	restore_terminal();
 	if (full_input[0] == '\0')
 	{
-		set_secondary_prompt(0);
 		setup_interactive_signals();
 		input = readline("minishell> ");
 	}
 	else
 	{
-		set_secondary_prompt(1);
 		setup_secondary_prompt_signals();
 		input = readline("> ");
 	}
@@ -34,23 +33,15 @@ char	*get_input_line(char *full_input)
 static int	process_input_line(char **full_input, t_token **tokens)
 {
 	char	*input;
-	char	*temp;
+	int		signal_result;
 
 	input = get_input_line(*full_input);
 	if (!input)
 		return (0);
-	if (get_signal_received() == SIGINT)
-	{
-		clear_signal_received();
-		free(input);
-		return (-1);
-	}
-	if (*input)
-		add_history(input);
-	temp = *full_input;
-	*full_input = ft_strjoin(*full_input, input);
-	free(temp);
-	free(input);
+	signal_result = handle_input_signal(full_input, input);
+	if (signal_result != 0)
+		return (signal_result);
+	concatenate_input(full_input, input);
 	*tokens = tokenizer(*full_input);
 	if (*tokens)
 		return (1);
@@ -81,6 +72,7 @@ int	process_command(t_token *tokens, t_shell *shell, char *full_input)
 		free(full_input);
 		return (1);
 	}
+	expand_tokens(tokens, shell);
 	cmds = parser(tokens);
 	free_tokens(tokens);
 	if (!cmds)

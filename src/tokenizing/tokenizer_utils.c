@@ -35,6 +35,8 @@ t_token_type	get_token_type(char *str)
 		return (TOKEN_EOF);
 	if (str[0] == '|')
 		return (TOKEN_PIPE);
+	if (str[0] == ';')
+		return (TOKEN_SEMICOLON);
 	if (str[0] == '<' && str[1] == '<')
 		return (TOKEN_HEREDOC);
 	if (str[0] == '<')

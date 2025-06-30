@@ -69,6 +69,25 @@ char	*expand_variables(char *str, t_shell *shell)
 	return (result);
 }
 
+/* Verificar si una cadena es un número */
+static bool	is_number(const char *str)
+{
+	int	i;
+
+	if (!str || !*str)
+		return (false);
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 /* Expandir variables en lista de tokens */
 void	expand_tokens(t_token *tokens, t_shell *shell)
 {
@@ -83,36 +102,17 @@ void	expand_tokens(t_token *tokens, t_shell *shell)
 		{
 			if (current->quote_type != SINGLE_QUOTE)
 			{
-				expanded = expand_variables(current->value, shell);
-				if (expanded)
+				if (!is_number(current->value))
 				{
-					free(current->value);
-					current->value = expanded;
+					expanded = expand_variables(current->value, shell);
+					if (expanded)
+					{
+						free(current->value);
+						current->value = expanded;
+					}
 				}
 			}
 		}
 		current = current->next;
 	}
-}
-
-/* Expandir parte de variable en string */
-char	*expand_variable_part(char *str, int *i, t_shell *shell)
-{
-	char	*temp;
-	char	*var_value;
-	int		start;
-
-	start = *i;
-	(*i)++;
-	if (str[*i] == '?')
-		(*i)++;
-	else
-	{
-		while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
-			(*i)++;
-	}
-	temp = ft_substr(str, start, *i - start);
-	var_value = expand_env_var(temp, shell);
-	free(temp);
-	return (var_value);
 }

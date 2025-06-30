@@ -49,6 +49,7 @@ typedef enum e_token_type
 {
 	TOKEN_WORD,
 	TOKEN_PIPE,
+	TOKEN_SEMICOLON,
 	TOKEN_REDIR_IN,
 	TOKEN_REDIR_OUT,
 	TOKEN_APPEND,
@@ -321,5 +322,11 @@ char			*get_input_line(char *full_input);
 int				handle_input_loop(char **full_input, t_token **tokens);
 int				process_command(t_token *tokens, t_shell *shell,
 					char *full_input);
+
+/* Input Handler Utils */
+void			restore_terminal(void);
+int				handle_input_signal(char **full_input, char *input);
+int				concatenate_input(char **full_input, char *input);
+void			restore_terminal_after_command(void);
 
 #endif

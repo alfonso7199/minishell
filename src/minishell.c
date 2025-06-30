@@ -12,6 +12,28 @@
 
 #include "minishell.h"
 
+static int	handle_signals_and_cleanup(int result, char *full_input)
+{
+	if (result == -1)
+	{
+		clear_signal_received();
+		restore_terminal_after_command();
+		return (1);
+	}
+	if (result == 0)
+	{
+		free(full_input);
+		return (0);
+	}
+	if (get_signal_received() == SIGINT)
+	{
+		clear_signal_received();
+		restore_terminal_after_command();
+		return (1);
+	}
+	return (-42);
+}
+
 static int	init_minishell(t_shell **shell, char **envp)
 {
 	*shell = init_shell(envp);
@@ -26,26 +48,19 @@ static int	handle_loop_iteration(t_shell *shell)
 	char	*full_input;
 	t_token	*tokens;
 	int		result;
+	int		signal_status;
 
 	full_input = ft_strdup("");
 	result = handle_input_loop(&full_input, &tokens);
-	if (result == -1)
-	{
-		clear_signal_received();
-		return (1);
-	}
-	if (result == 0)
-	{
-		free(full_input);
-		return (0);
-	}
-	if (get_signal_received() == SIGINT)
-	{
-		clear_signal_received();
-		return (1);
-	}
+	signal_status = handle_signals_and_cleanup(result, full_input);
+	if (signal_status != -42)
+		return (signal_status);
 	if (!process_command(tokens, shell, full_input))
+	{
+		restore_terminal_after_command();
 		return (1);
+	}
+	restore_terminal_after_command();
 	return (1);
 }
 

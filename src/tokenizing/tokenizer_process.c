@@ -20,7 +20,8 @@ t_token	*get_next_token(char *input, int *i)
 	new_token = NULL;
 	if (input[*i] == '$')
 		new_token = process_env_var(input, i);
-	else if (input[*i] == '|' || input[*i] == '<' || input[*i] == '>')
+	else if (input[*i] == '|' || input[*i] == '<' || input[*i] == '>'
+		|| input[*i] == ';')
 		new_token = process_operator(input, i);
 	else
 		new_token = process_word(input, i);

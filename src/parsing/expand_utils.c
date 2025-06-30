@@ -84,3 +84,25 @@ char	*handle_variable_expansion(char *str, int *i, char *result,
 	free(var_value);
 	return (result);
 }
+
+/* Expandir parte de variable en string */
+char	*expand_variable_part(char *str, int *i, t_shell *shell)
+{
+	char	*temp;
+	char	*var_value;
+	int		start;
+
+	start = *i;
+	(*i)++;
+	if (str[*i] == '?')
+		(*i)++;
+	else
+	{
+		while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+			(*i)++;
+	}
+	temp = ft_substr(str, start, *i - start);
+	var_value = expand_env_var(temp, shell);
+	free(temp);
+	return (var_value);
+}

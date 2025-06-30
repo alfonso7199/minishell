@@ -37,8 +37,8 @@ t_token	*create_token(t_token_type type, char *value, bool quoted,
 /* Verificar si es caracter especial */
 bool	is_special_char(char c)
 {
-	return (c == '|' || c == '<' || c == '>' || c == ' ' || c == '\t'
-		|| c == '\n' || c == '\0');
+	return (c == '|' || c == '<' || c == '>' || c == ';' || c == ' '
+		|| c == '\t' || c == '\n' || c == '\0' || c == '$' || c == '`');
 }
 
 /* Verificar si es comilla */

@@ -54,7 +54,6 @@ void	handle_interactive_sigint(int sig)
 	{
 		set_secondary_prompt(0);
 		ft_putstr_fd("\n", STDOUT_FILENO);
-		rl_clear_history();
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();

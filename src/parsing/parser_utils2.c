@@ -19,9 +19,11 @@ t_token	*fill_args(t_token *tokens, t_cmd *cmd)
 
 	i = 0;
 	while (tokens && tokens->type != TOKEN_PIPE
+		&& tokens->type != TOKEN_SEMICOLON
 		&& tokens->type != TOKEN_EOF)
 	{
-		if (tokens->type == TOKEN_WORD)
+		if (tokens->type == TOKEN_WORD || tokens->type == TOKEN_ENV_VAR
+			|| tokens->type == TOKEN_EXIT_STATUS)
 		{
 			cmd->args[i] = ft_strdup(tokens->value);
 			i++;

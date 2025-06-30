@@ -66,7 +66,8 @@ bool	validate_syntax(t_token *tokens)
 		}
 		else if (is_redirection_token(current->type))
 			expect_word = true;
-		else if (current->type == TOKEN_PIPE)
+		else if (current->type == TOKEN_PIPE
+			|| current->type == TOKEN_SEMICOLON)
 		{
 			if (!current->next || current->next->type == TOKEN_EOF)
 				return (false);
@@ -91,7 +92,8 @@ t_cmd	*parser(t_token *tokens)
 		current_token = process_command_token(&cmd_list, current_token);
 		if (!current_token)
 			return (NULL);
-		if (current_token && current_token->type == TOKEN_PIPE)
+		if (current_token && (current_token->type == TOKEN_PIPE
+				|| current_token->type == TOKEN_SEMICOLON))
 			current_token = current_token->next;
 	}
 	return (cmd_list);
