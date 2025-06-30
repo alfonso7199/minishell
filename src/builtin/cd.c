@@ -6,77 +6,11 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:38 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/30 09:47:35 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 10:19:06 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// static void	update_pwd_vars(t_env **envp, char *old_pwd)
-// {
-// 	char	*current_pwd;
-
-// 	current_pwd = getcwd(NULL, 0);
-// 	if (!current_pwd)
-// 		return ;
-// 	if (old_pwd)
-// 		set_env_value(envp, "OLDPWD", old_pwd);
-// 	set_env_value(envp, "PWD", current_pwd);
-// 	free(current_pwd);
-// }
-
-// static char	*get_home_path(t_env *envp)
-// {
-// 	char	*home_path;
-
-// 	home_path = get_env_value(envp, "HOME");
-// 	if (!home_path)
-// 	{
-// 		ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
-// 		return (NULL);
-// 	}
-// 	return (ft_strdup(home_path));
-// }
-
-// static char	*get_oldpwd_path(t_env *envp)
-// {
-// 	char	*oldpwd_path;
-
-// 	oldpwd_path = get_env_value(envp, "OLDPWD");
-// 	if (!oldpwd_path)
-// 	{
-// 		ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR_FILENO);
-// 		return (NULL);
-// 	}
-// 	ft_putstr_fd(oldpwd_path, STDOUT_FILENO);
-// 	ft_putstr_fd("\n", STDOUT_FILENO);
-// 	return (ft_strdup(oldpwd_path));
-// }
-
-// static char	*get_target_path(char **args, t_env *envp)
-// {
-// 	if (!args[1])
-// 		return (get_home_path(envp));
-// 	if (ft_strncmp(args[1], "-", 2) == 0)
-// 		return (get_oldpwd_path(envp));
-// 	return (ft_strdup(args[1]));
-// }
-
-int	cd_error(int exitCode, char *msg)
-{
-	(void)exitCode;
-
-	if (msg == NULL)
-		ft_putstr_fd("minishell: cd: none or too many arguments\n",
-			STDERR_FILENO);
-	else
-	{
-		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
-		ft_putstr_fd(msg, STDERR_FILENO);
-		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-	}
-	return (1);
-}
 
 int	update_env(t_env **envp, char *env_var, char *value)
 {
@@ -103,28 +37,85 @@ int	update_env(t_env **envp, char *env_var, char *value)
 	return (status);
 }
 
+int	get_cd_target(t_cmd *cmd, t_env **envp, char **target)
+{
+	if (!cmd->args[1])
+	{
+		*target = get_env_value(*envp, "HOME");
+		if (!*target)
+			return (error_msg("HOME no set"));
+	}
+	else if (ft_strncmp(cmd->args[1], "-", 2) == 0)
+	{
+		*target = get_env_value(*envp, "OLDPWD");
+		if (!*target)
+			return (error_msg("OLDPWD not set"));
+	}
+	else if (cmd->args[1][0] == '$')
+	{
+		*target = get_env_value(*envp, cmd->args[1] + 1);
+		if (!*target)
+			return (cd_error(1, cmd->args[1]));
+	}
+	else
+		*target = cmd->args[1];
+	return (0);
+}
+
+void	update_cd_env(t_env **envp, char *oldpwd)
+{
+	char	*cwd;
+
+	if (oldpwd)
+		update_env(envp, "OLDPWD", oldpwd);
+	cwd = getcwd(NULL, 0);
+	if (cwd)
+	{
+		update_env(envp, "PWD", cwd);
+		free(cwd);
+	}
+}
+
+void	print_pwd_if_hifen(t_cmd *cmd)
+{
+	char	*cwd;
+
+	if (cmd->args[1] && ft_strncmp(cmd->args[1], "-", 2) == 0)
+	{
+		cwd = getcwd(NULL, 0);
+		if (cwd)
+		{
+			ft_putstr_fd(cwd, STDOUT_FILENO);
+			ft_putstr_fd("\n", STDOUT_FILENO);
+			free(cwd);
+		}
+	}
+}
+
 int	mini_cd(t_cmd *cmd, t_env **envp)
 {
 	char	*cwd;
+	char	*target;
 	int		length;
+	int		ret;
 
 	length = 0;
 	while (cmd->args && cmd->args[length])
 		length++;
 	if (length > 2)
 		return (cd_error(1, NULL));
+	target = NULL;
+	ret = get_cd_target(cmd, envp, &target);
+	if (ret != 0)
+		return (1);
 	cwd = getcwd(NULL, 0);
-	if (chdir(cmd->args[1]) < 0)
+	if (chdir(target) < 0)
 	{
 		free(cwd);
-		return (cd_error(1, cmd->args[1]));
+		return (cd_error(1, target));
 	}
-	if (find_env_node(*envp, "OLDPWD") != NULL && cwd != NULL)
-		update_env(envp, "OLDPWD", cwd);
+	update_cd_env(envp, cwd);
 	free(cwd);
-	cwd = getcwd(NULL, 0);
-	if (find_env_node(*envp, "PWD") != NULL && cwd != NULL)
-		update_env(envp, "PWD", cwd);
-	free(cwd);
+	print_pwd_if_hifen(cmd);
 	return (0);
 }
