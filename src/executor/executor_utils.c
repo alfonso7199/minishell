@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 18:19:53 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/23 18:34:47 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 14:18:47 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,6 @@ int	wait_for_child(pid_t pid, int *status)
 	else
 		exit_code = 1;
 	return (exit_code);
-}
-
-int	handle_command_not_found(char *cmd_name)
-{
-	ft_putstr_fd(cmd_name, STDERR_FILENO);
-	ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	return (127);
-}
-
-int	handle_fork_error(void)
-{
-	ft_putstr_fd("minishell: fork filed\n", STDERR_FILENO);
-	return (1);
-}
-
-void	print_file_error(char *filename, char *error_msg)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(filename, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(error_msg, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
 }
 
 void	free_string_array(char **array)

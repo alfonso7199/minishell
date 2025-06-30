@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:49:26 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/30 09:49:05 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 14:21:39 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,27 @@ int	error_msg(char *msg)
 	return (false);
 }
 
-/* 
-int	ft_error(int error, t_tools *tools)
+int	cleanup_pipes_error(int **pipes, int pipe_count)
 {
-	if (error == 0)
-		error_msg("syntax error near unexpected token 'newline'");
-	else if (error == 1)
-		error_msg("memory error: unable to assign memory");
-	else if (error == 2)
-		error_msg("syntax error: unable to locate closing quotation");
-	else if (error == 3)
-		error_msg("Parser problem");
-	else if (error == 4)
-		error_msg("Failed to create pipe");
-	else if (error == 5)
-		error_msg("Failed to fork");
-	else if (error == 6)
-		error_msg("outfile: Error");
-	else if (error == 7)
-		error_msg("infile: No such file or directory");
-	else if (error == 8)
-		error_msg("Path does not exist");
-	else if (error == 9)
-		error_msg("exit: too many arguments");
-	else
-		error_msg("Unknown error");
-	if (tools)
-		reset_tools(tools);
-	return (EXIT_FAILURE);
+	int	i;
+
+	i = 0;
+	while (i < pipe_count)
+	{
+		close(pipes[i][0]);
+		close(pipes[i][1]);
+		free(pipes[i]);
+		i++;
+	}
+	free(pipes);
+	return (1);
 }
- */
+
+void	print_file_error(char *filename, char *error_msg)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(filename, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(error_msg, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+}

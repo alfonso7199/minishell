@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/30 10:49:53 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 14:17:36 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,9 +186,6 @@ int				mini_unset(char **args, t_env **envp);
 /* cd */
 int				mini_cd(t_cmd *cmd, t_env **envp);
 int				cd_error(int exitCode, char *msg);
-int				handle_getcwd_error(void);
-int				handle_chdir_error(char *target_path, char *old_pwd);
-int				cd_error(int exitCode, char *msg);
 /* env */
 t_env			*find_env_node(t_env *envp, char *key);
 void			set_env_value(t_env **envp, char *key, char *value);
@@ -305,6 +302,8 @@ void			cleanup_shell(t_shell *shell);
 
 /* Errores */
 int				error_msg(char *msg);
+int				handle_getcwd_error(void);
+int				handle_chdir_error(char *target_path, char *old_pwd);
 // int     ft_error(int error, t_tools *tools);
 // void    reset_tools(t_tools *tools);
 

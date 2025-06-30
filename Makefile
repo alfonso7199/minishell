@@ -6,7 +6,7 @@
 #    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
-#    Updated: 2025/06/30 09:49:13 by rzt              ###   ########.fr        #
+#    Updated: 2025/06/30 14:22:22 by rzt              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRC_FILES	= \
 	$(SRC_DIR)/builtin/export.c \
 	$(SRC_DIR)/builtin/export2.c \
 	$(SRC_DIR)/builtin/cd.c \
-	$(SRC_DIR)/builtin/cd2.c \
+	$(SRC_DIR)/builtin/cd_error.c \
 	$(SRC_DIR)/tokenizing/tokenizer_extract.c \
 	$(SRC_DIR)/executor/executor.c \
 	$(SRC_DIR)/executor/executor_cleanup.c \
@@ -69,7 +69,8 @@ SRC_FILES	= \
 	$(SRC_DIR)/utils/ft_free_split.c \
 	$(SRC_DIR)/utils/ft_isnbr.c \
 	$(SRC_DIR)/utils/input_handler.c \
-	$(SRC_DIR)/error/error.c
+	$(SRC_DIR)/error/error.c \
+	$(SRC_DIR)/error/handler_error.c
 
 OBJS        = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
