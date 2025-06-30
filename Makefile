@@ -6,7 +6,7 @@
 #    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
-#    Updated: 2025/06/27 09:40:20 by rzt              ###   ########.fr        #
+#    Updated: 2025/06/30 09:49:13 by rzt              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,9 +65,11 @@ SRC_FILES	= \
 	$(SRC_DIR)/executor/executor_pipeline_utils.c \
 	$(SRC_DIR)/executor/executor_redirections.c \
 	$(SRC_DIR)/executor/executor_utils.c \
-	$(SRC_DIR)/utils/ft_isnbr.c \
 	$(SRC_DIR)/utils/debug.c \
-	$(SRC_DIR)/utils/input_handler.c
+	$(SRC_DIR)/utils/ft_free_split.c \
+	$(SRC_DIR)/utils/ft_isnbr.c \
+	$(SRC_DIR)/utils/input_handler.c \
+	$(SRC_DIR)/error/error.c
 
 OBJS        = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

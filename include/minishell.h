@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/27 09:41:37 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 09:41:03 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int				mini_export(char **args, t_env **envp);
 /* unset */
 int				mini_unset(char **args, t_env **envp);
 /* cd */
-int				mini_cd(char **args, t_env **envp);
+int				mini_cd(t_cmd *cmd, t_env **envp);
 int				handle_getcwd_error(void);
 int				handle_chdir_error(char *target_path, char *old_pwd);
 /* env */
@@ -307,6 +307,7 @@ int				error_msg(char *msg);
 
 /* Utils */
 int				ft_isnbr(char *str);
+void			free_split(char **array);
 void			set_secondary_prompt(sig_atomic_t state);
 sig_atomic_t	get_secondary_prompt(void);
 

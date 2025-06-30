@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 18:43:06 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/26 12:18:41 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 09:42:45 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	execute_builtin_cmd_extended(t_cmd *cmd, t_shell *shell)
 	if (ft_strncmp(cmd->args[0], "echo", ft_strlen("echo")) == 0)
 		return (mini_echo(cmd->args));
 	if (ft_strncmp(cmd->args[0], "cd", ft_strlen("cd")) == 0)
-		return (mini_cd(cmd->args, &shell->env));
+		return (mini_cd(cmd, &shell->env));
 	if (ft_strncmp(cmd->args[0], "pwd", ft_strlen("pwd")) == 0)
 		return (mini_pwd(STDOUT_FILENO));
 	if (ft_strncmp(cmd->args[0], "export", ft_strlen("export")) == 0)

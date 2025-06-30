@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:49:26 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/13 13:03:33 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 09:49:05 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	error_msg(char *msg)
 	return (false);
 }
 
+/* 
 int	ft_error(int error, t_tools *tools)
 {
 	if (error == 0)
@@ -48,3 +49,4 @@ int	ft_error(int error, t_tools *tools)
 		reset_tools(tools);
 	return (EXIT_FAILURE);
 }
+ */
