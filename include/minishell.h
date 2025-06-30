@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/30 09:41:03 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 10:49:53 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ int				mini_export(char **args, t_env **envp);
 int				mini_unset(char **args, t_env **envp);
 /* cd */
 int				mini_cd(t_cmd *cmd, t_env **envp);
+int				cd_error(int exitCode, char *msg);
 int				handle_getcwd_error(void);
 int				handle_chdir_error(char *target_path, char *old_pwd);
 /* env */

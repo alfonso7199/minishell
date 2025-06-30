@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:42:56 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/30 09:42:31 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 10:49:39 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	execute_single_cmd(t_cmd *cmd, t_shell *shell)
 	if (is_builtin_cmd(cmd, shell))
 		exit_status = execute_builtin_cmd(cmd, shell);
 	else
-		exit_status = execute_external_cmd(cmd, shell);
+		exit_status = handle_command_not_found(cmd->args[0]);
 	cleanup_redirections(cmd);
 	restore_std_fds(saved_stdin, saved_stdout);
 	return (exit_status);

@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 19:38:27 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/24 17:17:54 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 10:56:42 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ void	execute_pipeline_child(t_cmd *cmd, t_shell *shell, int **pipes,
 	if (is_builtin_cmd(cmd, shell))
 		exit(execute_builtin_cmd(cmd, shell));
 	else
-		execute_external_cmd(cmd, shell);
+		handle_command_not_found(cmd->args[0]);
 }

@@ -6,13 +6,13 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:38 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/30 10:19:06 by rzt              ###   ########.fr       */
+/*   Updated: 2025/06/30 10:49:09 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	update_env(t_env **envp, char *env_var, char *value)
+static int	update_env(t_env **envp, char *env_var, char *value)
 {
 	char	*export_comm;
 	char	*aux;
@@ -37,7 +37,7 @@ int	update_env(t_env **envp, char *env_var, char *value)
 	return (status);
 }
 
-int	get_cd_target(t_cmd *cmd, t_env **envp, char **target)
+static int	get_cd_target(t_cmd *cmd, t_env **envp, char **target)
 {
 	if (!cmd->args[1])
 	{
@@ -62,7 +62,7 @@ int	get_cd_target(t_cmd *cmd, t_env **envp, char **target)
 	return (0);
 }
 
-void	update_cd_env(t_env **envp, char *oldpwd)
+static void	update_cd_env(t_env **envp, char *oldpwd)
 {
 	char	*cwd;
 
@@ -76,7 +76,7 @@ void	update_cd_env(t_env **envp, char *oldpwd)
 	}
 }
 
-void	print_pwd_if_hifen(t_cmd *cmd)
+static void	print_pwd_if_hifen(t_cmd *cmd)
 {
 	char	*cwd;
 
