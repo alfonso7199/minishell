@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rzamolo- <rzamolo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:35 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/16 12:36:03 by rzamolo-         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:07:24 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,16 @@ static void	remove_env_node(t_env **envp, char *key)
 				prev->next = curr->next;
 			else
 				*envp = curr->next;
-			free(curr->key);
-			free(curr->value);
+			if (curr->key)
+			{
+				free(curr->key);
+				curr->key = NULL;
+			}
+			if (curr->value)
+			{
+				free(curr->value);
+				curr->value = NULL;
+			}
 			free(curr);
 			return ;
 		}

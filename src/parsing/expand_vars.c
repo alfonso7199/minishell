@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <alfsanch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/12/15 10:00:00 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:13:01 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*expand_env_var(char *str, t_shell *shell)
 {
 	char	*var_name;
 	char	*value;
+	char	*dup;
 	int		i;
 
 	if (!str || str[0] != '$')
@@ -37,9 +38,10 @@ char	*expand_env_var(char *str, t_shell *shell)
 		return (ft_strdup(""));
 	value = get_env_value(shell->env, var_name);
 	free(var_name);
-	if (value)
-		return (value);
-	return (ft_strdup(""));
+	if (!value)
+		return (ft_strdup(""));
+	dup = ft_strdup(value);
+	return (dup);
 }
 
 /* Expandir variables en string completo */

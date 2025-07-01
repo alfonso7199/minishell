@@ -6,13 +6,13 @@
 #    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
-#    Updated: 2025/06/30 17:19:48 by rzt              ###   ########.fr        #
+#    Updated: 2025/07/01 14:34:53 by rzt              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g -O0
 RM			= rm -rf
 INCLUDE_DIR = ./include
 LIBFT_DIR	= ./libft
