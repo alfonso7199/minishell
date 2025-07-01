@@ -61,4 +61,5 @@ void	restore_terminal_after_command(void)
 		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	}
 	rl_on_new_line();
+	rl_replace_line("", 0);
 }

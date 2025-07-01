@@ -63,8 +63,8 @@ void	handle_interactive_sigint(int sig)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
 	}
+	clear_signal_received();
 }
 
 void	handle_interactive_sigquit(int sig)

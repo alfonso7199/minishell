@@ -19,11 +19,13 @@ char	*get_input_line(char *full_input)
 	restore_terminal();
 	if (full_input[0] == '\0')
 	{
+		set_secondary_prompt(0);
 		setup_interactive_signals();
 		input = readline("minishell> ");
 	}
 	else
 	{
+		set_secondary_prompt(1);
 		setup_secondary_prompt_signals();
 		input = readline("> ");
 	}
@@ -38,6 +40,11 @@ static int	process_input_line(char **full_input, t_token **tokens)
 	input = get_input_line(*full_input);
 	if (!input)
 		return (0);
+	if (input[0] == '\0')
+	{
+		free(input);
+		return (2);
+	}
 	signal_result = handle_input_signal(full_input, input);
 	if (signal_result != 0)
 		return (signal_result);
@@ -45,6 +52,7 @@ static int	process_input_line(char **full_input, t_token **tokens)
 	*tokens = tokenizer(*full_input);
 	if (*tokens)
 		return (1);
+	set_secondary_prompt(1);
 	return (2);
 }
 
@@ -84,5 +92,6 @@ int	process_command(t_token *tokens, t_shell *shell, char *full_input)
 	execute_commands(cmds, shell);
 	free_cmd_list(cmds);
 	free(full_input);
+	set_secondary_prompt(0);
 	return (1);
 }

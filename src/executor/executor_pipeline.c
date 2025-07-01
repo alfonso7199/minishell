@@ -70,9 +70,10 @@ int	**create_pipes(int pipe_count)
 int	execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell, int **pipes,
 	pid_t *pids)
 {
-	t_cmd	*current;
-	int		cmd_index;
-	int		pipe_count;
+	t_cmd		*current;
+	int			cmd_index;
+	int			pipe_count;
+	t_pipeinfo	info;
 
 	current = cmd_list;
 	cmd_index = 0;
@@ -83,7 +84,12 @@ int	execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell, int **pipes,
 		if (pids[cmd_index] == -1)
 			return (handle_fork_error());
 		if (pids[cmd_index] == 0)
-			execute_pipeline_child(current, shell, pipes, cmd_index, pipe_count);
+		{
+			info.pipes = pipes;
+			info.cmd_index = cmd_index;
+			info.pipe_count = pipe_count;
+			execute_pipeline_child(current, shell, &info);
+		}
 		current = current->next;
 		cmd_index++;
 	}
@@ -91,15 +97,15 @@ int	execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell, int **pipes,
 	return (wait_for_pipeline(pids, cmd_index));
 }
 
-void	execute_pipeline_child(t_cmd *cmd, t_shell *shell, int **pipes,
-	int cmd_index, int pipe_count)
+void	execute_pipeline_child(t_cmd *cmd, t_shell *shell, t_pipeinfo *info)
 {
 	char	*cmd_path;
+
 	handle_child_signals();
-	setup_pipeline_redirections(pipes, cmd_index, pipe_count);
-	close_all_pipes(pipes, pipe_count);
+	setup_pipeline_redirections(info->pipes, info->cmd_index, info->pipe_count);
+	close_all_pipes(info->pipes, info->pipe_count);
 	if (setup_redirections(cmd) != 0)
-		exit (1);
+		exit(1);
 	if (is_builtin_cmd(cmd, shell))
 		exit(execute_builtin_cmd(cmd, shell));
 	else

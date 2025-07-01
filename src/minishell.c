@@ -18,6 +18,7 @@ static int	handle_signals_and_cleanup(int result, char *full_input)
 	{
 		clear_signal_received();
 		restore_terminal_after_command();
+		setup_signals(INTERACTIVE_MODE);
 		return (1);
 	}
 	if (result == 0)
@@ -29,6 +30,7 @@ static int	handle_signals_and_cleanup(int result, char *full_input)
 	{
 		clear_signal_received();
 		restore_terminal_after_command();
+		setup_signals(INTERACTIVE_MODE);
 		return (1);
 	}
 	return (-42);
@@ -52,9 +54,17 @@ static int	handle_loop_iteration(t_shell *shell)
 
 	full_input = ft_strdup("");
 	result = handle_input_loop(&full_input, &tokens);
+	if (result == 0)
+	{
+		free(full_input);
+		return (0);
+	}
 	signal_status = handle_signals_and_cleanup(result, full_input);
 	if (signal_status != -42)
+	{
+		free(full_input);
 		return (signal_status);
+	}
 	if (!process_command(tokens, shell, full_input))
 	{
 		restore_terminal_after_command();

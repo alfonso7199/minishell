@@ -104,6 +104,13 @@ typedef enum e_signal_mode
 	HEREDOC_MODE
 }	t_signal_mode;
 
+typedef struct s_pipeinfo
+{
+	int	**pipes;
+	int	cmd_index;
+	int	pipe_count;
+}	t_pipeinfo;
+
 /* Funciones del tokenizer */
 bool			is_special_char(char c);
 bool			is_quote(char c);
@@ -260,7 +267,7 @@ int				**create_pipes(int pipe_count);
 int				execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell,
 					int **pipes, pid_t *pids);
 void			execute_pipeline_child(t_cmd *cmd, t_shell *shell,
-					int **pipes, int cmd_index, int pipe_count);
+					t_pipeinfo *info);
 
 /* executor_redirections.c */
 int				setup_redirections(t_cmd *cmd);
