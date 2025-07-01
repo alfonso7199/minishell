@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/30 14:17:36 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/01 17:23:02 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,8 @@ void			free_env_list(t_env *env_list);
 void			process_env_entry(char *env_str, t_env **env_lst);
 t_env			*mini_env(char **envp);
 int				mini_env_print(t_env *envp);
+/* env4 */
+void			increment_shlvl(t_env **envp);
 
 /* **************** */
 /*      Signals     */

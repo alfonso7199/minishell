@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/26 19:06:57 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/01 17:29:31 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_env	*mini_env(char **envp)
 		process_env_entry(*envp, &env_lst);
 		envp++;
 	}
+	increment_shlvl(&env_lst);
 	sort_env_list(env_lst);
 	return (env_lst);
 }

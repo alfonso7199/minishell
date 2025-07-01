@@ -6,7 +6,7 @@
 #    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
-#    Updated: 2025/07/01 14:34:53 by rzt              ###   ########.fr        #
+#    Updated: 2025/07/01 17:22:29 by rzt              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC_FILES	= \
 	$(SRC_DIR)/builtin/env.c \
 	$(SRC_DIR)/builtin/env2.c \
 	$(SRC_DIR)/builtin/env3.c \
+	$(SRC_DIR)/builtin/env4.c \
 	$(SRC_DIR)/builtin/exit.c \
 	$(SRC_DIR)/builtin/unset.c \
 	$(SRC_DIR)/builtin/export.c \
