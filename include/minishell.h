@@ -247,9 +247,9 @@ int				execute_builtin_cmd(t_cmd *cmd, t_shell *shell);
 
 /* executor_external.c */
 int				execute_external_cmd(t_cmd *cmd, t_shell *shell);
-char			*find_command_path(char *cmd_name, t_env *env);
-char			*check_absolute_path(char *path);
-char			*search_in_paths(char *cmd_name, char **paths);
+char			*get_command_path(char *cmd_name, t_env *envp);
+char			*validate_absolute_path(char *path);
+char			*find_in_path_dirs(char *cmd_name, char **paths);
 void			execute_child_process(t_cmd *cmd, char *cmd_path,
 					t_shell *shell);
 
@@ -260,7 +260,7 @@ int				**create_pipes(int pipe_count);
 int				execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell,
 					int **pipes, pid_t *pids);
 void			execute_pipeline_child(t_cmd *cmd, t_shell *shell,
-					int **pipes, int cmd_index);
+					int **pipes, int cmd_index, int pipe_count);
 
 /* executor_redirections.c */
 int				setup_redirections(t_cmd *cmd);

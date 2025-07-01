@@ -83,7 +83,7 @@ int	execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell, int **pipes,
 		if (pids[cmd_index] == -1)
 			return (handle_fork_error());
 		if (pids[cmd_index] == 0)
-			execute_pipeline_child(current, shell, pipes, cmd_index);
+			execute_pipeline_child(current, shell, pipes, cmd_index, pipe_count);
 		current = current->next;
 		cmd_index++;
 	}
@@ -92,11 +92,9 @@ int	execute_pipeline_commands(t_cmd *cmd_list, t_shell *shell, int **pipes,
 }
 
 void	execute_pipeline_child(t_cmd *cmd, t_shell *shell, int **pipes,
-	int cmd_index)
+	int cmd_index, int pipe_count)
 {
-	int	pipe_count;
-
-	pipe_count = count_commands(cmd) - 1;
+	char	*cmd_path;
 	handle_child_signals();
 	setup_pipeline_redirections(pipes, cmd_index, pipe_count);
 	close_all_pipes(pipes, pipe_count);
@@ -105,5 +103,13 @@ void	execute_pipeline_child(t_cmd *cmd, t_shell *shell, int **pipes,
 	if (is_builtin_cmd(cmd, shell))
 		exit(execute_builtin_cmd(cmd, shell));
 	else
-		handle_command_not_found(cmd->args[0]);
+	{
+		cmd_path = get_command_path(cmd->args[0], shell->env);
+		if (!cmd_path)
+		{
+			handle_command_not_found(cmd->args[0]);
+			exit(127);
+		}
+		execute_child_process(cmd, cmd_path, shell);
+	}
 }

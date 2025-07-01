@@ -39,6 +39,7 @@ int	execute_commands(t_cmd *cmd_list, t_shell *shell)
 		exit_status = execute_single_cmd(cmd_list, shell);
 	shell->exit_status = exit_status;
 	setup_signals(INTERACTIVE_MODE);
+	clear_signal_received();
 	return (exit_status);
 }
 
