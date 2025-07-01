@@ -62,8 +62,8 @@ int	execute_single_cmd(t_cmd *cmd, t_shell *shell)
 		exit_status = execute_builtin_cmd(cmd, shell);
 	else
 		exit_status = execute_external_cmd(cmd, shell);
-	cleanup_redirections(cmd);
 	restore_std_fds(saved_stdin, saved_stdout);
+	cleanup_redirections(cmd);
 	return (exit_status);
 }
 
