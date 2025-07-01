@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <alfsanch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/12/15 10:00:00 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:57:41 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int	count_args(t_token *tokens)
 		&& current->type != TOKEN_SEMICOLON
 		&& current->type != TOKEN_EOF)
 	{
-		if (current->type == TOKEN_WORD)
+		if (current->type == TOKEN_WORD
+			|| current->type == TOKEN_SEMICOLON
+			|| current->type == TOKEN_EXIT_STATUS)
 			count++;
 		else if (is_redirection_token(current->type))
 		{

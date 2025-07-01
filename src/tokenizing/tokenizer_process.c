@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_process.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <alfsanch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/12/15 10:00:00 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:06:01 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,13 @@ t_token	*process_env_var(char *input, int *i)
 {
 	char			*value;
 	t_token_type	type;
+	t_token			*tok;
 
 	value = extract_env_var(input, i);
 	type = get_token_type(value);
-	return (create_token(type, value, false, NO_QUOTE));
+	tok = create_token(type, value, false, NO_QUOTE);
+	free(value);
+	return (tok);
 }
 
 /* Procesar operador */
@@ -44,10 +47,13 @@ t_token	*process_operator(char *input, int *i)
 {
 	char			*value;
 	t_token_type	type;
+	t_token			*tok;
 
 	value = extract_operator(input, i);
 	type = get_token_type(value);
-	return (create_token(type, value, false, NO_QUOTE));
+	tok = create_token(type, value, false, NO_QUOTE);
+	free(value);
+	return (tok);
 }
 
 /* Procesar palabra */
@@ -56,9 +62,12 @@ t_token	*process_word(char *input, int *i)
 	char			*value;
 	bool			quoted;
 	t_quote_state	quote_type;
+	t_token			*tok;
 
 	value = extract_word(input, i, &quote_type, &quoted);
 	if (!value)
 		return (NULL);
-	return (create_token(TOKEN_WORD, value, quoted, quote_type));
+	tok = create_token(TOKEN_WORD, value, quoted, quote_type);
+	free(value);
+	return (tok);
 }
