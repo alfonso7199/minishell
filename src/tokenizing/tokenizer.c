@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <alfsanch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/12/15 10:00:00 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:00:09 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_token	*create_token(t_token_type type, char *value, bool quoted,
 bool	is_special_char(char c)
 {
 	return (c == '|' || c == '<' || c == '>' || c == ';' || c == ' '
-		|| c == '\t' || c == '\n' || c == '\0' || c == '$' || c == '`');
+		|| c == '\t' || c == '\n' || c == '\0' || c == '`');
 }
 
 /* Verificar si es comilla */

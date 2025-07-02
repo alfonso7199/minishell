@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/01 17:23:02 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 12:14:12 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,9 @@ t_token			*process_env_var(char *input, int *i);
 /* Funciones de extracción del tokenizer */
 char			*extract_word(char *input, int *i, t_quote_state *quote_type,
 					bool *quoted);
+char			*extract_quoted_word(char *input, int *i,
+					t_quote_state *quote_type, bool *quoted);
+char			*extract_unquoted_word(char *input, int *i);
 char			*extract_operator(char *input, int *i);
 char			*extract_env_var(char *input, int *i);
 t_token			*process_operator(char *input, int *i);
