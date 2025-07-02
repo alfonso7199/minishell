@@ -11,13 +11,13 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+	// ft_putstr_fd("exit\n", STDERR_FILENO);
 
 int	mini_exit_builtin(char **args, t_shell *shell)
 {
 	int	exit_code;
 
 	exit_code = shell->exit_status;
-	// ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (args[1])
 	{
 		if (!ft_isnbr(args[1]))

@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_execution.c                                :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/10 16:42:15 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/12 23:11:00 by rzt              ###   ########.fr       */
+/*   Created: 2025/06/30 09:35:23 by rzt               #+#    #+#             */
+/*   Updated: 2025/06/30 09:42:57 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	handle_execution_sigint(int sig)
+char	*ft_strjoin_free(char *s1, const char *s2)
 {
-	(void)sig;
-	set_signal_received(SIGINT);
-	ft_putstr_fd("\n", STDOUT_FILENO);
-}
+	char	*joined;
 
-void	handle_execution_sigquit(int sig)
-{
-	(void)sig;
-	set_signal_received(SIGQUIT);
-}
-	//ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
-
-void	handle_child_signals(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (s1);
+	joined = ft_strjoin(s1, s2);
+	free(s1);
+	return (joined);
 }

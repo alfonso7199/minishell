@@ -12,6 +12,9 @@
 
 #include "minishell.h"
 
+char	*extract_word_body(char *input, int *i, t_quote_state *quote_type,
+			bool *quoted);
+
 char	*extract_quoted_word(char *input, int *i, t_quote_state *quote_type,
 			bool *quoted)
 {
@@ -49,16 +52,10 @@ char	*extract_unquoted_word(char *input, int *i)
 	return (ft_substr(input, start, *i - start));
 }
 
-/* Extraer palabra considerando comillas */
 char	*extract_word(char *input, int *i, t_quote_state *quote_type,
-			bool *quoted)
+	bool *quoted)
 {
-	*quoted = false;
-	*quote_type = NO_QUOTE;
-	if (is_quote(input[*i]))
-		return (extract_quoted_word(input, i, quote_type, quoted));
-	else
-		return (extract_unquoted_word(input, i));
+	return (extract_word_body(input, i, quote_type, quoted));
 }
 
 /* Extraer operador (|, <, >, <<, >>) */

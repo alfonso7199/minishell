@@ -32,6 +32,8 @@ SRC_FILES	= \
 	$(SRC_DIR)/tokenizing/tokenizer_utils.c \
 	$(SRC_DIR)/tokenizing/tokenizer_process.c \
 	$(SRC_DIR)/tokenizing/tokenizer_helpers.c \
+	$(SRC_DIR)/tokenizing/tokenizer_extract.c \
+	$(SRC_DIR)/tokenizing/tokenizer_extract_utils.c \
 	$(SRC_DIR)/signals/signals_setup.c \
 	$(SRC_DIR)/signals/signals_execution.c \
 	$(SRC_DIR)/signals/signals_interactive.c \
@@ -57,7 +59,6 @@ SRC_FILES	= \
 	$(SRC_DIR)/builtin/export2.c \
 	$(SRC_DIR)/builtin/cd.c \
 	$(SRC_DIR)/builtin/cd_error.c \
-	$(SRC_DIR)/tokenizing/tokenizer_extract.c \
 	$(SRC_DIR)/executor/executor.c \
 	$(SRC_DIR)/executor/executor_cleanup.c \
 	$(SRC_DIR)/executor/executor_builtin.c \
@@ -70,6 +71,7 @@ SRC_FILES	= \
 	$(SRC_DIR)/utils/debug.c \
 	$(SRC_DIR)/utils/ft_free_split.c \
 	$(SRC_DIR)/utils/ft_isnbr.c \
+	$(SRC_DIR)/utils/ft_strjoin_free.c \
 	$(SRC_DIR)/utils/input_handler.c \
 	$(SRC_DIR)/utils/input_handler_utils.c \
 	$(SRC_DIR)/utils/input_handler_utils2.c \

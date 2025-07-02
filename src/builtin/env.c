@@ -94,7 +94,7 @@ int	mini_env_print(t_env *envp)
 		return (1);
 	current = envp;
 	while (current)
-{
+	{
 		ft_putstr_fd(current->key, STDOUT_FILENO);
 		ft_putstr_fd("=", STDOUT_FILENO);
 		ft_putstr_fd(current->value, STDOUT_FILENO);

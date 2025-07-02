@@ -11,10 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* Obtener siguiente token */
-t_token	*get_next_token(char *input, int *i)
-{
 	// t_token	*new_token;
 
 	// new_token = NULL;
@@ -26,6 +22,9 @@ t_token	*get_next_token(char *input, int *i)
 	// else
 	// 	new_token = process_word(input, i);
 	// return (new_token);
+/* Obtener siguiente token */
+t_token	*get_next_token(char *input, int *i)
+{
 	if (input[*i] == '|' || input[*i] == '<'
 		|| input[*i] == '>' || input[*i] == ';')
 		return (process_operator(input, i));
@@ -60,7 +59,7 @@ t_token	*process_operator(char *input, int *i)
 	return (tok);
 }
 
-static char	*read_word(char *s, int *i)
+/*static char	*read_word(char *s, int *i)
 {
 	char			*res;
 	char			*chunk;
@@ -88,29 +87,20 @@ static char	*read_word(char *s, int *i)
 		free(chunk);
 	}
 	return (res);
-}
+}*/
 
 /* Procesar palabra */
 t_token	*process_word(char *input, int *i)
 {
-	// char			*value;
-	// bool			quoted;
-	// t_quote_state	quote_type;
-	// t_token			*tok;
+	char			*value;
+	bool			quoted;
+	t_quote_state	quote_type;
+	t_token			*tok;
 
-	// value = extract_word(input, i, &quote_type, &quoted);
-	// if (!value)
-	// 	return (NULL);
-	// tok = create_token(TOKEN_WORD, value, quoted, quote_type);
-	// free(value);
-	// return (tok);
-	char	*val;
-	t_token	*tok;
-
-	val = read_word(input, i);
-	if (!val)
+	value = extract_word(input, i, &quote_type, &quoted);
+	if (!value)
 		return (NULL);
-	tok = create_token(TOKEN_WORD, val, false, NO_QUOTE);
-	free(val);
+	tok = create_token(TOKEN_WORD, value, quoted, quote_type);
+	free(value);
 	return (tok);
 }

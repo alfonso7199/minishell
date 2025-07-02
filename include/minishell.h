@@ -111,6 +111,18 @@ typedef struct s_pipeinfo
 	int	pipe_count;
 }	t_pipeinfo;
 
+typedef struct s_word_ctx
+{
+	int				start;
+	char			*fragment;
+	char			*result;
+	t_quote_state	qt_tmp;
+	bool			quoted_tmp;
+	bool			only_single_quote;
+	t_quote_state	*quote_type;
+	bool			*quoted;
+}	t_word_ctx;
+
 /* Funciones del tokenizer */
 bool			is_special_char(char c);
 bool			is_quote(char c);
@@ -352,5 +364,7 @@ int				check_and_free_empty_tokens(t_token *tokens, char *full_input);
 t_token			*expand_and_check_tokens(t_token *tokens, char *full_input);
 int				execute_and_cleanup_cmds(t_cmd *cmds, t_shell *shell,
 					char *full_input);
+
+char			*ft_strjoin_free(char *s1, const char *s2);
 
 #endif
