@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 18:02:38 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/30 17:19:29 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 12:41:50 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,16 @@ int	execute_external_cmd(t_cmd *cmd, t_shell *shell)
 	pid_t	pid;
 	int		status;
 
+	if (ft_strchr(cmd->args[0], '/'))
+	{
+		if (access(cmd->args[0], F_OK) != 0)
+			return (handle_command_not_found(cmd->args[0]));
+		if (access(cmd->args[0], X_OK) != 0)
+		{
+			print_file_error(cmd->args[0], "Permission denied");
+			return (126);
+		}
+	}
 	cmd_path = get_command_path(cmd->args[0], shell->env);
 	if (!cmd_path)
 		return (handle_command_not_found(cmd->args[0]));
