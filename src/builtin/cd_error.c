@@ -16,7 +16,7 @@ int	cd_error(int exitCode, char *msg)
 {
 	(void)exitCode;
 	if (msg == NULL)
-		ft_putstr_fd("minishell: cd: none or too many arguments\n",
+		ft_putstr_fd("minishell: cd: too many arguments\n",
 			STDERR_FILENO);
 	else
 	{

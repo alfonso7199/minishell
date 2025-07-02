@@ -22,14 +22,14 @@ void	mini_exit(char *arg[])
 	{
 		if (!ft_isnbr(arg[1]))
 		{
-			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(arg[1], STDERR_FILENO);
 			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			exit(2);
 		}
 		if (arg[2])
 		{
-			ft_putstr_fd("minishell: exit: too many arguments\n", \
+			ft_putstr_fd("minishell: too many arguments\n", \
 STDERR_FILENO);
 			return ;
 		}
@@ -49,7 +49,7 @@ int	mini_exit_builtin(char **args, t_shell *shell)
 	{
 		if (!ft_isnbr(args[1]))
 		{
-			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(args[1], STDERR_FILENO);
 			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			cleanup_shell(shell);
@@ -57,7 +57,7 @@ int	mini_exit_builtin(char **args, t_shell *shell)
 		}
 		if (args[2])
 		{
-			ft_putstr_fd("minishell: exit: too many arguments\n",
+			ft_putstr_fd("minishell: too many arguments\n",
 				STDERR_FILENO);
 			return (1);
 		}
