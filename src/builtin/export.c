@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:36 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/02 11:54:01 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 18:37:51 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,8 @@ static int	is_valid_identifier(char *str)
 	return (1);
 }
 
-static void	print_export_error(char *arg)
-{
-	ft_putstr_fd("minishell: export: '", STDERR_FILENO);
-	ft_putstr_fd(arg, STDERR_FILENO);
-	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-}
-
-static int	process_export_with_value(char *arg, char *equal_pos, t_env **envp)
+static int	process_export_with_value(char *arg, char *equal_pos,
+									t_env **envp)
 {
 	char	*key;
 	char	*value;
@@ -57,7 +51,9 @@ static int	process_export_arg(char *arg, t_env **envp)
 
 	if (!is_valid_identifier(arg))
 	{
-		print_export_error(arg);
+		ft_putstr_fd("minishell: export: '", STDERR_FILENO);
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		return (1);
 	}
 	equal_pos = ft_strchr(arg, '=');
@@ -72,36 +68,41 @@ static int	process_export_arg(char *arg, t_env **envp)
 	return (process_export_with_value(arg, equal_pos, envp));
 }
 
+static int	handle_combined(char **args, int *i, t_env **envp)
+{
+	char	*combined;
+	int		ret;
+
+	combined = ft_strjoin(args[*i], args[*i + 1]);
+	if (!combined)
+		return (1);
+	ret = process_export_arg(combined, envp);
+	free(combined);
+	*i += 2;
+	return (ret);
+}
+
 int	mini_export(char **args, t_env **envp)
 {
 	int		i;
 	int		exit_status;
-	char	*combined;
 	char	*equal_pos;
 
 	i = 1;
 	exit_status = 0;
 	if (!args[1])
-	{
-		print_sorted_env(*envp);
-		return (0);
-	}
+		return (print_sorted_env(*envp), 0);
 	while (args[i])
 	{
 		equal_pos = ft_strchr(args[i], '=');
 		if (equal_pos && equal_pos[1] == '\0' && args[i + 1])
 		{
-			combined = ft_strjoin(args[i], args[i + 1]);
-			if (!combined)
-				return (1);
-			if (process_export_arg(combined, envp) != 0)
+			if (handle_combined(args, &i, envp))
 				exit_status = 1;
-			free(combined);
-			i = i + 2;
 		}
 		else
 		{
-			if (process_export_arg(args[i], envp) != 0)
+			if (process_export_arg(args[i], envp))
 				exit_status = 1;
 			i++;
 		}

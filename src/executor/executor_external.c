@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 18:02:38 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/02 12:41:50 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 18:44:38 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,10 @@ int	execute_external_cmd(t_cmd *cmd, t_shell *shell)
 		return (handle_command_not_found(cmd->args[0]));
 	pid = fork();
 	if (pid == -1)
-	{
-		free(cmd_path);
-		return (handle_fork_error());
-	}
+		return (free(cmd_path), handle_fork_error());
 	if (pid == 0)
 		execute_child_process(cmd, cmd_path, shell);
-	free(cmd_path);
-	return (wait_for_child(pid, &status));
+	return (free(cmd_path), wait_for_child(pid, &status));
 }
 
 void	execute_child_process(t_cmd *cmd, char *cmd_path, t_shell *shell)

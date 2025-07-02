@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:35 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/01 16:07:24 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 18:38:15 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	is_valid_unset_identifier(char *str)
 	i = 0;
 	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
 		return (0);
-	while (str[i])
+	while (str[i] != '\0')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (0);
@@ -40,28 +40,20 @@ static void	remove_env_node(t_env **envp, char *key)
 	t_env	*curr;
 	t_env	*prev;
 
-	if (!envp || !*envp || !key)
-		return ;
 	curr = *envp;
 	prev = NULL;
-	while (curr)
+	if (curr == NULL || key == NULL)
+		return ;
+	while (curr != NULL)
 	{
-		if (env_key_match(curr->key, key))
+		if (env_key_match(curr->key, key) == 1)
 		{
-			if (prev)
+			if (prev != NULL)
 				prev->next = curr->next;
 			else
 				*envp = curr->next;
-			if (curr->key)
-			{
-				free(curr->key);
-				curr->key = NULL;
-			}
-			if (curr->value)
-			{
-				free(curr->value);
-				curr->value = NULL;
-			}
+			free(curr->key);
+			free(curr->value);
 			free(curr);
 			return ;
 		}
@@ -77,11 +69,11 @@ int	mini_unset(char **args, t_env **envp)
 
 	i = 1;
 	exit_status = 0;
-	if (!args[1])
+	if (args[1] == NULL)
 		return (0);
-	while (args[i])
+	while (args[i] != NULL)
 	{
-		if (!is_valid_unset_identifier(args[i]))
+		if (is_valid_unset_identifier(args[i]) == 0)
 		{
 			print_unset_error(args[i]);
 			exit_status = 1;
