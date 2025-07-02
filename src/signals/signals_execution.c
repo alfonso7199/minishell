@@ -23,7 +23,7 @@ void	handle_execution_sigquit(int sig)
 {
 	(void)sig;
 	set_signal_received(SIGQUIT);
-	ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
+	//ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
 }
 
 void	handle_child_signals(void)
