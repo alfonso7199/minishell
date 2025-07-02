@@ -63,3 +63,14 @@ void	restore_terminal_after_command(void)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 }
+
+int	is_empty_tokens(t_token *tokens)
+{
+	if (!tokens)
+		return (1);
+	if (tokens->type == TOKEN_EOF)
+		return (1);
+	if (!tokens->value || tokens->value[0] == '\0')
+		return (1);
+	return (0);
+}

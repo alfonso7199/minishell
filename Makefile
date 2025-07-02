@@ -44,6 +44,7 @@ SRC_FILES	= \
 	$(SRC_DIR)/parsing/parser_memory.c \
 	$(SRC_DIR)/parsing/expand_vars.c \
 	$(SRC_DIR)/parsing/expand_utils.c \
+	$(SRC_DIR)/parsing/expand_utils2.c \
 	$(SRC_DIR)/builtin/echo.c \
 	$(SRC_DIR)/builtin/pwd.c \
 	$(SRC_DIR)/builtin/env.c \
@@ -71,6 +72,7 @@ SRC_FILES	= \
 	$(SRC_DIR)/utils/ft_isnbr.c \
 	$(SRC_DIR)/utils/input_handler.c \
 	$(SRC_DIR)/utils/input_handler_utils.c \
+	$(SRC_DIR)/utils/input_handler_utils2.c \
 	$(SRC_DIR)/error/error.c \
 	$(SRC_DIR)/error/handler_error.c
 

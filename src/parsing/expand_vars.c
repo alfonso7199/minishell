@@ -71,50 +71,44 @@ char	*expand_variables(char *str, t_shell *shell)
 	return (result);
 }
 
-/* Verificar si una cadena es un número */
-static bool	is_number(const char *str)
+t_token	*expand_token_value(t_token *tokens, t_token *prev,
+	t_token **current, t_shell *shell)
 {
-	int	i;
+	char	*expanded;
 
-	if (!str || !*str)
-		return (false);
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i])
+	if (((*current)->type == TOKEN_WORD || (*current)->type == TOKEN_ENV_VAR
+			|| (*current)->type == TOKEN_EXIT_STATUS)
+		&& (*current)->quote_type != SINGLE_QUOTE)
 	{
-		if (str[i] < '0' || str[i] > '9')
-			return (false);
-		i++;
+		expanded = expand_variables((*current)->value, shell);
+		if (expanded && expanded[0] == '\0')
+		{
+			tokens = remove_empty_token(tokens, prev, current);
+			return (tokens);
+		}
+		else if (expanded)
+		{
+			free((*current)->value);
+			(*current)->value = expanded;
+		}
 	}
-	return (true);
+	return (tokens);
 }
 
 /* Expandir variables en lista de tokens */
-void	expand_tokens(t_token *tokens, t_shell *shell)
+t_token	*expand_tokens(t_token *tokens, t_shell *shell)
 {
 	t_token	*current;
-	char	*expanded;
+	t_token	*prev;
 
 	current = tokens;
+	prev = NULL;
 	while (current)
 	{
-		if (current->type == TOKEN_WORD || current->type == TOKEN_ENV_VAR
-			|| current->type == TOKEN_EXIT_STATUS)
-		{
-			if (current->quote_type != SINGLE_QUOTE)
-			{
-				if (!is_number(current->value))
-				{
-					expanded = expand_variables(current->value, shell);
-					if (expanded)
-					{
-						free(current->value);
-						current->value = expanded;
-					}
-				}
-			}
-		}
-		current = current->next;
+		tokens = expand_token_value(tokens, prev, &current, shell);
+		prev = current;
+		if (current)
+			current = current->next;
 	}
+	return (tokens);
 }

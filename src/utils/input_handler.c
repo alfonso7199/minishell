@@ -50,6 +50,8 @@ static int	process_input_line(char **full_input, t_token **tokens)
 		return (signal_result);
 	concatenate_input(full_input, input);
 	*tokens = tokenizer(*full_input);
+	if (*tokens && (*tokens)->type == TOKEN_EOF && !(*tokens)->next)
+		return (1);
 	if (*tokens)
 		return (1);
 	set_secondary_prompt(1);
@@ -75,23 +77,16 @@ int	process_command(t_token *tokens, t_shell *shell, char *full_input)
 {
 	t_cmd	*cmds;
 
-	if (!tokens || !tokens->value || tokens->value[0] == '\0')
+	if (check_and_free_empty_tokens(tokens, full_input))
+		return (1);
+	tokens = expand_tokens(tokens, shell);
+	if (is_empty_tokens(tokens))
 	{
+		free_tokens(tokens);
 		free(full_input);
 		return (1);
 	}
-	expand_tokens(tokens, shell);
 	cmds = parser(tokens);
 	free_tokens(tokens);
-	if (!cmds)
-	{
-		printf("Error en parser\n");
-		free(full_input);
-		return (0);
-	}
-	execute_commands(cmds, shell);
-	free_cmd_list(cmds);
-	free(full_input);
-	set_secondary_prompt(0);
-	return (1);
+	return (execute_and_cleanup_cmds(cmds, shell, full_input));
 }
