@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/01 17:29:31 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 12:47:43 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,11 @@ int	mini_env_print(t_env *envp)
 		return (1);
 	current = envp;
 	while (current)
-	{
-		if (current->value && current->value[0])
-		{
-			ft_putstr_fd(current->key, STDOUT_FILENO);
-			ft_putstr_fd("=", STDOUT_FILENO);
-			ft_putstr_fd(current->value, STDOUT_FILENO);
-			ft_putstr_fd("\n", STDOUT_FILENO);
-		}
+{
+		ft_putstr_fd(current->key, STDOUT_FILENO);
+		ft_putstr_fd("=", STDOUT_FILENO);
+		ft_putstr_fd(current->value, STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		current = current->next;
 	}
 	return (0);
