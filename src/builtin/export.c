@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:36 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/27 09:40:54 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 11:54:01 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,38 +34,6 @@ static void	print_export_error(char *arg)
 	ft_putstr_fd(arg, STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 }
-
-/* 
-static int	process_export_arg(char *arg, t_env **envp)
-{
-	char	*equal_pos;
-	char	*key;
-	char	*value;
-
-	if (!is_valid_identifier(arg))
-	{
-		print_export_error(arg);
-		return (1);
-	}
-	equal_pos = ft_strchr(arg, '=');
-	if (!equal_pos)
-	{
-		key = ft_strdup(arg);
-		if (!find_env_node(*envp, key))
-			add_env_node(envp, key, "");
-		free(key);
-		return (0);
-	}
-	key = ft_substr(arg, 0, equal_pos - arg);
-	value = ft_strdup(equal_pos + 1);
-	if (key && value)
-		set_env_value(envp, key, value);
-	sort_env_list(*envp);
-	free(key);
-	free(value);
-	return (0);
-}
- */
 
 static int	process_export_with_value(char *arg, char *equal_pos, t_env **envp)
 {
@@ -106,8 +74,10 @@ static int	process_export_arg(char *arg, t_env **envp)
 
 int	mini_export(char **args, t_env **envp)
 {
-	int	i;
-	int	exit_status;
+	int		i;
+	int		exit_status;
+	char	*combined;
+	char	*equal_pos;
 
 	i = 1;
 	exit_status = 0;
@@ -118,9 +88,23 @@ int	mini_export(char **args, t_env **envp)
 	}
 	while (args[i])
 	{
-		if (process_export_arg(args[i], envp) != 0)
-			exit_status = 1;
-		i++;
+		equal_pos = ft_strchr(args[i], '=');
+		if (equal_pos && equal_pos[1] == '\0' && args[i + 1])
+		{
+			combined = ft_strjoin(args[i], args[i + 1]);
+			if (!combined)
+				return (1);
+			if (process_export_arg(combined, envp) != 0)
+				exit_status = 1;
+			free(combined);
+			i = i + 2;
+		}
+		else
+		{
+			if (process_export_arg(args[i], envp) != 0)
+				exit_status = 1;
+			i++;
+		}
 	}
 	return (exit_status);
 }
