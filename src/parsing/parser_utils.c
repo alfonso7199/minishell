@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/01 16:57:41 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 11:05:50 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	count_args(t_token *tokens)
 	{
 		if (current->type == TOKEN_WORD
 			|| current->type == TOKEN_SEMICOLON
+			|| current->type == TOKEN_ENV_VAR
 			|| current->type == TOKEN_EXIT_STATUS)
 			count++;
 		else if (is_redirection_token(current->type))
