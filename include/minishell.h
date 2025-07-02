@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/02 12:14:12 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 17:28:58 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,8 +201,7 @@ void			free_env_list(t_env *env_list);
 /* echo */
 int				mini_echo(char *arg[]);
 /* exit */
-void			mini_exit(char *arg[]);
-int				mini_exit_builtin(char **args, t_shell *shell);
+int				mini_exit(t_cmd *cmd, t_shell *shell);
 /* pwd */
 int				mini_pwd(int fd);
 /* export */

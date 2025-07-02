@@ -6,39 +6,11 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 18:43:06 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/30 09:42:45 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 17:27:28 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	handle_exit_builtin(t_cmd *cmd, t_shell *shell)
-{
-	int	exit_code;
-
-	exit_code = shell->exit_status;
-	if (cmd->args[1])
-	{
-		if (!ft_isnbr(cmd->args[1]))
-		{
-			ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
-			ft_putstr_fd(cmd->args[1], STDERR_FILENO);
-			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-			cleanup_shell(shell);
-			exit(2);
-		}
-		if (cmd->args[2])
-		{
-			ft_putstr_fd("minishell: exit: too many arguments\n",
-				STDERR_FILENO);
-			return (1);
-		}
-		exit_code = ft_atoi(cmd->args[1]);
-	}
-	ft_putstr_fd("exit\n", STDERR_FILENO);
-	cleanup_shell(shell);
-	exit((unsigned char)exit_code);
-}
 
 int	execute_builtin_cmd_extended(t_cmd *cmd, t_shell *shell)
 {
@@ -57,7 +29,7 @@ int	execute_builtin_cmd_extended(t_cmd *cmd, t_shell *shell)
 	if (ft_strncmp(cmd->args[0], "env", ft_strlen("env")) == 0)
 		return (mini_env_print(shell->env));
 	if (ft_strncmp(cmd->args[0], "exit", ft_strlen("exit")) == 0)
-		return (handle_exit_builtin(cmd, shell));
+		return (mini_exit(cmd, shell));
 	return (1);
 }
 

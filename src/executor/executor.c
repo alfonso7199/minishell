@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:42:56 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/30 17:17:07 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 17:29:34 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ int	execute_builtin_cmd(t_cmd *cmd, t_shell *shell)
 	if (ft_strncmp(cmd->args[0], "env", ft_strlen("env")) == 0)
 		return (mini_env_print(shell->env));
 	if (ft_strncmp(cmd->args[0], "exit", ft_strlen("exit")) == 0)
-		return (mini_exit_builtin(cmd->args, shell));
+		return (mini_exit(cmd, shell));
 	return (1);
 }
