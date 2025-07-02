@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 18:02:38 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/02 18:57:43 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/02 18:59:22 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	execute_external_cmd(t_cmd *cmd, t_shell *shell)
 		if (access(cmd->args[0], F_OK) != 0)
 			return (handle_command_not_found(cmd->args[0]));
 		if (stat(cmd->args[0], &st) == 0 && S_ISDIR(st.st_mode))
-			return (print_file_error(cmd->args[0], "Is a directory"), 126);	
+			return (print_file_error(cmd->args[0], "Is a directory"), 126);
 		if (access(cmd->args[0], X_OK) != 0)
 			return (print_file_error(cmd->args[0], "Permission denied"), 126);
 	}
