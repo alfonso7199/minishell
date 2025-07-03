@@ -12,32 +12,39 @@
 
 #include "../../include/minishell.h"
 
-static volatile sig_atomic_t	g_signal_received = 0;
+static volatile sig_atomic_t	g_signal_state = 0;
 
 void	set_signal_received(sig_atomic_t sig)
 {
-	g_signal_received = sig;
+	if (sig == SIGINT)
+		g_signal_state |= 2;
+	else if (sig == SIGQUIT)
+		g_signal_state |= 4;
 }
 
 sig_atomic_t	get_signal_received(void)
 {
-	return (g_signal_received);
+	if (g_signal_state & 2)
+		return (SIGINT);
+	if (g_signal_state & 4)
+		return (SIGQUIT);
+	return (0);
 }
 
 void	clear_signal_received(void)
 {
-	g_signal_received = 0;
+	g_signal_state &= ~6;
 }
 
 void	set_secondary_prompt(sig_atomic_t state)
 {
 	if (state)
-		g_signal_received = 100;
+		g_signal_state |= 1;
 	else
-		g_signal_received = 0;
+		g_signal_state &= ~1;
 }
 
 sig_atomic_t	get_secondary_prompt(void)
 {
-	return (g_signal_received == 100);
+	return (g_signal_state & 1);
 }

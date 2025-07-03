@@ -24,10 +24,10 @@ void	restore_terminal(void)
 
 int	handle_input_signal(char **full_input, char *input)
 {
+	(void)input;
 	if (get_signal_received() == SIGINT)
 	{
 		clear_signal_received();
-		free(input);
 		if ((*full_input)[0] != '\0')
 		{
 			free(*full_input);

@@ -63,7 +63,7 @@ static int	handle_loop_iteration(t_shell *shell)
 	if (signal_status != -42)
 	{
 		free(full_input);
-		return (signal_status);
+		return (1);
 	}
 	if (!process_command(tokens, shell, full_input))
 	{

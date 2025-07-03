@@ -51,20 +51,12 @@ void	handle_interactive_sigint(int sig)
 	(void)sig;
 	set_signal_received(SIGINT);
 	if (get_secondary_prompt())
-	{
 		set_secondary_prompt(0);
-		ft_putstr_fd("\n", STDOUT_FILENO);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else
-	{
-		ft_putstr_fd("\n", STDOUT_FILENO);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
-	clear_signal_received();
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_done = 1;
+	rl_forced_update_display();
 }
 
 void	handle_interactive_sigquit(int sig)

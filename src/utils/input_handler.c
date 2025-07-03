@@ -40,14 +40,16 @@ static int	process_input_line(char **full_input, t_token **tokens)
 	input = get_input_line(*full_input);
 	if (!input)
 		return (0);
+	signal_result = handle_input_signal(full_input, input);
+	if (signal_result == -1)
+	{
+		return (-1);
+	}
 	if (input[0] == '\0')
 	{
 		free(input);
 		return (2);
 	}
-	signal_result = handle_input_signal(full_input, input);
-	if (signal_result != 0)
-		return (signal_result);
 	concatenate_input(full_input, input);
 	*tokens = tokenizer(*full_input);
 	if (*tokens && (*tokens)->type == TOKEN_EOF && !(*tokens)->next)
