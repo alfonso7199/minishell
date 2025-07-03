@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 14:30:00 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/27 14:30:00 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/03 20:31:04 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,10 @@ int	process_command(t_token *tokens, t_shell *shell, char *full_input)
 		return (1);
 	pipelines = parser(tokens);
 	free_tokens(tokens);
+	setup_signals(EXECUTION_MODE);
 	execute_all_pipelines(pipelines, shell);
+	setup_signals(INTERACTIVE_MODE);
+	clear_signal_received();
 	free_all_pipelines(pipelines);
 	free(full_input);
 	return (result);

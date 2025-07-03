@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   input_handler_utils2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <alfsanch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/12/15 10:00:00 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/07/03 20:23:54 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	check_and_free_empty_tokens(t_token *tokens, char *full_input)
@@ -41,7 +42,10 @@ int	execute_and_cleanup_cmds(t_cmd *cmds, t_shell *shell, char *full_input)
 		free(full_input);
 		return (0);
 	}
+	setup_signals(EXECUTION_MODE);
 	execute_commands(cmds, shell);
+	setup_signals(INTERACTIVE_MODE);
+	clear_signal_received();
 	free_cmd_list(cmds);
 	free(full_input);
 	set_secondary_prompt(0);

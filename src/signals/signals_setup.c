@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/11 13:28:23 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/03 20:30:34 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,21 @@ void	setup_signals(t_signal_mode mode)
 	else if (mode == HEREDOC_MODE)
 		setup_heredoc_signals();
 }
+
+/* 
+void	setup_execution_signals(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_handler = SIG_IGN;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	if (sigaction(SIGINT,  &sa, NULL) < 0)
+		perror("sigaction SIGINT");
+	if (sigaction(SIGQUIT, &sa, NULL) < 0)
+		perror("sigaction SIGQUIT");
+}
+ */
 
 void	setup_execution_signals(void)
 {
