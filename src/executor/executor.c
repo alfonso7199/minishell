@@ -28,9 +28,11 @@ void	restore_std_fds(int saved_stdin, int saved_stdout)
 
 int	execute_commands(t_cmd *cmd_list, t_shell *shell)
 {
-	int		exit_status = 0;
-	t_cmd	*current = cmd_list;
+	int		exit_status;
+	t_cmd	*current;
 
+	exit_status = 0;
+	*current = cmd_list;
 	if (!cmd_list || !shell)
 		return (-1);
 	setup_signals(EXECUTION_MODE);
