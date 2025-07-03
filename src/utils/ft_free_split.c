@@ -26,3 +26,17 @@ void	free_split(char **array)
 	}
 	free(array);
 }
+
+char	*cut_whitespaces(char *str)
+{
+	int	len;
+
+	if (!str)
+		return (NULL);
+	len = strlen(str);
+	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\t'
+			|| str[len - 1] == '\n'))
+		len--;
+	str[len] = '\0';
+	return (str);
+}

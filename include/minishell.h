@@ -365,5 +365,6 @@ int				execute_and_cleanup_cmds(t_cmd *cmds, t_shell *shell,
 					char *full_input);
 
 char			*ft_strjoin_free(char *s1, const char *s2);
+char			*cut_whitespaces(char *str);
 
 #endif

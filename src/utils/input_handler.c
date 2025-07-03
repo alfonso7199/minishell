@@ -51,6 +51,7 @@ static int	process_input_line(char **full_input, t_token **tokens)
 		return (2);
 	}
 	concatenate_input(full_input, input);
+	cut_whitespaces(*full_input);
 	*tokens = tokenizer(*full_input);
 	if (*tokens && (*tokens)->type == TOKEN_EOF && !(*tokens)->next)
 		return (1);
