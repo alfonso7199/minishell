@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:07:23 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/03 20:42:58 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/03 21:05:50 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	close_all_pipes(int **pipes, int pipe_count)
 	}
 }
 
+// need to check when print the message Broken pipe
 int	wait_for_pipeline(pid_t	*pids, int cmd_count)
 {
 	int	i;
@@ -51,11 +52,9 @@ int	wait_for_pipeline(pid_t	*pids, int cmd_count)
 	{
 		if (waitpid(pids[i], &status, 0) != -1)
 		{
-			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGPIPE)
-			{
-				set_signal_received(SIGPIPE);
+			if (WIFSIGNALED(status)
+				&& WTERMSIG(status) == SIGPIPE)
 				ft_putstr_fd("Broken pipe\n", STDERR_FILENO);
-			}
 			if (i == cmd_count - 1)
 				exit_status = get_exit_status(status);
 		}

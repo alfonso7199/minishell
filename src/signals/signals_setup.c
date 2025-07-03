@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/03 20:42:39 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/03 20:51:16 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	update_exit_status_from_signal(int status)
 			set_signal_received(SIGINT);
 		else if (WTERMSIG(status) == SIGQUIT)
 			set_signal_received(SIGQUIT);
-		else if (WTERMSIG(status) == SIGPIPE)
-			set_signal_received(SIGPIPE);
 	}
 	return (exit_code);
 }
