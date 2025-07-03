@@ -28,15 +28,20 @@ void	restore_std_fds(int saved_stdin, int saved_stdout)
 
 int	execute_commands(t_cmd *cmd_list, t_shell *shell)
 {
-	int		exit_status;
+	int		exit_status = 0;
+	t_cmd	*current = cmd_list;
 
 	if (!cmd_list || !shell)
 		return (-1);
 	setup_signals(EXECUTION_MODE);
-	if (cmd_list->next)
-		exit_status = execute_pipeline(cmd_list, shell);
-	else
-		exit_status = execute_single_cmd(cmd_list, shell);
+	while (current)
+	{
+		if (current->next)
+			exit_status = execute_single_cmd(current, shell);
+		else
+			exit_status = execute_single_cmd(current, shell);
+		current = current->next;
+	}
 	shell->exit_status = exit_status;
 	setup_signals(INTERACTIVE_MODE);
 	clear_signal_received();
