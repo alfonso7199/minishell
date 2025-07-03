@@ -51,6 +51,8 @@ int	wait_for_pipeline(pid_t	*pids, int cmd_count)
 	{
 		if (waitpid(pids[i], &status, 0) != -1)
 		{
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGPIPE)
+				ft_putstr_fd("Broken pipe\n", STDERR_FILENO);
 			if (i == cmd_count - 1)
 				exit_status = get_exit_status(status);
 		}

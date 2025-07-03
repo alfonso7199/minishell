@@ -76,20 +76,35 @@ int	handle_input_loop(char **full_input, t_token **tokens)
 	return (1);
 }
 
+void	free_all_pipelines(t_pipeline *pipelines)
+{
+	t_pipeline	*current_pipeline;
+	t_pipeline	*next;
+
+	current_pipeline = pipelines;
+	while (current_pipeline)
+	{
+		next = current_pipeline->next;
+		free_cmd_list(current_pipeline->cmds);
+		free(current_pipeline);
+		current_pipeline = next;
+	}
+}
+
 int	process_command(t_token *tokens, t_shell *shell, char *full_input)
 {
-	t_cmd	*cmds;
+	t_pipeline	*pipelines;
+	int			result;
 
+	result = 1;
 	if (check_and_free_empty_tokens(tokens, full_input))
 		return (1);
-	tokens = expand_tokens(tokens, shell);
-	if (is_empty_tokens(tokens))
-	{
-		free_tokens(tokens);
-		free(full_input);
+	if (expand_and_check_tokens_internal(&tokens, shell, full_input))
 		return (1);
-	}
-	cmds = parser(tokens);
+	pipelines = parser(tokens);
 	free_tokens(tokens);
-	return (execute_and_cleanup_cmds(cmds, shell, full_input));
+	execute_all_pipelines(pipelines, shell);
+	free_all_pipelines(pipelines);
+	free(full_input);
+	return (result);
 }

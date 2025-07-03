@@ -83,6 +83,12 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+typedef struct s_pipeline
+{
+	t_cmd					*cmds;
+	struct s_pipeline		*next;
+}	t_pipeline;
+
 typedef struct s_env
 {
 	char			*key;
@@ -154,13 +160,24 @@ bool			handle_quoted_word(char *input, int *i, int *start,
 					t_quote_state *quote_type);
 void			handle_unquoted_word(char *input, int *i);
 char			*process_escapes_in_quotes(char *str, t_quote_state quote_type);
+int				expand_and_check_tokens_internal(t_token **tokens,
+					t_shell *shell, char *full_input);
+void			execute_all_pipelines(t_pipeline *pipelines, t_shell *shell);
+void			free_all_pipelines(t_pipeline *pipelines);
 
 /* Funciones del parser */
-t_cmd			*parser(t_token *tokens);
+t_pipeline		*parser(t_token *tokens);
 t_cmd			*create_cmd(void);
 t_redir			*create_redir(t_token_type type, char *file);
 bool			is_redirection_token(t_token_type type);
 bool			validate_syntax(t_token *tokens);
+bool			validate_syntax_loop(t_token *current, bool *expect_word);
+bool			has_redirection_error(t_token *current);
+bool			has_pipe_semicolon_error(t_token *current);
+t_pipeline		*add_new_pipeline(t_pipeline **pipeline_list,
+					t_pipeline **current_pipeline);
+bool			add_new_cmd(t_pipeline *current_pipeline, t_cmd **current_cmd,
+					t_token **current_token);
 
 /* Funciones auxiliares del parser */
 t_token			*process_command_token(t_cmd **cmd_list, t_token *token);

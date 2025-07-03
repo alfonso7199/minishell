@@ -47,6 +47,7 @@ SRC_FILES	= \
 	$(SRC_DIR)/parsing/expand_vars.c \
 	$(SRC_DIR)/parsing/expand_utils.c \
 	$(SRC_DIR)/parsing/expand_utils2.c \
+	$(SRC_DIR)/parsing/parser_utils3.c \
 	$(SRC_DIR)/builtin/echo.c \
 	$(SRC_DIR)/builtin/pwd.c \
 	$(SRC_DIR)/builtin/env.c \

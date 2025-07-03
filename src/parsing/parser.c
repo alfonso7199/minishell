@@ -41,60 +41,63 @@ t_redir	*create_redir(t_token_type type, char *file)
 	return (redir);
 }
 
-/* Verificar si token es redirección */
-bool	is_redirection_token(t_token_type type)
+bool	validate_syntax_loop(t_token *current, bool *expect_word)
 {
-	return (type == TOKEN_REDIR_IN || type == TOKEN_REDIR_OUT
-		|| type == TOKEN_APPEND || type == TOKEN_HEREDOC);
-}
-
-/* Validar sintaxis básica */
-bool	validate_syntax(t_token *tokens)
-{
-	t_token	*current;
-	bool	expect_word;
-
-	current = tokens;
-	expect_word = false;
-	while (current && current->type != TOKEN_EOF)
+	if (*expect_word)
 	{
-		if (expect_word)
-		{
-			if (current->type != TOKEN_WORD)
-				return (false);
-			expect_word = false;
-		}
-		else if (is_redirection_token(current->type))
-			expect_word = true;
-		else if (current->type == TOKEN_PIPE
-			|| current->type == TOKEN_SEMICOLON)
-		{
-			if (!current->next || current->next->type == TOKEN_EOF)
-				return (false);
-		}
-		current = current->next;
+		if (has_redirection_error(current))
+			return (false);
+		*expect_word = false;
 	}
-	return (!expect_word);
+	else if (is_redirection_token(current->type))
+		*expect_word = true;
+	else if (current->type == TOKEN_PIPE
+		|| current->type == TOKEN_SEMICOLON)
+	{
+		if (has_pipe_semicolon_error(current))
+			return (false);
+	}
+	return (true);
 }
 
-/* Función principal del parser */
-t_cmd	*parser(t_token *tokens)
+bool	parser_loop(t_token **current_token, t_pipeline **pipeline_list,
+					t_pipeline **current_pipeline, t_cmd **current_cmd)
 {
-	t_cmd	*cmd_list;
-	t_token	*current_token;
+	if (!*pipeline_list || (*current_token)->type == TOKEN_SEMICOLON)
+	{
+		if (!add_new_pipeline(pipeline_list, current_pipeline))
+			return (false);
+		if ((*current_token)->type == TOKEN_SEMICOLON)
+			*current_token = (*current_token)->next;
+		*current_cmd = NULL;
+	}
+	if (*current_token && (*current_token)->type != TOKEN_SEMICOLON
+		&& (*current_token)->type != TOKEN_EOF)
+	{
+		if (!add_new_cmd(*current_pipeline, current_cmd, current_token))
+			return (false);
+	}
+	if (*current_token && (*current_token)->type == TOKEN_PIPE)
+		*current_token = (*current_token)->next;
+	return (true);
+}
 
-	if (!tokens || !validate_syntax(tokens))
-		return (NULL);
-	cmd_list = NULL;
+t_pipeline	*parser(t_token *tokens)
+{
+	t_pipeline	*pipeline_list;
+	t_pipeline	*current_pipeline;
+	t_token		*current_token;
+	t_cmd		*current_cmd;
+
+	pipeline_list = NULL;
+	current_pipeline = NULL;
 	current_token = tokens;
+	current_cmd = NULL;
 	while (current_token && current_token->type != TOKEN_EOF)
 	{
-		current_token = process_command_token(&cmd_list, current_token);
-		if (!current_token)
-			return (NULL);
-		if (current_token && (current_token->type == TOKEN_PIPE
-				|| current_token->type == TOKEN_SEMICOLON))
-			current_token = current_token->next;
+		if (!parser_loop(&current_token, &pipeline_list,
+				&current_pipeline, &current_cmd))
+			return (pipeline_list);
 	}
-	return (cmd_list);
+	return (pipeline_list);
 }

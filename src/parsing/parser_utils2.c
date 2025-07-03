@@ -60,3 +60,58 @@ t_token	*process_command_token(t_cmd **cmd_list, t_token *token)
 	add_cmd_to_list(cmd_list, current_cmd);
 	return (token);
 }
+
+bool	validate_syntax(t_token *tokens)
+{
+	t_token	*current;
+	bool	expect_word;
+
+	current = tokens;
+	expect_word = false;
+	while (current && current->type != TOKEN_EOF)
+	{
+		if (!validate_syntax_loop(current, &expect_word))
+			return (false);
+		current = current->next;
+	}
+	if (expect_word)
+		return (false);
+	return (true);
+}
+
+t_pipeline	*add_new_pipeline(t_pipeline **pipeline_list,
+				t_pipeline **current_pipeline)
+{
+	t_pipeline	*new_pipeline;
+
+	new_pipeline = malloc(sizeof(t_pipeline));
+	if (!new_pipeline)
+		return (NULL);
+	new_pipeline->cmds = NULL;
+	new_pipeline->next = NULL;
+	if (!*pipeline_list)
+		*pipeline_list = new_pipeline;
+	else
+		(*current_pipeline)->next = new_pipeline;
+	*current_pipeline = new_pipeline;
+	return (new_pipeline);
+}
+
+bool	add_new_cmd(t_pipeline *current_pipeline, t_cmd **current_cmd,
+				t_token **current_token)
+{
+	t_cmd	*new_cmd;
+
+	new_cmd = create_cmd();
+	if (!new_cmd)
+		return (false);
+	*current_token = parse_args(*current_token, new_cmd);
+	if (!*current_token)
+		return (false);
+	if (!current_pipeline->cmds)
+		current_pipeline->cmds = new_cmd;
+	else
+		(*current_cmd)->next = new_cmd;
+	*current_cmd = new_cmd;
+	return (true);
+}

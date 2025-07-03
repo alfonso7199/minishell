@@ -47,3 +47,34 @@ int	execute_and_cleanup_cmds(t_cmd *cmds, t_shell *shell, char *full_input)
 	set_secondary_prompt(0);
 	return (1);
 }
+
+int	expand_and_check_tokens_internal(t_token **tokens, t_shell *shell,
+		char *full_input)
+{
+	*tokens = expand_tokens(*tokens, shell);
+	if (is_empty_tokens(*tokens))
+	{
+		free_tokens(*tokens);
+		free(full_input);
+		return (1);
+	}
+	return (0);
+}
+
+void	execute_all_pipelines(t_pipeline *pipelines, t_shell *shell)
+{
+	t_pipeline	*current_pipeline;
+	int			last_status;
+
+	current_pipeline = pipelines;
+	while (current_pipeline)
+	{
+		last_status = 0;
+		if (current_pipeline->cmds && current_pipeline->cmds->next)
+			last_status = execute_pipeline(current_pipeline->cmds, shell);
+		else if (current_pipeline->cmds)
+			last_status = execute_single_cmd(current_pipeline->cmds, shell);
+		shell->exit_status = last_status;
+		current_pipeline = current_pipeline->next;
+	}
+}
