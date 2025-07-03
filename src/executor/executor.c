@@ -32,7 +32,7 @@ int	execute_commands(t_cmd *cmd_list, t_shell *shell)
 	t_cmd	*current;
 
 	exit_status = 0;
-	*current = cmd_list;
+	current = cmd_list;
 	if (!cmd_list || !shell)
 		return (-1);
 	setup_signals(EXECUTION_MODE);
