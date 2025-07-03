@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/03 20:30:34 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/03 20:32:23 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ void	setup_execution_signals(void)
 	sa_int.sa_handler = handle_execution_sigint;
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = 0;
-	if (sigaction(SIGINT, &sa_int, NULL) == -1)
+	if (sigaction(SIGINT, &sa_int, NULL) < 0)
 		ft_putstr_fd("Error setting up SIGINT handler\n", STDERR_FILENO);
 	sa_quit.sa_handler = handle_execution_sigquit;
 	sigemptyset(&sa_quit.sa_mask);
 	sa_quit.sa_flags = 0;
-	if (sigaction(SIGQUIT, &sa_quit, NULL) == -1)
+	if (sigaction(SIGQUIT, &sa_quit, NULL) < 0)
 		ft_putstr_fd("Error setting up SIGQUIT handler\n", STDERR_FILENO);
 }
