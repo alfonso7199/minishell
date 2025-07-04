@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/04 12:40:39 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 12:48:21 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,6 @@ void			skip_whitespace(char *input, int *i);
 void			add_token_to_list(t_token **tokens, t_token *new_token);
 t_token_type	get_token_type(char *str);
 /* tokenizer_process.c */
-t_token			*process_operator(char *input, int *i);
-t_token			*process_word(char *input, int *i);
 t_token			*get_next_token(char *input, int *i);
 /* tokenizer_extract.c */
 char			*extract_operator(char *input, int *i);
