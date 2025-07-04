@@ -210,6 +210,8 @@ t_token			*expand_token_value(t_token *tokens, t_token *prev,
 					t_token **current, t_shell *shell);
 t_token			*remove_empty_token(t_token *tokens, t_token *prev,
 					t_token **current);
+int				is_escaped_dollar(const char *str, int pos);
+char			*expand_variables_loop(char *str, t_shell *shell, char *result);
 
 /* **************** */
 /* Builtin Commands */

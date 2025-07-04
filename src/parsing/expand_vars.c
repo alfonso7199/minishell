@@ -45,23 +45,25 @@ char	*expand_env_var(char *str, t_shell *shell)
 }
 
 /* Expandir variables en string completo */
-char	*expand_variables(char *str, t_shell *shell)
+static char	*expand_variables_loop(char *str, t_shell *shell, char *result)
 {
-	char	*result;
-	int		i;
+	int	i;
 
-	if (!str || !shell)
-		return (ft_strdup(str));
-	result = ft_strdup("");
-	if (!result)
-		return (NULL);
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1]
 			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'
 				|| str[i + 1] == '?'))
+		{
+			if (is_escaped_dollar(str, i))
+			{
+				result = process_character(result, '$');
+				i++;
+				continue ;
+			}
 			result = handle_variable_expansion(str, &i, result, shell);
+		}
 		else
 		{
 			result = process_character(result, str[i]);

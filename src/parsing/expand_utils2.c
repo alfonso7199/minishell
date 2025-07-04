@@ -27,3 +27,30 @@ t_token	*remove_empty_token(t_token *tokens, t_token *prev,
 	*current = tmp;
 	return (tokens);
 }
+
+int	is_escaped_dollar(const char *str, int pos)
+{
+	int	backslash_count;
+	int	j;
+
+	backslash_count = 0;
+	j = pos - 1;
+	while (j >= 0 && str[j] == '\\')
+	{
+		backslash_count++;
+		j--;
+	}
+	return (backslash_count % 2 == 1);
+}
+
+char	*expand_variables(char *str, t_shell *shell)
+{
+	char	*result;
+
+	if (!str || !shell)
+		return (ft_strdup(str));
+	result = ft_strdup("");
+	if (!result)
+		return (NULL);
+	return (expand_variables_loop(str, shell, result));
+}
