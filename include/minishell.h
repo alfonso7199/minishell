@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 19:03:23 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/04 12:28:09 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 12:40:39 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void			handle_execution_sigint(int sig);
 void			handle_execution_sigquit(int sig);
 /* signals_heredoc.c */
 void			setup_heredoc_signals(void);
-void			handle_heredoc_sigint(int sig);
 /* signals_interactive */
 void			setup_interactive_signals(void);
 void			setup_secondary_prompt_signals(void);
@@ -214,7 +213,6 @@ char			*expand_variables_loop(char *str, t_shell *shell, char *result);
 char			*process_character(char *result, char c);
 char			*handle_variable_expansion(char *str, int *i, char *result,
 					t_shell *shell);
-char			*expand_variable_part(char *str, int *i, t_shell *shell);
 /* expand_utils2.c */
 char			*expand_variables(char *str, t_shell *shell);
 int				is_escaped_dollar(const char *str, int pos);

@@ -6,38 +6,14 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/06/26 11:36:57 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 12:35:32 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Obtener valor de variable de entorno */
-// char	*get_env_value(char *var_name, t_shell *shell)
-// {
-// 	int		i;
-// 	char	*key;
-// 	int		key_len;
-
-// 	if (!var_name || !shell || !shell->env)
-// 		return (NULL);
-// 	i = 0;
-// 	key_len = ft_strlen(var_name);
-// 	while (shell->env[i])
-// 	{
-// 		if (ft_strncmp(shell->env[i], var_name, key_len) == 0
-// 			&& shell->env[i][key_len] == '=')
-// 		{
-// 			key = ft_strdup(shell->env[i] + key_len + 1);
-// 			return (key);
-// 		}
-// 		i++;
-// 	}
-// 	return (NULL);
-// }
-
 /* Expandir un carácter al resultado */
-char	*expand_char(char *result, char c)
+static char	*expand_char(char *result, char c)
 {
 	char	*temp;
 	char	char_arr[2];
@@ -52,8 +28,30 @@ char	*expand_char(char *result, char c)
 	return (result);
 }
 
+/* Expandir parte de variable en string */
+static char	*expand_variable_part(char *str, int *i, t_shell *shell)
+{
+	char	*temp;
+	char	*var_value;
+	int		start;
+
+	start = *i;
+	(*i)++;
+	if (str[*i] == '?')
+		(*i)++;
+	else
+	{
+		while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+			(*i)++;
+	}
+	temp = ft_substr(str, start, *i - start);
+	var_value = expand_env_var(temp, shell);
+	free(temp);
+	return (var_value);
+}
+
 /* Procesar variable individual */
-char	*process_variable(char *str, int *i, t_shell *shell)
+static char	*process_variable(char *str, int *i, t_shell *shell)
 {
 	char	*var_value;
 
@@ -85,24 +83,3 @@ char	*handle_variable_expansion(char *str, int *i, char *result,
 	return (result);
 }
 
-/* Expandir parte de variable en string */
-char	*expand_variable_part(char *str, int *i, t_shell *shell)
-{
-	char	*temp;
-	char	*var_value;
-	int		start;
-
-	start = *i;
-	(*i)++;
-	if (str[*i] == '?')
-		(*i)++;
-	else
-	{
-		while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
-			(*i)++;
-	}
-	temp = ft_substr(str, start, *i - start);
-	var_value = expand_env_var(temp, shell);
-	free(temp);
-	return (var_value);
-}

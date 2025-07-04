@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/04 11:49:35 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 12:44:36 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,6 @@ char	*extract_quoted_word(char *input, int *i, t_quote_state *quote_type,
 	return (processed_str);
 }
 
-char	*extract_unquoted_word(char *input, int *i)
-{
-	int	start;
-
-	start = *i;
-	handle_unquoted_word(input, i);
-	return (ft_substr(input, start, *i - start));
-}
-
 char	*extract_word(char *input, int *i, t_quote_state *quote_type,
 	bool *quoted)
 {
@@ -74,21 +65,4 @@ char	*extract_operator(char *input, int *i)
 		len = 1;
 	}
 	return (ft_substr(input, start, len));
-}
-
-/* Extraer variable de entorno */
-char	*extract_env_var(char *input, int *i)
-{
-	int	start;
-
-	start = *i;
-	(*i)++;
-	if (input[*i] == '?')
-	{
-		(*i)++;
-		return (ft_strdup("$?"));
-	}
-	while (input[*i] && (ft_isalnum(input[*i]) || input[*i] == '_'))
-		(*i)++;
-	return (ft_substr(input, start, *i - start));
 }

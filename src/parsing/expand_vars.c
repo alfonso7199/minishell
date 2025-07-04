@@ -6,14 +6,14 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/01 16:13:01 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 12:37:15 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* Expandir $? (exit status) */
-char	*expand_exit_status(t_shell *shell)
+static char	*expand_exit_status(t_shell *shell)
 {
 	return (ft_itoa(shell->exit_status));
 }
@@ -73,7 +73,7 @@ char	*expand_variables_loop(char *str, t_shell *shell, char *result)
 	return (result);
 }
 
-t_token	*expand_token_value(t_token *tokens, t_token *prev,
+static t_token	*expand_token_value(t_token *tokens, t_token *prev,
 	t_token **current, t_shell *shell)
 {
 	char	*expanded;

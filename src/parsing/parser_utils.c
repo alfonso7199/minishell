@@ -6,14 +6,14 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/02 11:05:50 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 12:41:05 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* Añadir redirección a comando */
-void	add_redir_to_cmd(t_cmd *cmd, t_redir *redir)
+static void	add_redir_to_cmd(t_cmd *cmd, t_redir *redir)
 {
 	t_redir	*current;
 
@@ -29,7 +29,7 @@ void	add_redir_to_cmd(t_cmd *cmd, t_redir *redir)
 }
 
 /* Contar argumentos en lista de tokens */
-int	count_args(t_token *tokens)
+static int	count_args(t_token *tokens)
 {
 	int		count;
 	t_token	*current;
@@ -71,22 +71,6 @@ t_token	*handle_redirection(t_token *tokens, t_cmd *cmd)
 		return (NULL);
 	add_redir_to_cmd(cmd, redir);
 	return (tokens->next);
-}
-
-/* Añadir comando a la lista */
-void	add_cmd_to_list(t_cmd **cmd_list, t_cmd *new_cmd)
-{
-	t_cmd	*current;
-
-	if (!*cmd_list)
-	{
-		*cmd_list = new_cmd;
-		return ;
-	}
-	current = *cmd_list;
-	while (current->next)
-		current = current->next;
-	current->next = new_cmd;
 }
 
 /* Parsear argumentos de un comando */
