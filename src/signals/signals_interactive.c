@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 16:31:17 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/11 13:24:44 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 09:58:44 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,4 @@ void	handle_interactive_sigint(int sig)
 	rl_on_new_line();
 	rl_done = 1;
 	rl_forced_update_display();
-}
-
-void	handle_interactive_sigquit(int sig)
-{
-	(void)sig;
-	return ;
 }
