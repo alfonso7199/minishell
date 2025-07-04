@@ -82,4 +82,3 @@ char	*handle_variable_expansion(char *str, int *i, char *result,
 	free(var_value);
 	return (result);
 }
-

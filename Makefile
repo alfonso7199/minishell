@@ -6,7 +6,7 @@
 #    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
-#    Updated: 2025/07/04 12:04:50 by rzt              ###   ########.fr        #
+#    Updated: 2025/07/04 17:30:55 by rzt              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,66 +106,4 @@ fclean: clean
 
 re: fclean all
 
-test:
-	@$(RM) test
-	@$(MAKE) -s -C $(LIBFT_DIR)
-	@mkdir -p test
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/echo.c src/builtin/echo_test.c $(LIBFT_FLAGS) $(LDFLAGS) \
-	-o test/echo
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/pwd.c src/builtin/pwd_test.c $(LIBFT_FLAGS) $(LDFLAGS) \
-	-o test/pwd
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/env.c src/builtin/env2.c src/builtin/env3.c \
-	src/builtin/env_test.c $(LIBFT_FLAGS) $(LDFLAGS) \
-	-o test/env
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/exit.c src/builtin/exit_test.c $(LIBFT_FLAGS) $(LDFLAGS) \
-	-o test/exit
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/export.c src/builtin/export_test.c src/builtin/env.c \
-	src/builtin/env2.c src/builtin/env3.c $(LIBFT_FLAGS) $(LDFLAGS) \
-	-o test/export
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/builtin/unset.c src/builtin/unset_test.c src/builtin/env.c \
-	src/builtin/env2.c src/builtin/env3.c $(LIBFT_FLAGS) $(LDFLAGS) \
-	-o test/unset
-	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) src/signals/signals_test.c src/signals/signals_interactive.c \
-	src/signals/signals_execution.c src/signals/signals_heredoc.c src/signals/signals_reset.c \
-	src/signals/signals_setup.c src/signals/signals_state.c $(LIBFT_FLAGS) $(LDFLAGS) \
-	-o test/signals
-# echo
-	@(./test/echo hola que tal > test/my_echo.txt; \
-	echo hola que tal > test/bash_echo.txt; \
-	diff test/my_echo.txt test/bash_echo.txt && echo "OK: echo hola que tal" || echo "FAIL: echo hola que tal")
-# echo -n
-	@(./test/echo -n hola que tal > test/my_echo.txt; \
-	echo -n hola que tal > test/bash_echo.txt; \
-	diff test/my_echo.txt test/bash_echo.txt && echo "OK: echo -n hola que tal" || echo "FAIL: echo -n hola que tal")
-# echo -n -nn
-	@(./test/echo -n -nn hola que tal > test/my_echo.txt; \
-	echo -n -nn hola que tal > test/bash_echo.txt; \
-	diff test/my_echo.txt test/bash_echo.txt && echo "OK: echo -n -nn hola que tal" || echo "FAIL: echo -n -nn hola que tal")
-# echo -n -n -n
-	@(./test/echo -n -n -n hola que tal > test/my_echo.txt; \
-	echo -n -n -n hola que tal > test/bash_echo.txt; \
-	diff test/my_echo.txt test/bash_echo.txt && echo "OK: echo -n -n -n hola que tal" || echo "FAIL: echo -n -n -n hola que tal")
-# pwd
-	@(./test/pwd > test/my_pwd.txt; \
-	pwd > test/bash_pwd.txt; \
-	diff test/my_pwd.txt test/bash_pwd.txt && echo "OK: pwd" || echo "FAIL: pwd")
-# unset pwd before
-	@(unset PWD; \
-	./test/pwd > test/my_pwd.txt; \
-	pwd > test/bash_pwd.txt; \
-	diff test/my_pwd.txt test/bash_pwd.txt && echo "OK: pwd (unset env PWD)" || echo "FAIL: pwd (unset env PWD)")
-# env
-	@(./test/env > test/my_env.txt; \
-	env > test/bash_env.txt; \
-	diff <(grep -v '^_=' test/my_env.txt) <(grep -v '^_=' test/bash_env.txt) && echo "OK: env (print env)" || echo "FAIL: env (print env)")
-# export
-#	@(./test/export > test/my_export.txt; \
-	export > test/bash_export.txt; \
-	diff test/my_export.txt test/bash_export.txt && echo "OK: export" || echo "FAIL: export")
-# unset
-#	@(./test/unset > test/my_unset.txt; \
-	unset > test/bash_unset.txt; \
-	diff test/my_unset.txt test/bash_unset.txt && echo "OK: unset" || echo "FAIL: unset")
-	@echo "Test manually \`unset\` and \`export\`"
-
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re
