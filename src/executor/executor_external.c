@@ -6,13 +6,13 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 18:02:38 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/02 19:03:47 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 12:10:02 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*validate_absolute_path(char *path)
+static char	*validate_absolute_path(char *path)
 {
 	struct stat	path_stat;
 
@@ -27,7 +27,7 @@ char	*validate_absolute_path(char *path)
 	return (ft_strdup(path));
 }
 
-char	*find_in_path_dirs(char *cmd_name, char **paths)
+static char	*find_in_path_dirs(char *cmd_name, char **paths)
 {
 	int		i;
 	char	*temp_path;

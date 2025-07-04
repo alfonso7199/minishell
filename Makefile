@@ -6,7 +6,7 @@
 #    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
-#    Updated: 2025/07/04 10:06:08 by rzt              ###   ########.fr        #
+#    Updated: 2025/07/04 12:04:50 by rzt              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,6 @@ SRC_FILES	= \
 	$(SRC_DIR)/builtin/export.c \
 	$(SRC_DIR)/builtin/export2.c \
 	$(SRC_DIR)/builtin/cd.c \
-	$(SRC_DIR)/builtin/cd_error.c \
 	$(SRC_DIR)/executor/executor.c \
 	$(SRC_DIR)/executor/executor_cleanup.c \
 	$(SRC_DIR)/executor/executor_builtin.c \

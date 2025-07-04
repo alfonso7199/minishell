@@ -6,14 +6,11 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/02 12:13:58 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 11:49:35 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-char	*extract_word_body(char *input, int *i, t_quote_state *quote_type,
-			bool *quoted);
+#include "../../include/minishell.h"
 
 char	*extract_quoted_word(char *input, int *i, t_quote_state *quote_type,
 			bool *quoted)

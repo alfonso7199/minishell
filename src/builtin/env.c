@@ -6,13 +6,13 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/02 12:47:43 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 11:36:30 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	swap_env_nodes(t_env *a, t_env *b)
+static void	swap_env_nodes(t_env *a, t_env *b)
 {
 	char	*tmp_key;
 	char	*tmp_value;
@@ -54,7 +54,7 @@ void	sort_env_list(t_env *env)
 	}
 }
 
-void	process_env_entry(char *env_str, t_env **env_lst)
+static void	process_env_entry(char *env_str, t_env **env_lst)
 {
 	char	*equal_pos;
 	char	*key;

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser_memory.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <alfsanch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/12/15 10:00:00 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/07/04 11:41:14 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* Liberar lista de redirecciones */
-void	free_redirections(t_redir *redir)
+static void	free_redirections(t_redir *redir)
 {
 	t_redir	*current;
 	t_redir	*next;
@@ -30,7 +30,7 @@ void	free_redirections(t_redir *redir)
 }
 
 /* Liberar array de argumentos */
-void	free_args(char **args)
+static void	free_args(char **args)
 {
 	int	i;
 

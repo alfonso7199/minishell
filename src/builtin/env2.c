@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:38:33 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/09 15:55:56 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 11:37:38 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	env_key_match(char *env_key, char *search_key)
 	return (ft_strncmp(env_key, search_key, search_len) == 0);
 }
 
-t_env	*create_env_node(char *key, char *value)
+static t_env	*create_env_node(char *key, char *value)
 {
 	t_env	*new_node;
 
@@ -44,7 +44,7 @@ t_env	*create_env_node(char *key, char *value)
 	return (new_node);
 }
 
-void	add_to_end(t_env **head, t_env *new_node)
+static void	add_to_end(t_env **head, t_env *new_node)
 {
 	t_env	*tmp;
 

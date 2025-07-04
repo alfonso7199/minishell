@@ -6,11 +6,20 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:07:23 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/03 21:05:50 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 12:19:07 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static int	get_exit_status(int status)
+{
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	return (1);
+}
 
 void	setup_pipeline_redirections(int **pipes, int cmd_index, int pipe_count)
 {
@@ -61,15 +70,6 @@ int	wait_for_pipeline(pid_t	*pids, int cmd_count)
 		i++;
 	}
 	return (exit_status);
-}
-
-int	get_exit_status(int status)
-{
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	if (WIFSIGNALED(status))
-		return (128 + WTERMSIG(status));
-	return (1);
 }
 
 void	cleanup_pipeline(int **pipes, pid_t *pids, int pipe_count)

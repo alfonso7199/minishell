@@ -6,39 +6,13 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 18:51:26 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/24 17:04:05 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 12:24:42 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	setup_heredoc_redirection(t_redir *redir)
-{
-	int		pipe_fd[2];
-	int		status;
-	pid_t	pid;
-
-	if (pipe(pipe_fd) == -1)
-		return (1);
-	pid = fork();
-	if (pid == -1)
-	{
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
-		return (1);
-	}
-	if (pid == 0)
-		heredoc_child_process(redir->file, pipe_fd);
-	close(pipe_fd[1]);
-	if (wait_for_child(pid, &status) != 0)
-	{
-		close(pipe_fd[0]);
-		return (1);
-	}
-	return (setup_heredoc_input(pipe_fd[0]));
-}
-
-void	heredoc_child_process(char *delimiter, int pipe_fd[2])
+static void	heredoc_child_process(char *delimiter, int pipe_fd[2])
 {
 	char	*line;
 
@@ -60,7 +34,7 @@ void	heredoc_child_process(char *delimiter, int pipe_fd[2])
 	exit(0);
 }
 
-int	setup_heredoc_input(int read_fd)
+static int	setup_heredoc_input(int read_fd)
 {
 	if (dup2(read_fd, STDIN_FILENO) == -1)
 	{
@@ -115,4 +89,30 @@ char	**convert_env_to_array(t_env *env_list)
 	}
 	env_array[i] = NULL;
 	return (env_array);
+}
+
+int	setup_heredoc_redirection(t_redir *redir)
+{
+	int		pipe_fd[2];
+	int		status;
+	pid_t	pid;
+
+	if (pipe(pipe_fd) == -1)
+		return (1);
+	pid = fork();
+	if (pid == -1)
+	{
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		return (1);
+	}
+	if (pid == 0)
+		heredoc_child_process(redir->file, pipe_fd);
+	close(pipe_fd[1]);
+	if (wait_for_child(pid, &status) != 0)
+	{
+		close(pipe_fd[0]);
+		return (1);
+	}
+	return (setup_heredoc_input(pipe_fd[0]));
 }

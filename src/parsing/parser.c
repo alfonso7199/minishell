@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <alfsanch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/12/15 10:00:00 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/07/04 12:21:43 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 /* Crear nuevo comando */
 t_cmd	*create_cmd(void)
@@ -60,7 +60,7 @@ bool	validate_syntax_loop(t_token *current, bool *expect_word)
 	return (true);
 }
 
-bool	parser_loop(t_token **current_token, t_pipeline **pipeline_list,
+static bool	parser_loop(t_token **current_token, t_pipeline **pipeline_list,
 					t_pipeline **current_pipeline, t_cmd **current_cmd)
 {
 	if (!*pipeline_list || (*current_token)->type == TOKEN_SEMICOLON)
