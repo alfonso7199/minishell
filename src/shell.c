@@ -6,27 +6,11 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 12:14:03 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/26 12:16:15 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 10:07:01 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	init_shell_values(t_shell *shell)
-{
-	shell->exit_status = 0;
-	shell->cmd_list = NULL;
-}
-
-int	validate_shell_env(t_shell *shell)
-{
-	if (!shell->env)
-	{
-		free(shell);
-		return (0);
-	}
-	return (1);
-}
 
 t_shell	*init_shell(char **envp)
 {

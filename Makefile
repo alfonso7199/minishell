@@ -6,7 +6,7 @@
 #    By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/12 22:37:10 by rzt               #+#    #+#              #
-#    Updated: 2025/07/01 17:22:29 by rzt              ###   ########.fr        #
+#    Updated: 2025/07/04 10:06:08 by rzt              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ SRC_FILES	= \
 	$(SRC_DIR)/signals/signals_interactive.c \
 	$(SRC_DIR)/signals/signals_heredoc.c \
 	$(SRC_DIR)/signals/signals_state.c \
-	$(SRC_DIR)/signals/signals_reset.c \
 	$(SRC_DIR)/parsing/parser.c \
 	$(SRC_DIR)/parsing/parser_utils.c \
 	$(SRC_DIR)/parsing/parser_utils2.c \

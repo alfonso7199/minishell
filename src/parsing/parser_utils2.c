@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <alfsanch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/12/15 10:00:00 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/07/04 10:07:12 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,6 @@ t_token	*fill_args(t_token *tokens, t_cmd *cmd)
 	}
 	cmd->args[i] = NULL;
 	return (tokens);
-}
-
-/* Procesar token de comando */
-t_token	*process_command_token(t_cmd **cmd_list, t_token *token)
-{
-	t_cmd	*current_cmd;
-
-	current_cmd = create_cmd();
-	if (!current_cmd)
-	{
-		free_cmd_list(*cmd_list);
-		return (NULL);
-	}
-	token = parse_args(token, current_cmd);
-	if (!token)
-	{
-		free_cmd_list(*cmd_list);
-		return (NULL);
-	}
-	add_cmd_to_list(cmd_list, current_cmd);
-	return (token);
 }
 
 bool	validate_syntax(t_token *tokens)
