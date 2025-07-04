@@ -45,7 +45,7 @@ char	*expand_env_var(char *str, t_shell *shell)
 }
 
 /* Expandir variables en string completo */
-static char	*expand_variables_loop(char *str, t_shell *shell, char *result)
+char	*expand_variables_loop(char *str, t_shell *shell, char *result)
 {
 	int	i;
 
