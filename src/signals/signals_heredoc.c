@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 17:31:05 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/11 13:25:29 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 10:11:16 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,4 @@ void	handle_heredoc_sigint(int sig)
 	(void)sig;
 	set_signal_received(SIGINT);
 	close(STDIN_FILENO);
-}
-
-void	restore_heredoc_signals(void)
-{
-	setup_signals(INTERACTIVE_MODE);
 }

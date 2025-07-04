@@ -6,22 +6,12 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2025/07/02 12:14:25 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/04 10:10:25 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-	// t_token	*new_token;
 
-	// new_token = NULL;
-	// if (input[*i] == '$')
-	// 	new_token = process_env_var(input, i);
-	// else if (input[*i] == '|' || input[*i] == '<' || input[*i] == '>'
-	// 	|| input[*i] == ';')
-	// 	new_token = process_operator(input, i);
-	// else
-	// 	new_token = process_word(input, i);
-	// return (new_token);
 /* Obtener siguiente token */
 t_token	*get_next_token(char *input, int *i)
 {
