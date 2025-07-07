@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rzamolo- <rzamolo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:42:56 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/04 09:59:27 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/07 15:27:23 by rzamolo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ int	execute_commands(t_cmd *cmd_list, t_shell *shell)
 	setup_signals(EXECUTION_MODE);
 	while (current)
 	{
-		if (current->next)
-			exit_status = execute_single_cmd(current, shell);
-		else
-			exit_status = execute_single_cmd(current, shell);
+		exit_status = execute_single_cmd(current, shell);
 		current = current->next;
 	}
 	shell->exit_status = exit_status;
