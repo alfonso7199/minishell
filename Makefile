@@ -67,7 +67,6 @@ SRC_FILES	= \
 	$(SRC_DIR)/executor/executor_pipeline_utils.c \
 	$(SRC_DIR)/executor/executor_redirections.c \
 	$(SRC_DIR)/executor/executor_utils.c \
-	$(SRC_DIR)/utils/debug.c \
 	$(SRC_DIR)/utils/ft_free_split.c \
 	$(SRC_DIR)/utils/ft_isnbr.c \
 	$(SRC_DIR)/utils/ft_strjoin_free.c \
