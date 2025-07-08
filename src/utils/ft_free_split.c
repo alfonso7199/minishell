@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 09:35:23 by rzt               #+#    #+#             */
-/*   Updated: 2025/06/30 09:42:57 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/08 13:09:49 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*cut_whitespaces(char *str)
 
 	if (!str)
 		return (NULL);
-	len = strlen(str);
+	len = ft_strlen(str);
 	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\t'
 			|| str[len - 1] == '\n'))
 		len--;
