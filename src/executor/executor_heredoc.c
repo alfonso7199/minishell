@@ -6,7 +6,7 @@
 /*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 18:51:26 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/04 12:24:42 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/09 12:41:32 by rzt              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,9 @@ int	setup_heredoc_redirection(t_redir *redir)
 	if (wait_for_child(pid, &status) != 0)
 	{
 		close(pipe_fd[0]);
+		restore_terminal_after_command();
 		return (1);
 	}
+	restore_terminal_after_command();
 	return (setup_heredoc_input(pipe_fd[0]));
 }
