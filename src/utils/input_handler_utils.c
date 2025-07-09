@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   input_handler_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alfsanch <alfsanch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rzamolo- <rzamolo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 10:00:00 by alfsanch          #+#    #+#             */
-/*   Updated: 2024/12/15 10:00:00 by alfsanch         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:04:37 by rzamolo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	restore_terminal(void)
@@ -44,6 +45,12 @@ int	concatenate_input(char **full_input, char *input)
 
 	if (*input)
 		add_history(input);
+	temp = *full_input;
+	if (temp[0] != '\0')
+		*full_input = ft_strjoin(temp, "\n");
+	else
+		*full_input = ft_strdup(temp);
+	free(temp);
 	temp = *full_input;
 	*full_input = ft_strjoin(*full_input, input);
 	free(temp);
