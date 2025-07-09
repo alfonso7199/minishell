@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_pipeline_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rzt <rzt@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rzamolo- <rzamolo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 19:07:23 by rzt               #+#    #+#             */
-/*   Updated: 2025/07/09 12:49:52 by rzt              ###   ########.fr       */
+/*   Updated: 2025/07/09 16:18:11 by rzamolo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	wait_for_pipeline(pid_t	*pids, int cmd_count)
 	{
 		if (waitpid(pids[i], &status, 0) != -1)
 		{
+			if (WIFSIGNALED(status)	&& WTERMSIG(status) == SIGPIPE)
+				ft_putstr_fd("Broken pipe\n", STDERR_FILENO);
 			if (i == cmd_count - 1)
 				exit_status = get_exit_status(status);
 		}
