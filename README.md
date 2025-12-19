@@ -1,26 +1,26 @@
 # Minishell
 
-**Proyecto completado con calificación 100/100** 
+**Project completed with a score of 100/100**
 
-Un shell minimalista implementado en C que replica las funcionalidades básicas de bash, desarrollado como proyecto de la **Escuela 42 Madrid**.
+A minimalist shell implemented in C that replicates the basic functionalities of bash, developed as a project for **42 Madrid School**.
 
-## Características Principales
+## Main Features
 
-### Funcionalidades Básicas (Requeridas)
-- **Prompt interactivo** con historial de comandos
-- **Ejecución de comandos** del sistema (PATH)
+### Core Features (Required)
+- **Interactive prompt** with command history
+- **Command execution** using system PATH
 - **Built-ins**: `echo`, `cd`, `pwd`, `export`, `unset`, `env`, `exit`
-- **Redirecciones**: `<`, `>`, `>>`, `<<` (here-document)
-- **Pipes** (`|`) para conectar comandos
-- **Variables de entorno** con expansión `$VAR` y `$?`
-- **Manejo de señales** (Ctrl+C, Ctrl+D, Ctrl+\)
-- **Códigos de salida** apropiados
+- **Redirections**: `<`, `>`, `>>`, `<<` (here-document)
+- **Pipes** (`|`) to connect commands
+- **Environment variables** with `$VAR` and `$?` expansion
+- **Signal handling** (Ctrl+C, Ctrl+D, Ctrl+\)
+- **Proper exit codes**
 
-### Funcionalidades Adicionales (Extras)
-- **Semicolons (`;`)** para separar comandos múltiples
-- **Comillas sin cerrar** - manejo inteligente de comillas incompletas
+### Additional Features (Extras)
+- **Semicolons (`;`)** to separate multiple commands
+- **Unclosed quotes handling** – smart management of incomplete quotes
 
-## Arquitectura del Proyecto
+## Project Architecture
 
 ```
 minishell/
@@ -39,38 +39,39 @@ minishell/
 └── libft/                   # Biblioteca de funciones auxiliares
 ```
 
-## Tecnologías Utilizadas
 
-- **Lenguaje**: C (C99)
-- **Sistema**: Unix/Linux
-- **Librerías**: `readline`, `termios`, `signal` ...
-- **Compilador**: GCC/Clang
-- **Make**: Sistema de build automatizado
+## Technologies Used
 
-## Instalación y Uso
+- **Language**: C (C99)
+- **System**: Unix/Linux
+- **Libraries**: `readline`, `termios`, `signal`, ...
+- **Compiler**: GCC / Clang
+- **Make**: Automated build system
 
-### Prerrequisitos
+## Installation and Usage
+
+### Prerequisites
 ```bash
-# En sistemas Ubuntu/Debian
+# On Ubuntu/Debian systems
 sudo apt-get install libreadline-dev
 
-# En macOS
+# On macOS
 brew install readline
 ```
 
-### Compilación
+### Compilation
 ```bash
 make
 ```
 
-### Ejecución
+### Execution
 ```bash
 ./minishell
 ```
 
-## Ejemplos de Uso
+## Usage Examples
 
-### Comandos Básicos
+### Basic Commands
 ```bash
 minishell> ls -la
 minishell> echo "Hello World"
@@ -78,7 +79,7 @@ minishell> pwd
 minishell> cd /home/user
 ```
 
-### Variables de Entorno
+### Environment Variables
 ```bash
 minishell> echo $USER
 minishell> export MY_VAR="Hello"
@@ -86,7 +87,7 @@ minishell> echo $MY_VAR
 minishell> echo $?
 ```
 
-### Redirecciones
+### Redirections
 ```bash
 minishell> ls > output.txt
 minishell> cat < input.txt
@@ -103,13 +104,13 @@ minishell> cat file.txt | wc -l
 minishell> ps aux | grep bash
 ```
 
-### Semicolons (Funcionalidad Extra)
+### Semicolons
 ```bash
 minishell> echo "First"; echo "Second"
 minishell> ls; pwd; whoami
 ```
 
-### Comillas Sin Cerrar (Funcionalidad Extra)
+### Comillas Sin Cerrar
 ```bash
 minishell> echo "This is a multiline
 > string with unclosed quotes"
@@ -117,7 +118,7 @@ minishell> echo 'Another example
 > with single quotes'
 ```
 
-## 👥 Autores
+## 👥 Authors
 
 **Escuela 42 Madrid**
 - **Alfonso Sánchez** - [@alfonso7199](https://github.com/alfonso7199)
